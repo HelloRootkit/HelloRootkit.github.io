@@ -177,7 +177,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/how2buildBlog/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/First-test-blog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -190,7 +190,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/08/27/how2buildBlog/" class="post-title-link" itemprop="url">how2buildBlog</a>
+          <a href="/2021/08/27/First-test-blog/" class="post-title-link" itemprop="url">Hello World</a>
         </h2>
 
         <div class="post-meta-container">
@@ -202,7 +202,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-08-27 18:19:28 / 修改时间：19:05:42" itemprop="dateCreated datePublished" datetime="2021-08-27T18:19:28+08:00">2021-08-27</time>
+      <time title="创建时间：2021-08-27 17:48:26 / 修改时间：19:11:33" itemprop="dateCreated datePublished" datetime="2021-08-27T17:48:26+08:00">2021-08-27</time>
     </span>
 
   
@@ -215,58 +215,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p> 搭建好博客，记录搭建过程：</p>
-<h1 id="搭建博客："><a href="#搭建博客：" class="headerlink" title="搭建博客："></a>搭建博客：</h1><p>博客搭建基于【Github+hexo】模式；用的是hexo的next的模板。</p>
-<h2 id="准备工具："><a href="#准备工具：" class="headerlink" title="准备工具："></a>准备工具：</h2><p>1.git</p>
-<p>2.hexo</p>
-<p>3.github</p>
-<p>4.nodejs</p>
-<h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.首先是在GitHub上创建一个仓库，仓库名称需为：名称.github.io</p>
-<p>名称最好是和仓库名相同，这样方便索引：</p>
-<p><img src="D:\WebSite\source_posts\image-20210827182643655.png" alt="image-20210827182643655"></p>
-<p>像这样即可</p>
-<p>2.然后需要先安装git（熟悉Windows的可以直接用cmd）；然后下载nodejs，用<code>node -v</code>进行检查是否安装成功；然后安装<code>npm install hexo -g</code>用命令：<code>hexo -v</code>查看是否安装成功；之后需要安装hexo的一系列的以来文件<code>nmp install hexo-deployer-git --save</code>,这里需要注意的是–save的位置可以放到install那里，这个看个人情况。</p>
-<p>3.这里最后需要配置SSH KEY，相当于一个身份验证：</p>
-<p>通过git，输入命令：<code>cd ~/.ssh</code>进入ssh文件—–&gt;通过命令<code>cat id_rsa.pub</code>查看密钥，然后在github的设置里：</p>
-<p><img src="D:\WebSite\source_posts\image-20210827183729815.png" alt="image-20210827183729815"></p>
-<p>将刚刚的一大串直接复制进去，这样就可以了</p>
-<p>用<code>ssh -T git@github.com</code>检验是否成功</p>
-<p>成功用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;liyunchen&quot; #你的github用户名</span><br><span class="line">$ git config --global user.email &quot;xxx@163.com&quot; #填写你的github注册邮箱</span><br></pre></td></tr></table></figure>
+          <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">14</span>];</span><br><span class="line">    s=<span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>命令来设置邮箱和用户名</p>
-<h2 id="开始搭建："><a href="#开始搭建：" class="headerlink" title="开始搭建："></a>开始搭建：</h2><p>1.在一个较大的盘里新建文件夹，取一个洋文名字防止出灵异事件</p>
-<p>2.git bash here，在该目录下打开git</p>
-<p>3.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.hexo init</span><br><span class="line"><span class="comment">#初始化hexo，此时目录下多了一堆文件</span></span><br></pre></td></tr></table></figure>
-
-<p>事先在<a target="_blank" rel="noopener" href="https://hexo.io/themes/%E9%87%8C%E4%B8%8B%E8%BD%BD%E5%A5%BD%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%B0%86%E4%B8%BB%E9%A2%98%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8B%96%E8%BF%9B%E3%80%90themes%E3%80%91%E6%96%87%E4%BB%B6%E5%A4%B9%E7%84%B6%E5%90%8E%E5%9B%9E%E5%88%B0%E4%B8%BB%E7%9B%AE%E5%BD%95%EF%BC%8C%E7%94%A8%E8%AE%B0%E4%BA%8B%E6%9C%AC%E6%89%93%E5%BC%80%E4%B8%BB%E7%9B%AE%E5%BD%95%E9%87%8C%E7%9A%84_config.yml%E6%96%87%E4%BB%B6%EF%BC%8C%E5%88%92%E5%88%B0%E6%9C%80%E5%90%8E%EF%BC%8C%E6%89%BE%E5%88%B0themes%EF%BC%9A">https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：</a></p>
-<p><img src="D:\WebSite\source_posts\image-20210827184605759.png" alt="image-20210827184605759"></p>
-<p>这里标黄的是要改成自己的仓库，下面的branch根据实际情况决定是main还是master。</p>
-<p>themes后面跟的是主题的文件夹的名字，注意空格，<strong>千万不能少</strong></p>
-<p>4.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.hexo s<span class="comment">#在本机生成一个预览可以看到效果</span></span><br><span class="line">2.hexo g<span class="comment">#生成html界面</span></span><br><span class="line">3.hexo d<span class="comment">#部署到github</span></span><br></pre></td></tr></table></figure>
-
-<p>此时就可以看到自己的博客的初始状态，也就搭建基本完毕了</p>
-<h1 id="完善博客："><a href="#完善博客：" class="headerlink" title="完善博客："></a>完善博客：</h1><p>搭建好之后需要完善成人类友好的界面（next为例子）</p>
-<h2 id="1-首页风格："><a href="#1-首页风格：" class="headerlink" title="1.首页风格："></a>1.首页风格：</h2><p>找到你下载的主题里的_config.yml文件（没错，主题里面也有）</p>
-<p>找到：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//这里是四种风格，选一个喜欢的去掉前面的井号</span><br><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">scheme: Gemini</span><br><span class="line">//这里是模式，亮还是暗</span><br><span class="line"># Dark Mode</span><br><span class="line">darkmode: true</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//这里是菜单设置，去掉喜欢的前面的#</span><br><span class="line">menu:</span><br><span class="line">  home: / || home                          //首页</span><br><span class="line">  archives: /archives/ || archive          //归档</span><br><span class="line">  categories: /categories/ || th           //分类</span><br><span class="line">  tags: /tags/ || tags                     //标签</span><br><span class="line">  about: /about/ || user                   //关于</span><br><span class="line">  #schedule: /schedule/ || calendar        //日程表</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap        //站点地图</span><br><span class="line">  #commonweal: /404/ || heartbeat          //公益404</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//侧栏设置，看好适用风格</span><br><span class="line"># Sidebar Position - 侧栏位置（只对Pisces | Gemini两种风格有效）</span><br><span class="line">  position: left        //靠左放置</span><br><span class="line">  #position: right      //靠右放置</span><br><span class="line"></span><br><span class="line"># Sidebar Display - 侧栏显示时机（只对Muse | Mist两种风格有效）</span><br><span class="line">  #display: post        //默认行为，在文章页面（拥有目录列表）时显示</span><br><span class="line">  display: always       //在所有页面中都显示</span><br><span class="line">  #display: hide        //在所有页面中都隐藏（可以手动展开）</span><br><span class="line">  #display: remove      //完全移除</span><br><span class="line"></span><br><span class="line">  offset: 12            //文章间距（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  b2t: false            //返回顶部按钮（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  scrollpercent: true   //返回顶部按钮的百分比</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//头像设置，将头像设为header.jpg，然后拖到themes\hexo-theme-next\source\images目录下</span><br><span class="line"># Sidebar Avatar</span><br><span class="line">avatar: /images/header.jpg</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-语言文字："><a href="#2-语言文字：" class="headerlink" title="2.语言文字："></a>2.语言文字：</h2><p>打开主目录的_config.yml文件，开头就是这几个，后面的内容自己写写，注意空格</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Site</span><br><span class="line">title: R-o-o-t-k-i-t</span><br><span class="line">subtitle: &#x27;&#x27;</span><br><span class="line">description: 自由，平等，公正，法制</span><br><span class="line">keywords: rootkit，+-*/</span><br><span class="line">author: rootkit/+-*</span><br><span class="line">language: zh-CN</span><br><span class="line">timezone: &#x27;&#x27;#网站时区（Hexo 默认使用您电脑的时区，不用写）</span><br></pre></td></tr></table></figure>
-
-<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><p><img src="D:\WebSite\source_posts\image-20210827190155039.png" alt="image-20210827190155039"></p>
-<h1 id="上传日志："><a href="#上传日志：" class="headerlink" title="上传日志："></a>上传日志：</h1><p>在该文件夹里通过git或者cmd使用命令<code>hexo new &#39;#######&#39;</code>,就会在sources目录里生成一个#####.md文件，然后正常写点东西（在下面的正文部分，上面的灰色框是自带的）</p>
-<p>写完之后通过命令<code>hexo g </code>和<code>hexo d</code>来上传</p>
-<p>这样就完成了上面的效果。</p>
-<!--readmore-->
+<p>道生一，一生二，二生三，三生万物，万物负阴而抱阳，中气以为和。</p>
+<p>​                                                                                                                        ——————–《道德经》</p>
 
       
     </div>
@@ -293,7 +245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/First-test-blog/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/how2buildBlog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -306,7 +258,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/08/27/First-test-blog/" class="post-title-link" itemprop="url">Hello World</a>
+          <a href="/2021/08/27/how2buildBlog/" class="post-title-link" itemprop="url">how2buildBlog</a>
         </h2>
 
         <div class="post-meta-container">
@@ -318,7 +270,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-08-27 17:48:26 / 修改时间：18:20:01" itemprop="dateCreated datePublished" datetime="2021-08-27T17:48:26+08:00">2021-08-27</time>
+      <time title="创建时间：2021-08-27 18:19:28 / 修改时间：19:07:14" itemprop="dateCreated datePublished" datetime="2021-08-27T18:19:28+08:00">2021-08-27</time>
     </span>
 
   
@@ -331,11 +283,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">14</span>];</span><br><span class="line">    s=<span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>道生一，一生二，二生三，三生万物，万物负阴而抱阳，中气以为和。</p>
-<p>​                                                                                                                        ——————–《道德经》</p>
-
+          <p> 搭建好博客，记录搭建过程：</p>
+<h1 id="搭建博客："><a href="#搭建博客：" class="headerlink" title="搭建博客："></a>搭建博客：</h1><p>博客搭建基于【Github+hexo】模式；用的是hexo的next的模板。</p>
+<h2 id="准备工具："><a href="#准备工具：" class="headerlink" title="准备工具："></a>准备工具：</h2><p>1.git</p>
+<p>2.hexo</p>
+<p>3.github</p>
+<p>4.nodejs</p>
+<h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.首先是在GitHub上创建一个仓库，仓库名称需为：名称.github.io</p>
+<p>名称最好是和仓库名相同，这样方便索引：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/27/how2buildBlog/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
