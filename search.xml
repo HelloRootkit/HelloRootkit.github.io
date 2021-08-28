@@ -13,6 +13,22 @@
       </tags>
   </entry>
   <entry>
+    <title>分类测试</title>
+    <url>/2021/08/27/%E5%88%86%E7%B1%BB%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p> 这里我们尝试将写的文章进行分类</p>
+]]></content>
+      <categories>
+        <category>日记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>insert_photo</title>
+    <url>/2021/08/27/insert-photo/</url>
+    <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
+<p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>how2buildBlog</title>
     <url>/2021/08/27/how2buildBlog/</url>
     <content><![CDATA[<p> 搭建好博客，记录搭建过程：</p>
@@ -68,22 +84,6 @@
 <h1 id="上传日志："><a href="#上传日志：" class="headerlink" title="上传日志："></a>上传日志：</h1><p>在该文件夹里通过git或者cmd使用命令<code>hexo new &#39;#######&#39;</code>,就会在sources目录里生成一个#####.md文件，然后正常写点东西（在下面的正文部分，上面的灰色框是自带的）</p>
 <p>写完之后通过命令<code>hexo g </code>和<code>hexo d</code>来上传</p>
 <p>这样就完成了上面的效果。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>分类测试</title>
-    <url>/2021/08/27/%E5%88%86%E7%B1%BB%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p> 这里我们尝试将写的文章进行分类</p>
-]]></content>
-      <categories>
-        <category>日记</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>insert_photo</title>
-    <url>/2021/08/27/insert-photo/</url>
-    <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
-<p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
 ]]></content>
   </entry>
 </search>
