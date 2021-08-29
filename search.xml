@@ -13,13 +13,6 @@
       </tags>
   </entry>
   <entry>
-    <title>insert_photo</title>
-    <url>/2021/08/27/insert-photo/</url>
-    <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
-<p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>how2buildBlog</title>
     <url>/2021/08/27/how2buildBlog/</url>
     <content><![CDATA[<p> 搭建好博客，记录搭建过程：</p>
@@ -75,6 +68,13 @@
 <h1 id="上传日志："><a href="#上传日志：" class="headerlink" title="上传日志："></a>上传日志：</h1><p>在该文件夹里通过git或者cmd使用命令<code>hexo new &#39;#######&#39;</code>,就会在sources目录里生成一个#####.md文件，然后正常写点东西（在下面的正文部分，上面的灰色框是自带的）</p>
 <p>写完之后通过命令<code>hexo g </code>和<code>hexo d</code>来上传</p>
 <p>这样就完成了上面的效果。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>insert_photo</title>
+    <url>/2021/08/27/insert-photo/</url>
+    <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
+<p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
 ]]></content>
   </entry>
   <entry>
@@ -139,5 +139,69 @@
       <categories>
         <category>博客装修</category>
       </categories>
+  </entry>
+  <entry>
+    <title>科目三学习</title>
+    <url>/2021/08/29/%E7%A7%91%E7%9B%AE%E4%B8%89%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="一-灯光模拟："><a href="#一-灯光模拟：" class="headerlink" title="一.灯光模拟："></a>一.灯光模拟：</h1><h2 id="1-近光灯："><a href="#1-近光灯：" class="headerlink" title="1.近光灯："></a>1.近光灯：</h2><p>同方向近距离跟车行驶。</p>
+<p>通过有信号灯控制路口。</p>
+<p>在有路灯照明良好的道路上行驶。</p>
+<p>与非机动车会车。</p>
+<h2 id="2-远光灯："><a href="#2-远光灯：" class="headerlink" title="2.远光灯："></a>2.远光灯：</h2><p>进入<strong>无照明</strong>的道路行驶。</p>
+<p>夜间进入<strong>照明不良</strong>的道路行驶。</p>
+<h2 id="3-交替灯光："><a href="#3-交替灯光：" class="headerlink" title="3.交替灯光："></a>3.交替灯光：</h2><p>超车。</p>
+<p><strong>通过</strong>急弯，坡路，拱桥，人行横道，没有交通信号灯控制的路口。</p>
+<h2 id="4-小灯-四闪："><a href="#4-小灯-四闪：" class="headerlink" title="4.小灯+四闪："></a>4.小灯+四闪：</h2><p>在路边临时停车。</p>
+<h1 id="二-行驶："><a href="#二-行驶：" class="headerlink" title="二.行驶："></a>二.行驶：</h1><h3 id="（0）挡位与速度匹配："><a href="#（0）挡位与速度匹配：" class="headerlink" title="（0）挡位与速度匹配："></a>（0）挡位与速度匹配：</h3><p>15挂2挡，25挂三档，35挂四档。</p>
+<p>但是这里不是很严格，三档开到40也可以，但是要快速换挡。</p>
+<h3 id="（1）准备起步："><a href="#（1）准备起步：" class="headerlink" title="（1）准备起步："></a>（1）准备起步：</h3><p>1.<strong>逆时针</strong>绕车一圈。</p>
+<p>2.报告考官请求上车。</p>
+<p>3.座椅，后视镜，安全带。</p>
+<p>4.<strong>离合回空挡，松离合，打火</strong>，模拟灯光。</p>
+<p>5.报告个仪表工作正常，请求起步。</p>
+<h3 id="（2）起步："><a href="#（2）起步：" class="headerlink" title="（2）起步："></a>（2）起步：</h3><p>（一踩二挂三转向，四喇叭五看后镜六手刹，轻抬离合把油加）</p>
+<p>1.踩离合挂一档。 </p>
+<p>2.拨左向灯，鸣喇叭。</p>
+<p>3.观察<strong>左右后视镜，回头看</strong>，慢松离合，松手刹。</p>
+<h3 id="（3）超车："><a href="#（3）超车：" class="headerlink" title="（3）超车："></a>（3）超车：</h3><p><em><strong>超</strong></em></p>
+<p>1.听到指令，左转向灯，看<strong>左后视镜，回头看</strong></p>
+<p>2.三秒之后条件允许，往左转方向盘15°左右</p>
+<p>3**.车斜回正，右脚快到路中心，往右打方向盘，车正回正**</p>
+<p><em><strong>回</strong></em></p>
+<p>4.开右转向灯，<strong>右后视镜，回头看</strong></p>
+<p>5.三秒以上，条件允许，往右转方向盘15°左右</p>
+<p>6.<strong>车斜回正，右脚快到路中心，往左打方向盘，车正回正</strong></p>
+<h3 id="（4）路口左转弯："><a href="#（4）路口左转弯：" class="headerlink" title="（4）路口左转弯："></a>（4）路口左转弯：</h3><p>1.听到指令，左转向灯</p>
+<p>2.路口前减速至1，2挡，左右观察</p>
+<p>3.肩头快超过人行道时，左打四分之一方向盘</p>
+<p>4.左右观察</p>
+<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
+<h3 id="（5）人行道，学校，公交站，前方路口直行："><a href="#（5）人行道，学校，公交站，前方路口直行：" class="headerlink" title="（5）人行道，学校，公交站，前方路口直行："></a>（5）人行道，学校，公交站，前方路口直行：</h3><p>1.看（听）到后点刹车，左右观察</p>
+<p>2.学校区域减速至<strong>30公里</strong>以下</p>
+<h3 id="（6）路口右转弯："><a href="#（6）路口右转弯：" class="headerlink" title="（6）路口右转弯："></a>（6）路口右转弯：</h3><p>1.听到指令，右转向灯</p>
+<p>2.路口前减速至1，2挡，左右观察</p>
+<p>3.肩头快超过人行道时，右打一半方向盘</p>
+<p>4.观察来车方向</p>
+<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
+<h3 id="（7）掉头："><a href="#（7）掉头：" class="headerlink" title="（7）掉头："></a>（7）掉头：</h3><p>1.听到指令后，左转向灯</p>
+<p>2.路口前减速到1挡，左右观察</p>
+<p>3.肩膀过绿化带，桥墩左打一圈，观察来车方向</p>
+<p>4.条件允许，中间车道加速加档</p>
+<h3 id="（8）靠边停车："><a href="#（8）靠边停车：" class="headerlink" title="（8）靠边停车："></a>（8）靠边停车：</h3><p><strong>一定要注意前车的距离，要有一定的距离可以把车顺正，不然就会挂科 操他妈的</strong></p>
+<p>1.听到指令，右转向灯</p>
+<p>2.<strong>看右后视镜，向后看</strong>，减速减挡到1挡</p>
+<p>3.慢松离合，选好地点，右打半圈方向</p>
+<p>4.看铆钉到马路牙子下沿，回方向（打一次，回两次）</p>
+<p>5.让铆钉压着路边白线行驶后 停车</p>
+<p>6.拉手刹，推空挡，关转向灯，熄火，挂一档，解安全带，后拉座椅；报告考官，请求下车</p>
+<p>（手刹空挡转向灯，熄火一档安全带）</p>
+<p>7.<strong>看左后视镜，后头看</strong>，确认安全，下车顺时针到考官处，<strong>谢谢考官</strong></p>
+]]></content>
+      <categories>
+        <category>悠哉日常</category>
+      </categories>
+      <tags>
+        <tag>学车</tag>
+      </tags>
   </entry>
 </search>
