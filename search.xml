@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2021/08/27/First-test-blog/</url>
+    <content><![CDATA[<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">14</span>];</span><br><span class="line">    s=<span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>道生一，一生二，二生三，三生万物，万物负阴而抱阳，中气以为和。</p>
+<p>​                                                                                                                        ——————–《道德经》</p>
+]]></content>
+      <tags>
+        <tag>你好，世界</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>how2buildBlog</title>
     <url>/2021/08/27/how2buildBlog/</url>
     <content><![CDATA[<p> 搭建好博客，记录搭建过程：</p>
@@ -59,23 +71,44 @@
 ]]></content>
   </entry>
   <entry>
+    <title>日记</title>
+    <url>/2021/08/27/%E5%88%86%E7%B1%BB%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p> 2021-08-27：今天是搭建完该博客的第一天，还在不断完善，希望以后可以多发文章，这里还有很多不清楚的地方，慢慢研究吧；科目三没考过，10天后继续约考，希望这个暑假可以考完，真的是太难了。</p>
+]]></content>
+      <categories>
+        <category>日记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>东北大学招新_re</title>
+    <url>/2021/08/29/%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E6%8B%9B%E6%96%B0-re/</url>
+    <content><![CDATA[<p> elf文件，ida64打开，看到程序很简单的加密，但是涉及到<strong>数据类型之间的转化和经典的逆向过程</strong></p>
+<span id="more"></span>
+
+<p><img src="image-20210829132912959.png" alt="image-20210829132912959"></p>
+<p>确定了输入的flag是22位，然后经过三轮运算，将得到的和给出的数组进行比较，逻辑简单，开始逆向！</p>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#首先将三轮运算逆向回去</span></span><br><span class="line">targ=[  <span class="number">0x03</span>, <span class="number">0x1D</span>, <span class="number">0x24</span>, <span class="number">0x1C</span>, <span class="number">0x06</span>, <span class="number">0x1A</span>, <span class="number">0x3C</span>, <span class="number">0x3F</span>, <span class="number">0x04</span>, <span class="number">0x32</span>,</span><br><span class="line">  		<span class="number">0x3E</span>, <span class="number">0x11</span>, <span class="number">0x1C</span>, <span class="number">0x0B</span>, <span class="number">0x0D</span>, <span class="number">0x1F</span>, <span class="number">0xFD</span>, <span class="number">0x09</span>, <span class="number">0xF3</span>, <span class="number">0xFB</span>,</span><br><span class="line">      	<span class="number">0x98</span>, <span class="number">0x92</span>, <span class="number">0x00</span>]</span><br><span class="line"><span class="comment">#每一位和后一位异或，所以最后一位是不会变的，这就是突破口</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]^targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]-targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[i]-=i</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
+
+<p>这时得到的数组是</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">targ=[-<span class="number">154</span>, <span class="number">365</span>, -<span class="number">157</span>, <span class="number">362</span>, -<span class="number">129</span>, <span class="number">374</span>, -<span class="number">131</span>, <span class="number">364</span>, -<span class="number">151</span>, <span class="number">385</span>,</span><br><span class="line">      -<span class="number">147</span>, <span class="number">367</span>, -<span class="number">141</span>, <span class="number">384</span>, -<span class="number">145</span>, <span class="number">373</span>, -<span class="number">140</span>, <span class="number">386</span>, -<span class="number">375</span>, <span class="number">377</span>, </span><br><span class="line">      -<span class="number">136</span>, <span class="number">146</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这里很明显看到因为python的数据类型基本没有限制，所以会出现 很多大数和负数</p>
+<p>在C语言里面，一个byte的无符号整数是0-255，这里看到程序里面都是单字节，所以会出现循环现象，这里将他门进行复原</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line"><span class="comment">#因为这里超过256会循环，所以要%256</span></span><br><span class="line">    <span class="keyword">if</span> targ[i]&lt;<span class="number">0</span>:</span><br><span class="line">        targ[i]&amp;=<span class="number">0xffffffff</span></span><br><span class="line"><span class="comment">#考虑到负数的缘故，要先将负数转化成正数（有符号数转化无符号数）</span></span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="comment">#最后统一规矩一下数据，然后字符输出就可以了</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">23</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(targ[i]),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>()</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
+
+<p>最后得到flag：</p>
+<p><strong>flag{qweaxcdgsafdqwfd}</strong></p>
+]]></content>
+      <categories>
+        <category>WriteUp</category>
+      </categories>
+  </entry>
+  <entry>
     <title>insert_photo</title>
     <url>/2021/08/27/insert-photo/</url>
     <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
 <p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/08/27/First-test-blog/</url>
-    <content><![CDATA[<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">14</span>];</span><br><span class="line">    s=<span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>道生一，一生二，二生三，三生万物，万物负阴而抱阳，中气以为和。</p>
-<p>​                                                                                                                        ——————–《道德经》</p>
-]]></content>
-      <tags>
-        <tag>你好，世界</tag>
-      </tags>
   </entry>
   <entry>
     <title>博客改良(持续记录)</title>
@@ -102,15 +135,6 @@
 ]]></content>
       <categories>
         <category>博客装修</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>日记</title>
-    <url>/2021/08/27/%E5%88%86%E7%B1%BB%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p> 2021-08-27：今天是搭建完该博客的第一天，还在不断完善，希望以后可以多发文章，这里还有很多不清楚的地方，慢慢研究吧；科目三没考过，10天后继续约考，希望这个暑假可以考完，真的是太难了。</p>
-]]></content>
-      <categories>
-        <category>日记</category>
       </categories>
   </entry>
 </search>
