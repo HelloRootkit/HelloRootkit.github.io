@@ -299,9 +299,8 @@
     
     <div class="post-body" itemprop="articleBody">
           <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">14</span>];</span><br><span class="line">    s=<span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>道生一，一生二，二生三，三生万物，万物负阴而抱阳，中气以为和。</p>
-<p>​                                                                                                                        ——————–《道德经》</p>
+<p>​                                                                                                                        ——————————《道德经》</p>
 
       
     </div>
@@ -353,7 +352,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-08-31 15:53:15 / 修改时间：21:00:18" itemprop="dateCreated datePublished" datetime="2021-08-31T15:53:15+08:00">2021-08-31</time>
+      <time title="创建时间：2021-08-31 15:53:15 / 修改时间：21:27:47" itemprop="dateCreated datePublished" datetime="2021-08-31T15:53:15+08:00">2021-08-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -537,7 +536,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="——–忘掉掌声，按自己的方式，继续前行，跑过一生"><a href="#——–忘掉掌声，按自己的方式，继续前行，跑过一生" class="headerlink" title="——–忘掉掌声，按自己的方式，继续前行，跑过一生"></a>——–忘掉掌声，按自己的方式，继续前行，跑过一生</h1><ul>
+          <h1 id="————忘掉掌声，按自己的方式，继续前行，跑过一生"><a href="#————忘掉掌声，按自己的方式，继续前行，跑过一生" class="headerlink" title="————忘掉掌声，按自己的方式，继续前行，跑过一生"></a>————忘掉掌声，按自己的方式，继续前行，跑过一生</h1><ul>
 <li>每周至少要联系一次家里人，报个平安</li>
 </ul>
 <ul>
@@ -559,12 +558,12 @@
 <li>周报，月报，年报，日记有事则记</li>
 </ul>
 <ul>
-<li><p>有空多做题，多记录，少看手机</p>
-</li>
-<li><p>克勤克俭，戒骄戒躁</p>
-</li>
+<li>有空多做题，多记录，少看手机</li>
 </ul>
-<h1 id="——–但使龙城飞将在，不教胡马度阴山。"><a href="#——–但使龙城飞将在，不教胡马度阴山。" class="headerlink" title="——–但使龙城飞将在，不教胡马度阴山。"></a>——–但使龙城飞将在，不教胡马度阴山。</h1>
+<ul>
+<li>克勤克俭，戒骄戒躁</li>
+</ul>
+<h1 id="————但使龙城飞将在，不教胡马度阴山。"><a href="#————但使龙城飞将在，不教胡马度阴山。" class="headerlink" title="————但使龙城飞将在，不教胡马度阴山。"></a>————但使龙城飞将在，不教胡马度阴山。</h1>
       
     </div>
 
@@ -810,7 +809,6 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="1-删除强力驱动："><a href="#1-删除强力驱动：" class="headerlink" title="1.删除强力驱动："></a>1.删除强力驱动：</h2><p>1.在【themes/layout/_partial/footer】文件中的最后，删除如下代码</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;%- if theme<span class="selector-class">.footer</span><span class="selector-class">.powered</span> %&#125;</span><br><span class="line">  &lt;<span class="selector-tag">div</span> class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org<span class="string">&#x27; if theme.scheme === &#x27;</span>Gemini<span class="string">&#x27; else &#x27;</span>https://theme-next.js.org/<span class="string">&#x27; + theme.scheme | lower + &#x27;</span>/<span class="string">&#x27; %&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- __(&#x27;</span>footer.powered<span class="string">&#x27;, next_url(&#x27;</span>https://hexo.io<span class="string">&#x27;, &#x27;</span>Hexo<span class="string">&#x27;) + &#x27;</span> &amp; <span class="string">&#x27; + next_url(next_site, &#x27;</span>NexT.<span class="string">&#x27; + theme.scheme)) &#125;&#125;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;%- endif %&#125;</span></span><br></pre></td></tr></table></figure>
-
 <p>2.同样，如果想在该位置添加一些别的文字，直接在这个文件里面加就行</p>
           <!--noindex-->
             <div class="post-button">

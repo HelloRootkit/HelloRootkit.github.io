@@ -331,25 +331,21 @@
     <div class="post-body" itemprop="articleBody">
         <h2 id="1-删除强力驱动："><a href="#1-删除强力驱动：" class="headerlink" title="1.删除强力驱动："></a>1.删除强力驱动：</h2><p>1.在【themes/layout/_partial/footer】文件中的最后，删除如下代码</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;%- if theme<span class="selector-class">.footer</span><span class="selector-class">.powered</span> %&#125;</span><br><span class="line">  &lt;<span class="selector-tag">div</span> class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org<span class="string">&#x27; if theme.scheme === &#x27;</span>Gemini<span class="string">&#x27; else &#x27;</span>https://theme-next.js.org/<span class="string">&#x27; + theme.scheme | lower + &#x27;</span>/<span class="string">&#x27; %&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- __(&#x27;</span>footer.powered<span class="string">&#x27;, next_url(&#x27;</span>https://hexo.io<span class="string">&#x27;, &#x27;</span>Hexo<span class="string">&#x27;) + &#x27;</span> &amp; <span class="string">&#x27; + next_url(next_site, &#x27;</span>NexT.<span class="string">&#x27; + theme.scheme)) &#125;&#125;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;%- endif %&#125;</span></span><br></pre></td></tr></table></figure>
-
 <p>2.同样，如果想在该位置添加一些别的文字，直接在这个文件里面加就行</p>
 <span id="more"></span>
-
 <h2 id="2-更改字体颜色："><a href="#2-更改字体颜色：" class="headerlink" title="2.更改字体颜色："></a>2.更改字体颜色：</h2><p>在_data文件里面添加：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span> #色号</span><br></pre></td></tr></table></figure>
-
 <p><img src="image-20210828115628268.png" alt="image-20210828115628268"></p>
 <p><img src="image-20210828115713939.png" alt="image-20210828115713939"></p>
 <p><img src="image-20210828115742828.png" alt="image-20210828115742828"></p>
 <h2 id="3-利用不通的分类："><a href="#3-利用不通的分类：" class="headerlink" title="3.利用不通的分类："></a>3.利用不通的分类：</h2><p>这里用“categories”为例</p>
 <p>找到在categories目录下的哪个index.md文件，在开头的地方加上一行</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type: <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>效果：</p>
 <p><img src="image-20210828122741712.png" alt="image-20210828122741712"></p>
 <p>这样就可以在那个界面里面看到不通的分类了</p>
 <h2 id="4-在文中添加超链接"><a href="#4-在文中添加超链接" class="headerlink" title="4.在文中添加超链接"></a>4.在文中添加超链接</h2><p>利用markdown特性，将链接放在&lt;&gt;中间</p>
-<p>例如<a target="_blank" rel="noopener" href="https://hellorootkit.github.io/">https://hellorootkit.github.io</a></p>
+<p>例如<a target="_blank" rel="noopener" href="https://hellorootkit.github.io">https://hellorootkit.github.io</a></p>
 
     </div>
 

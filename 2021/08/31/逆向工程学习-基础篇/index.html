@@ -325,22 +325,23 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="逆向工程学习-基础1"><a href="#逆向工程学习-基础1" class="headerlink" title="逆向工程学习-基础1"></a>逆向工程学习-基础1</h1><span id="more"></span>
-
-<p><a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.baidu.com">http://www.baidu.com</a></p>
 <h2 id="字节序："><a href="#字节序：" class="headerlink" title="字节序："></a>字节序：</h2><h3 id="1-小端序"><a href="#1-小端序" class="headerlink" title="1.小端序"></a>1.小端序</h3><p>1.当一个数据只有一个字节时，大小端序都一样</p>
 <p>2.地址高位存储数据的高位，人眼看来是逆序存储</p>
 <p><img src="image-20210831121649274.png" alt="image-20210831121649274"></p>
 <h3 id="2-大端序"><a href="#2-大端序" class="headerlink" title="2.大端序"></a>2.大端序</h3><p>1.地址低位存储数据高位，人眼看起来是正常的</p>
 <p>2.应用于大型服务器和risc系列的CPU。</p>
 <h3 id="另外："><a href="#另外：" class="headerlink" title="另外："></a>另外：</h3><p>【字符数组】在内存中是连续的，无论大小端序，储存顺序相同</p>
-<h2 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h2><h3 id="基本程序运行寄存器"><a href="#基本程序运行寄存器" class="headerlink" title="基本程序运行寄存器"></a>基本程序运行寄存器</h3><table>
+<h2 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h2><h3 id="基本程序运行寄存器"><a href="#基本程序运行寄存器" class="headerlink" title="基本程序运行寄存器"></a>基本程序运行寄存器</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>寄存器类型</th>
 <th>寄存器名称</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>通用寄存器</td>
 <td>eax, ebx, ecx, edx, esi, edi, ebp, esp</td>
 </tr>
@@ -356,7 +357,9 @@
 <td>指令指针寄存器</td>
 <td>EIP</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>ESP（栈顶指针）:指示栈区域的栈顶地址。</p>
 <p>EBP（栈帧指针）:表示栈区域的基地址，函数被调用时，保存ESP的的值，函数返回时再将值还给ESP，以保证栈不会崩溃（栈帧技术）。</p>
 <p>ESI,EDI：这两个寄存器与特定指令（LODS, STOP, REP, MOVS等）一起使用时，主要用于内存复制（例：upx解压缩时恢复upx0节区）</p>
@@ -375,26 +378,19 @@
 </li>
 <li><p>暂时保存函数内部的局部变量</p>
 </li>
-<li><p>传递参数</p>
-</li>
-<li><p>保存函数的返回地址（就是call指令的下一条地址）</p>
-</li>
+<li>传递参数</li>
+<li>保存函数的返回地址（就是call指令的下一条地址）</li>
 </ul>
 <p><img src="image-20210831142251690.png" alt="image-20210831142251690"></p>
 <h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><p>1.两个指针：栈顶指针ESP；栈帧指针EBP</p>
 <p>2.向栈中push数据时，栈顶指针ESP会减小（上移），当pop数据时，ESP会增加（下移）。</p>
 <p>3.栈顶指针（ESP）在初始状态下指向栈底（高地址），所以初始化栈即为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">push EBP		//使用EBP前先将已有值保存在栈中</span><br><span class="line">MOV EBP, ESP	//保存当前ESP到EBP中</span><br><span class="line">……</span><br><span class="line">MOV ESP, EBP	//将函数的起始地址还给ESP</span><br><span class="line">POP EBP			//将一开始push进栈的地址还给EBP</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p>1.是什么：是利用EBP（栈帧指针）寄存器访问栈内局部变量、参数、函数返回地址等的手段。 </p>
 <p>2.为什么需要用到栈帧指针EBP：因为栈顶是在不断变化的（push, pop, call等都会影响栈顶），所以如果用ESP来当作基址进行索引是很复杂的，所以就需要一个相对固定的来打下手的帮忙，就是EBP。所以在开始的时候，都会把esp的值给ebp。</p>
 <h2 id="函数调用约定"><a href="#函数调用约定" class="headerlink" title="函数调用约定"></a>函数调用约定</h2><h3 id="cdecl"><a href="#cdecl" class="headerlink" title="_cdecl"></a>_cdecl</h3><p>C语言的默认调用方式，调用者负责恢复栈结构。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add esp, 0x8</span><br></pre></td></tr></table></figure>
-
-<img src="image-20210831151852977.png" alt="image-20210831151852977"  />
-
+<p><img src="image-20210831151852977.png" alt="image-20210831151852977"  /></p>
 <p>这里因为push了两个int类型的参数，所以栈空间-0x8</p>
 <p>好处：可以向 被调用函数 传递 参数可变 的函数</p>
 <h3 id="stdcall"><a href="#stdcall" class="headerlink" title="stdcall"></a>stdcall</h3><p>由被调用者恢复堆栈</p>
