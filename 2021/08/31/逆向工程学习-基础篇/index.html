@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="逆向工程学习-基础1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆向工程学习-基础篇">
+<meta property="og:url" content="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/index.html">
+<meta property="og:site_name" content="R-o-o-t-k-i-t">
+<meta property="og:description" content="逆向工程学习-基础1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/image-20210831121649274.png">
+<meta property="og:image" content="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/image-20210831140543512.png">
+<meta property="og:image" content="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/image-20210831141323762.png">
+<meta property="og:image" content="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/image-20210831142251690.png">
+<meta property="og:image" content="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/image-20210831151852977.png">
+<meta property="article:published_time" content="2021-08-31T03:57:32.000Z">
+<meta property="article:modified_time" content="2021-08-31T07:43:46.375Z">
+<meta property="article:author" content="rootkit&#x2F;+-*">
+<meta property="article:tag" content="Reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/image-20210831121649274.png">
+
+
+<link rel="canonical" href="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/","path":"2021/08/31/逆向工程学习-基础篇/","title":"逆向工程学习-基础篇"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>逆向工程学习-基础篇 | R-o-o-t-k-i-t</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">R-o-o-t-k-i-t</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-悠哉日常"><a href="/%E6%82%A0%E5%93%89%E6%97%A5%E5%B8%B8" rel="section"><i class="fa fa-user fa-fw"></i>悠哉日常</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%801"><span class="nav-number">1.</span> <span class="nav-text">逆向工程学习-基础1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E5%BA%8F%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">字节序：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B0%8F%E7%AB%AF%E5%BA%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.小端序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A4%A7%E7%AB%AF%E5%BA%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.大端序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A6%E5%A4%96%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">另外：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">寄存器：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本程序运行寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%8A%B6%E6%80%81%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">程序状态与控制寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E6%8C%87%E9%92%88%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">指令指针寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">栈：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.2.</span> <span class="nav-text">栈操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E5%B8%A7"><span class="nav-number">1.3.3.</span> <span class="nav-text">栈帧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A"><span class="nav-number">1.4.</span> <span class="nav-text">函数调用约定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cdecl"><span class="nav-number">1.4.1.</span> <span class="nav-text">_cdecl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stdcall"><span class="nav-number">1.4.2.</span> <span class="nav-text">stdcall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastcall"><span class="nav-number">1.4.3.</span> <span class="nav-text">fastcall</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="rootkit/+-*"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">rootkit/+-*</p>
+  <div class="site-description" itemprop="description">自由，平等，公正，法制</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      统一战线
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jnsec.org/" title="https:&#x2F;&#x2F;jnsec.org&#x2F;" rel="noopener" target="_blank">JNSEC</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.yd0ng.com/" title="https:&#x2F;&#x2F;blog.yd0ng.com" rel="noopener" target="_blank">yd0ng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://1klnd.github.io/" title="https:&#x2F;&#x2F;1klnd.github.io&#x2F;" rel="noopener" target="_blank">III</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.brvc3.website/" title="http:&#x2F;&#x2F;blog.brvc3.website&#x2F;" rel="noopener" target="_blank">Bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tty-flag.github.io/" title="https:&#x2F;&#x2F;tty-flag.github.io&#x2F;" rel="noopener" target="_blank">TTY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://rave1sking.top/" title="http:&#x2F;&#x2F;rave1sking.top&#x2F;" rel="noopener" target="_blank">Rava</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/weixin_45396639" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45396639" rel="noopener" target="_blank">Ronie</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_42880719" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_42880719" rel="noopener" target="_blank">Mumuzi</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.squidward.xyz/" title="https:&#x2F;&#x2F;www.squidward.xyz&#x2F;" rel="noopener" target="_blank">Octopus</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://k1tcheung.github.io/" title="https:&#x2F;&#x2F;k1tcheung.github.io&#x2F;" rel="noopener" target="_blank">k1tcheung</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rhoeo.github.io/" title="https:&#x2F;&#x2F;rhoeo.github.io&#x2F;" rel="noopener" target="_blank">Rhoeo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://abiao2002.github.io/" title="https:&#x2F;&#x2F;abiao2002.github.io&#x2F;" rel="noopener" target="_blank">Abiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baidu.com/" title="https:&#x2F;&#x2F;www.baidu.com" rel="noopener" target="_blank">有问题点这里</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">没有解决？</a>
+        </li>
+    </ul>
+  </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="rootkit/+-*">
+      <meta itemprop="description" content="自由，平等，公正，法制">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R-o-o-t-k-i-t">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          逆向工程学习-基础篇
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-08-31 11:57:32 / 修改时间：15:43:46" itemprop="dateCreated datePublished" datetime="2021-08-31T11:57:32+08:00">2021-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">逆向工程学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="逆向工程学习-基础1"><a href="#逆向工程学习-基础1" class="headerlink" title="逆向工程学习-基础1"></a>逆向工程学习-基础1</h1><span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a></p>
+<h2 id="字节序："><a href="#字节序：" class="headerlink" title="字节序："></a>字节序：</h2><h3 id="1-小端序"><a href="#1-小端序" class="headerlink" title="1.小端序"></a>1.小端序</h3><p>1.当一个数据只有一个字节时，大小端序都一样</p>
+<p>2.地址高位存储数据的高位，人眼看来是逆序存储</p>
+<p><img src="image-20210831121649274.png" alt="image-20210831121649274"></p>
+<h3 id="2-大端序"><a href="#2-大端序" class="headerlink" title="2.大端序"></a>2.大端序</h3><p>$~~~$1.地址低位存储数据高位，人眼看起来是正常的</p>
+<p>$~~~$2.应用于大型服务器和risc系列的CPU。</p>
+<h3 id="另外："><a href="#另外：" class="headerlink" title="另外："></a>另外：</h3><p>$~~~$【字符数组】在内存中是连续的，无论大小端序，储存顺序相同</p>
+<h2 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h2><h3 id="基本程序运行寄存器"><a href="#基本程序运行寄存器" class="headerlink" title="基本程序运行寄存器"></a>基本程序运行寄存器</h3><table>
+<thead>
+<tr>
+<th>寄存器类型</th>
+<th>寄存器名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通用寄存器</td>
+<td>eax, ebx, ecx, edx, esi, edi, ebp, esp</td>
+</tr>
+<tr>
+<td>段寄存器</td>
+<td>cs, ds, ss, es, fs, gs</td>
+</tr>
+<tr>
+<td>程序状态与控制寄存器</td>
+<td>EFLAGS</td>
+</tr>
+<tr>
+<td>指令指针寄存器</td>
+<td>EIP</td>
+</tr>
+</tbody></table>
+<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>ESP（栈顶指针）:指示栈区域的栈顶地址。</p>
+<p>EBP（栈帧指针）:表示栈区域的基地址，函数被调用时，保存ESP的的值，函数返回时再将值还给ESP，以保证栈不会崩溃（栈帧技术）。</p>
+<p>ESI,EDI：这两个寄存器与特定指令（LODS, STOP, REP, MOVS等）一起使用时，主要用于内存复制（例：upx解压缩时恢复upx0节区）</p>
+<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>1.什么是段：是一种将内存划分为多个区段的内存保护技术，与分页技术一起将虚拟内存变为实际物理内存。段内存记录在Segment Deskcriptor Table(SDT)段描述表中，段寄存器持有这些SDT的索引</p>
+<p><img src="image-20210831140543512.png" alt="image-20210831140543512"></p>
+<p>每个段寄存器指向的段描述符结合虚拟内存，形成一个线性地址，在借助分页技术，线性地址转化为实际的物理地址（如果没有分页技术，线性地址直接变成物理地址）</p>
+<h3 id="程序状态与控制寄存器"><a href="#程序状态与控制寄存器" class="headerlink" title="程序状态与控制寄存器"></a>程序状态与控制寄存器</h3><p>就是所说的标志位寄存器，一开始我认为是不同的寄存器，现在发现是一个寄存器中的不同的位</p>
+<p><img src="image-20210831141323762.png" alt="image-20210831141323762"></p>
+<p>32位程序中，该寄存器由原来的16位的FLAGS寄存器拓展到了32的EFLAGS寄存器，其中常用的有ZF, OF, CF。</p>
+<p>ZF（0标志）：若运算结果是“0“，那么该标志位为”1“</p>
+<p>OF（溢出标志）：有符号整数溢出时，该标志位为”1“；或最高有效位改变时，该标志位为”1“</p>
+<p>CF（进位标志）：无符号整数溢出时为”1“</p>
+<h3 id="指令指针寄存器"><a href="#指令指针寄存器" class="headerlink" title="指令指针寄存器"></a>指令指针寄存器</h3><p>当程序运行时，cpu会读取EIP中的一条地址，当地址传递到缓冲区后，eip会增加，增加的大小就是读取指令的字节大小。</p>
+<h2 id="栈："><a href="#栈：" class="headerlink" title="栈："></a>栈：</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
+<li><p>一种由高地址像低地址拓展的数据结构</p>
+</li>
+<li><p>暂时保存函数内部的局部变量</p>
+</li>
+<li><p>传递参数</p>
+</li>
+<li><p>保存函数的返回地址（就是call指令的下一条地址）</p>
+</li>
+</ul>
+<p><img src="image-20210831142251690.png" alt="image-20210831142251690"></p>
+<h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><p>1.两个指针：栈顶指针ESP；栈帧指针EBP</p>
+<p>2.向栈中push数据时，栈顶指针ESP会减小（上移），当pop数据时，ESP会增加（下移）。</p>
+<p>3.栈顶指针（ESP）在初始状态下指向栈底（高地址），所以初始化栈即为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">push EBP		//使用EBP前先将已有值保存在栈中</span><br><span class="line">MOV EBP, ESP	//保存当前ESP到EBP中</span><br><span class="line">……</span><br><span class="line">MOV ESP, EBP	//将函数的起始地址还给ESP</span><br><span class="line">POP EBP			//将一开始push进栈的地址还给EBP</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p>1.是什么：是利用EBP（栈帧指针）寄存器访问栈内局部变量、参数、函数返回地址等的手段。 </p>
+<p>2.为什么需要用到栈帧指针EBP：因为栈顶是在不断变化的（push, pop, call等都会影响栈顶），所以如果用ESP来当作基址进行索引是很复杂的，所以就需要一个相对固定的来打下手的帮忙，就是EBP。所以在开始的时候，都会把esp的值给ebp。</p>
+<h2 id="函数调用约定"><a href="#函数调用约定" class="headerlink" title="函数调用约定"></a>函数调用约定</h2><h3 id="cdecl"><a href="#cdecl" class="headerlink" title="_cdecl"></a>_cdecl</h3><p>C语言的默认调用方式，调用者负责恢复栈结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add esp, 0x8</span><br></pre></td></tr></table></figure>
+
+<img src="image-20210831151852977.png" alt="image-20210831151852977"  />
+
+<p>这里因为push了两个int类型的参数，所以栈空间-0x8</p>
+<p>好处：可以向 被调用函数 传递 参数可变 的函数</p>
+<h3 id="stdcall"><a href="#stdcall" class="headerlink" title="stdcall"></a>stdcall</h3><p>由被调用者恢复堆栈</p>
+<p>该调用方式被Win32 API采用，以获得更好的兼容性</p>
+<h3 id="fastcall"><a href="#fastcall" class="headerlink" title="fastcall"></a>fastcall</h3><p>与stdcall类似，只不过前两个参数通过寄存器【ECX, EDX】快速调用。顾名思义，这里可以实现更快的调用函数，因为CPU访问寄存器的速度远高于CPU访问内存的速度。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reverse/" rel="tag"># Reverse</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/30/%E8%AE%A1/" rel="prev" title="计">
+                  <i class="fa fa-chevron-left"></i> 计
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+但使龙城飞将在，不教胡马度阴山。
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rootkit/+-*</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
