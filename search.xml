@@ -1,687 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/08/27/First-test-blog/</url>
-    <content><![CDATA[<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">14</span>];</span><br><span class="line">    s=<span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>道生一，一生二，二生三，三生万物，万物负阴而抱阳，中气以为和。</p>
-<p>​                                                                                                                        ——————————《道德经》</p>
-]]></content>
-      <tags>
-        <tag>你好，世界</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>how2buildBlog</title>
-    <url>/2021/08/27/how2buildBlog/</url>
-    <content><![CDATA[<p> 搭建好博客，记录搭建过程：</p>
-<h1 id="搭建博客："><a href="#搭建博客：" class="headerlink" title="搭建博客："></a>搭建博客：</h1><p>博客搭建基于【Github+hexo】模式；用的是hexo的next的模板。</p>
-<h2 id="准备工具："><a href="#准备工具：" class="headerlink" title="准备工具："></a>准备工具：</h2><p>1.git</p>
-<p>2.hexo</p>
-<p>3.github</p>
-<p>4.nodejs</p>
-<h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.首先是在GitHub上创建一个仓库，仓库名称需为：名称.github.io</p>
-<p>名称最好是和仓库名相同，这样方便索引：</p>
-<span id="more"></span>
-<p><img src="image-20210827182643655.png" alt="image-20210827182643655"></p>
-<p>像这样即可</p>
-<p>2.然后需要先安装git（熟悉Windows的可以直接用cmd）；然后下载nodejs，用<code>node -v</code>进行检查是否安装成功；然后安装<code>npm install hexo -g</code>用命令：<code>hexo -v</code>查看是否安装成功；之后需要安装hexo的一系列的以来文件<code>nmp install hexo-deployer-git --save</code>,这里需要注意的是—save的位置可以放到install那里，这个看个人情况。</p>
-<p>3.这里最后需要配置SSH KEY，相当于一个身份验证：</p>
-<p>通过git，输入命令：<code>cd ~/.ssh</code>进入ssh文件——-&gt;通过命令<code>cat id_rsa.pub</code>查看密钥，然后在github的设置里：</p>
-<p><img src="image-20210827183729815.png" alt="image-20210827183729815"></p>
-<p>将刚刚的一大串直接复制进去，这样就可以了</p>
-<p>用<code>ssh -T git@github.com</code>检验是否成功</p>
-<p>成功用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;liyunchen&quot; #你的github用户名</span><br><span class="line">$ git config --global user.email &quot;xxx@163.com&quot; #填写你的github注册邮箱</span><br></pre></td></tr></table></figure>
-<p>命令来设置邮箱和用户名</p>
-<h2 id="开始搭建："><a href="#开始搭建：" class="headerlink" title="开始搭建："></a>开始搭建：</h2><p>1.在一个较大的盘里新建文件夹，取一个洋文名字防止出灵异事件</p>
-<p>2.git bash here，在该目录下打开git</p>
-<p>3.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo init</span><br><span class="line"><span class="comment">#初始化hexo，此时目录下多了一堆文件</span></span><br></pre></td></tr></table></figure>
-<p>事先在<a href="https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：">https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：</a></p>
-<p><img src="image-20210827184605759.png" alt="image-20210827184605759"></p>
-<p>这里标黄的是要改成自己的仓库，下面的branch根据实际情况决定是main还是master。</p>
-<p>themes后面跟的是主题的文件夹的名字，注意空格，<strong>千万不能少</strong></p>
-<p>4.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo s<span class="comment">#在本机生成一个预览可以看到效果</span></span><br><span class="line">2.hexo g<span class="comment">#生成html界面</span></span><br><span class="line">3.hexo d<span class="comment">#部署到github</span></span><br></pre></td></tr></table></figure>
-<p>此时就可以看到自己的博客的初始状态，也就搭建基本完毕了</p>
-<h1 id="完善博客："><a href="#完善博客：" class="headerlink" title="完善博客："></a>完善博客：</h1><p>搭建好之后需要完善成人类友好的界面（next为例子）</p>
-<h2 id="1-首页风格："><a href="#1-首页风格：" class="headerlink" title="1.首页风格："></a>1.首页风格：</h2><p>找到你下载的主题里的_config.yml文件（没错，主题里面也有）</p>
-<p>找到：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//这里是四种风格，选一个喜欢的去掉前面的井号</span><br><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">scheme: Gemini</span><br><span class="line">//这里是模式，亮还是暗</span><br><span class="line"># Dark Mode</span><br><span class="line">darkmode: true</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//这里是菜单设置，去掉喜欢的前面的#</span><br><span class="line">menu:</span><br><span class="line">  home: / || home                          //首页</span><br><span class="line">  archives: /archives/ || archive          //归档</span><br><span class="line">  categories: /categories/ || th           //分类</span><br><span class="line">  tags: /tags/ || tags                     //标签</span><br><span class="line">  about: /about/ || user                   //关于</span><br><span class="line">  #schedule: /schedule/ || calendar        //日程表</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap        //站点地图</span><br><span class="line">  #commonweal: /404/ || heartbeat          //公益404</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//侧栏设置，看好适用风格</span><br><span class="line"># Sidebar Position - 侧栏位置（只对Pisces | Gemini两种风格有效）</span><br><span class="line">  position: left        //靠左放置</span><br><span class="line">  #position: right      //靠右放置</span><br><span class="line"></span><br><span class="line"># Sidebar Display - 侧栏显示时机（只对Muse | Mist两种风格有效）</span><br><span class="line">  #display: post        //默认行为，在文章页面（拥有目录列表）时显示</span><br><span class="line">  display: always       //在所有页面中都显示</span><br><span class="line">  #display: hide        //在所有页面中都隐藏（可以手动展开）</span><br><span class="line">  #display: remove      //完全移除</span><br><span class="line"></span><br><span class="line">  offset: 12            //文章间距（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  b2t: false            //返回顶部按钮（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  scrollpercent: true   //返回顶部按钮的百分比</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//头像设置，将头像设为header.jpg，然后拖到themes\hexo-theme-next\source\images目录下</span><br><span class="line"># Sidebar Avatar</span><br><span class="line">avatar: /images/header.jpg</span><br></pre></td></tr></table></figure>
-<h2 id="2-语言文字："><a href="#2-语言文字：" class="headerlink" title="2.语言文字："></a>2.语言文字：</h2><p>打开主目录的_config.yml文件，开头就是这几个，后面的内容自己写写，注意空格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Site</span><br><span class="line">title: R-o-o-t-k-i-t</span><br><span class="line">subtitle: &#x27;&#x27;</span><br><span class="line">description: 自由，平等，公正，法制</span><br><span class="line">keywords: rootkit，+-*/</span><br><span class="line">author: rootkit/+-*</span><br><span class="line">language: zh-CN</span><br><span class="line">timezone: &#x27;&#x27;#网站时区（Hexo 默认使用您电脑的时区，不用写）</span><br></pre></td></tr></table></figure>
-<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><p><img src="image-20210827190155039.png" alt="image-20210827190155039"></p>
-<h1 id="上传日志："><a href="#上传日志：" class="headerlink" title="上传日志："></a>上传日志：</h1><p>在该文件夹里通过git或者cmd使用命令<code>hexo new &#39;#######&#39;</code>,就会在sources目录里生成一个#####.md文件，然后正常写点东西（在下面的正文部分，上面的灰色框是自带的）</p>
-<p>写完之后通过命令<code>hexo g</code>和<code>hexo d</code>来上传</p>
-<p>这样就完成了上面的效果。</p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>注册谷歌</title>
+      <link href="/2021/09/04/signgoogle/"/>
+      <url>/2021/09/04/signgoogle/</url>
+      
+        <content type="html"><![CDATA[<p>主要为了解决在注册时手机号无法使用的问题</p><p>This phone number cannot be used for verification.</p><span id="more"></span><h1 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h1><p>1.这里以采用香港节点为例</p><p>2.将注册界面的语言设置为繁体字</p><h1 id="开始注册："><a href="#开始注册：" class="headerlink" title="开始注册："></a>开始注册：</h1><p>按照步骤来就可以了，电话就可以用你的了，注意国旗还是要大陆的</p><p><strong><em>Ps:</em></strong></p><ul><li><p>这里注意的是要将浏览器界面的语言设置成符合自己所用节点的语言，可能会更顺利一些</p></li><li><p>一次不行，不要频繁尝试，等一会再试，否则容易误判</p></li><li><strong>科学上网，请遵守法律法规</strong></li></ul>]]></content>
+      
+      
       <categories>
-        <category>博客装修</category>
+          
+          <category> 悠哉日常 </category>
+          
       </categories>
-      <tags>
-        <tag>关于博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>insert_photo</title>
-    <url>/2021/08/27/insert-photo/</url>
-    <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
-<p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>博客改良(持续记录)</title>
-    <url>/2021/08/28/%E5%8D%9A%E5%AE%A2%E6%94%B9%E8%89%AF/</url>
-    <content><![CDATA[<h2 id="1-删除强力驱动："><a href="#1-删除强力驱动：" class="headerlink" title="1.删除强力驱动："></a>1.删除强力驱动：</h2><p>1.在【themes/layout/_partial/footer】文件中的最后，删除如下代码</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme<span class="selector-class">.footer</span><span class="selector-class">.powered</span> %&#125;</span><br><span class="line">  &lt;<span class="selector-tag">div</span> class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org<span class="string">&#x27; if theme.scheme === &#x27;</span>Gemini<span class="string">&#x27; else &#x27;</span>https://theme-next.js.org/<span class="string">&#x27; + theme.scheme | lower + &#x27;</span>/<span class="string">&#x27; %&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- __(&#x27;</span>footer.powered<span class="string">&#x27;, next_url(&#x27;</span>https://hexo.io<span class="string">&#x27;, &#x27;</span>Hexo<span class="string">&#x27;) + &#x27;</span> &amp; <span class="string">&#x27; + next_url(next_site, &#x27;</span>NexT.<span class="string">&#x27; + theme.scheme)) &#125;&#125;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;%- endif %&#125;</span></span><br></pre></td></tr></table></figure>
-<p>2.同样，如果想在该位置添加一些别的文字，直接在这个文件里面加就行</p>
-<span id="more"></span>
-<h2 id="2-更改字体颜色："><a href="#2-更改字体颜色：" class="headerlink" title="2.更改字体颜色："></a>2.更改字体颜色：</h2><p>在_data文件里面添加：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">color</span> #色号</span><br></pre></td></tr></table></figure>
-<p><img src="image-20210828115628268.png" alt="image-20210828115628268"></p>
-<p><img src="image-20210828115713939.png" alt="image-20210828115713939"></p>
-<p><img src="image-20210828115742828.png" alt="image-20210828115742828"></p>
-<h2 id="3-利用不通的分类："><a href="#3-利用不通的分类：" class="headerlink" title="3.利用不通的分类："></a>3.利用不通的分类：</h2><p>这里用“categories”为例</p>
-<p>找到在categories目录下的哪个index.md文件，在开头的地方加上一行</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">type: <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<p><img src="image-20210828122741712.png" alt="image-20210828122741712"></p>
-<p>这样就可以在那个界面里面看到不通的分类了</p>
-<h2 id="4-在文中添加超链接"><a href="#4-在文中添加超链接" class="headerlink" title="4.在文中添加超链接"></a>4.在文中添加超链接</h2><p>利用markdown特性，将链接放在&lt;&gt;中间</p>
-<p>例如<a href="https://hellorootkit.github.io">https://hellorootkit.github.io</a></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 你好，世界 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>纪念一下</title>
+      <link href="/2021/09/02/%E7%BA%AA%E5%BF%B5%E4%B8%80%E4%B8%8B/"/>
+      <url>/2021/09/02/%E7%BA%AA%E5%BF%B5%E4%B8%80%E4%B8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>​    纪念一下<strong><em>2021-09-02 23:34:04</em></strong>，BUU的逆向第二页圆满完成</p>]]></content>
+      
+      
       <categories>
-        <category>博客装修</category>
+          
+          <category> 逆向工程学习 </category>
+          
       </categories>
-  </entry>
-  <entry>
-    <title>东北大学招新_re</title>
-    <url>/2021/08/29/%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E6%8B%9B%E6%96%B0-re/</url>
-    <content><![CDATA[<p> elf文件，ida64打开，看到程序很简单的加密，但是涉及到<strong>数据类型之间的转化和经典的逆向过程</strong></p>
-<span id="more"></span>
-<p><img src="image-20210829132912959.png" alt="image-20210829132912959"></p>
-<p>确定了输入的flag是22位，然后经过三轮运算，将得到的和给出的数组进行比较，逻辑简单，开始逆向！</p>
-<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#首先将三轮运算逆向回去</span></span><br><span class="line">targ=[  <span class="number">0x03</span>, <span class="number">0x1D</span>, <span class="number">0x24</span>, <span class="number">0x1C</span>, <span class="number">0x06</span>, <span class="number">0x1A</span>, <span class="number">0x3C</span>, <span class="number">0x3F</span>, <span class="number">0x04</span>, <span class="number">0x32</span>,</span><br><span class="line">  		<span class="number">0x3E</span>, <span class="number">0x11</span>, <span class="number">0x1C</span>, <span class="number">0x0B</span>, <span class="number">0x0D</span>, <span class="number">0x1F</span>, <span class="number">0xFD</span>, <span class="number">0x09</span>, <span class="number">0xF3</span>, <span class="number">0xFB</span>,</span><br><span class="line">      	<span class="number">0x98</span>, <span class="number">0x92</span>, <span class="number">0x00</span>]</span><br><span class="line"><span class="comment">#每一位和后一位异或，所以最后一位是不会变的，这就是突破口</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]^targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]-targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[i]-=i</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
-<p>这时得到的数组是</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">targ=[-<span class="number">154</span>, <span class="number">365</span>, -<span class="number">157</span>, <span class="number">362</span>, -<span class="number">129</span>, <span class="number">374</span>, -<span class="number">131</span>, <span class="number">364</span>, -<span class="number">151</span>, <span class="number">385</span>,</span><br><span class="line">      -<span class="number">147</span>, <span class="number">367</span>, -<span class="number">141</span>, <span class="number">384</span>, -<span class="number">145</span>, <span class="number">373</span>, -<span class="number">140</span>, <span class="number">386</span>, -<span class="number">375</span>, <span class="number">377</span>, </span><br><span class="line">      -<span class="number">136</span>, <span class="number">146</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-<p>这里很明显看到因为python的数据类型基本没有限制，所以会出现 很多大数和负数</p>
-<p>在C语言里面，一个byte的无符号整数是0-255，这里看到程序里面都是单字节，所以会出现循环现象，这里将他门进行复原</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line"><span class="comment">#因为这里超过256会循环，所以要%256</span></span><br><span class="line">    <span class="keyword">if</span> targ[i]&lt;<span class="number">0</span>:</span><br><span class="line">        targ[i]&amp;=<span class="number">0xffffffff</span></span><br><span class="line"><span class="comment">#考虑到负数的缘故，要先将负数转化成正数（有符号数转化无符号数）</span></span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="comment">#最后统一规矩一下数据，然后字符输出就可以了</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">23</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(targ[i]),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>()</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
-<p>最后得到flag：</p>
-<p><strong>flag{qweaxcdgsafdqwfd}</strong></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Reverse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>江苏省赛2021题解</title>
+      <link href="/2021/09/01/%E6%B1%9F%E8%8B%8F%E7%9C%81%E8%B5%9B2021%E9%A2%98%E8%A7%A3/"/>
+      <url>/2021/09/01/%E6%B1%9F%E8%8B%8F%E7%9C%81%E8%B5%9B2021%E9%A2%98%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="2021领航杯APK逆向"><a href="#2021领航杯APK逆向" class="headerlink" title="2021领航杯APK逆向"></a>2021领航杯APK逆向</h1><p>没见过这么急促、简陋的比赛</p><span id="more"></span><p>言归正传</p><h2 id="本题反思："><a href="#本题反思：" class="headerlink" title="本题反思："></a>本题反思：</h2><p>反码，补码这些要会算，不能只会正数，负数也要会。</p><p>基础不牢啊，这道题如果算对了-16的二进制码就出了，300分可惜可惜</p><p>题目简单，但还是要以此为戒增强基础</p><p>一定要明白运算的含义，不能马虎</p><h2 id="知识提要："><a href="#知识提要：" class="headerlink" title="知识提要："></a>知识提要：</h2><p>APK文件要了解的基础</p><ul><li>每一个apk文件都是可以解压的</li></ul><p>解压之后一般会出现以下文件（纯APK，无添加别的引擎）</p><h3 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h3><p>该文件是每个应用都必须定义和包含的，它描述了应用的名字、版本、权限、引用的库文件等等信息</p><h3 id="META-INF目录"><a href="#META-INF目录" class="headerlink" title="META-INF目录"></a>META-INF目录</h3><p>1.META-INF目录下存放的是签名信息，用来保证apk包的完整性和系统的安全</p><p>2.保证了apk包里的文件不能被随意替换。如果想要替换里面的一幅图片，一段代码， 或一段版权信息，想直接解压缩、替换再重新打包，基本是不可能的。</p><p>3.软件修改后需要将里面的证书文件删除（.RSA、.SF、.MF三个文件）再重新签名，否则软件无法安装</p><h3 id="res目录"><a href="#res目录" class="headerlink" title="res目录"></a>res目录</h3><p>1.res目录存放资源文件。包括图片，字符串等等。</p><p>2.res文件夹里存放的大部分是软件所需的资源及布局文件（drawable存放资源、layout、xml存放布局文件.xml），部分需要汉化的单词、语句会在这些.xml文件里</p><h3 id="lib目录"><a href="#lib目录" class="headerlink" title="lib目录"></a>lib目录</h3><p>存放一些so文件，有的可能没有</p><h3 id="assets目录"><a href="#assets目录" class="headerlink" title="assets目录"></a>assets目录</h3><p>存放一些配置文件，这些文件的内容在程序运行过程中可以通过相关的API获得</p><h3 id="classes-dex文件"><a href="#classes-dex文件" class="headerlink" title="classes.dex文件"></a>classes.dex文件</h3><p>classes.dex是java源码编译后生成的java字节码文件（比如这个题就可以直接分析这个文件）</p><h3 id="resources-arsc"><a href="#resources-arsc" class="headerlink" title="resources.arsc"></a>resources.arsc</h3><p>编译后的二进制资源文件。resources.arsc文件是编译后的资源文件，大多数情况下，需要汉化的单词、语句绝大多数都在这个文件里，<strong>汉化</strong>的时候首先就要看这个文件。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这类简单apk首先就需要找到MainActive函数，这里我直接将class.dex文件用jadx打开了，不要管androidx开头的文件和google开头的文件，找最不一样的、出现次数最少的文件</p><p><img src="image-20210901225721143.png" alt="image-20210901225721143"></p><p>这里轻松获得源码</p><p>看到最下面，找到关键判断</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (check.m39check_final_GBYM_sE(r1)) </span><br><span class="line">&#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>.<span class="keyword">this</span>$<span class="number">0.</span><span class="keyword">this</span>$<span class="number">0.</span>getApplicationContext(),<span class="string">&quot;Rightflag!&quot;</span>,<span class="number">0</span>).show();</span><br><span class="line">&#125; <span class="keyword">else</span> </span><br><span class="line">&#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>.<span class="keyword">this</span>$<span class="number">0.</span><span class="keyword">this</span>$<span class="number">0.</span>getApplicationContext(), <span class="string">&quot;Wrong flag!&quot;</span>, <span class="number">0</span>).show()    &#125;</span><br></pre></td></tr></table></figure><p>这里需要知道参数的含义</p><p>判断关键的“r1”就是由函数</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">check.m40enc_Fz0kQmc(substring, r4, r1);</span><br></pre></td></tr></table></figure><p>得到的</p><p>该函数的三个参数很分析得到就是</p><p>输入的flag中间的内容；从一个文件中读取的几个字符；一个空字符</p><p>跳到这个函数的定义</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">m40enc_Fz0kQmc</span><span class="params">(String str, <span class="keyword">byte</span>[] bArr, <span class="keyword">byte</span>[] bArr2)</span> </span>&#123;</span><br><span class="line">     Intrinsics.checkNotNullParameter(str, <span class="string">&quot;input&quot;</span>);</span><br><span class="line">     Intrinsics.checkNotNullParameter(bArr, <span class="string">&quot;key&quot;</span>);</span><br><span class="line">     Intrinsics.checkNotNullParameter(bArr2, <span class="string">&quot;enc&quot;</span>);</span><br><span class="line">     <span class="keyword">byte</span>[] r0 = UByteArray.m107constructorimpl(<span class="number">36</span>);</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">35</span>; i++) &#123;</span><br><span class="line">         UByteArray.m118setVurrAj0(r0, i, UByte.m64constructorimpl((<span class="keyword">byte</span>) (str.charAt(i) ^ i)));</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i2 = <span class="number">0</span>; i2 &lt;= <span class="number">35</span>; i2++) &#123;</span><br><span class="line">         UByteArray.m118setVurrAj0(bArr2, i2, UByte.m64constructorimpl((<span class="keyword">byte</span>) (UByteArray.m113getw2LRezQ(r0, <span class="number">35</span> - i2) ^ UByteArray.m113getw2LRezQ(bArr, i2 % <span class="number">16</span>))));</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i3 = <span class="number">0</span>; i3 &lt;= <span class="number">35</span>; i3++) &#123;</span><br><span class="line">         <span class="keyword">byte</span> b = UByteArray.m113getw2LRezQ(bArr2, i3);</span><br><span class="line">         UByteArray.m118setVurrAj0(bArr2, i3, UByte.m64constructorimpl((<span class="keyword">byte</span>) UnsignedUtils.m361uintDivideJ1ME1BU(UInt.m132constructorimpl(UByte.m64constructorimpl((<span class="keyword">byte</span>) (UByteArray.m113getw2LRezQ(bArr2, i3) &amp; -<span class="number">16</span>)) &amp; UByte.MAX_VALUE), <span class="number">16</span>)));</span><br><span class="line">         UByteArray.m118setVurrAj0(bArr2, i3 + <span class="number">36</span>, UByte.m64constructorimpl((<span class="keyword">byte</span>) (b &amp; <span class="number">15</span>)));</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>看到主函数判断的函数</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">m39check_final_GBYM_sE</span><span class="params">(<span class="keyword">byte</span>[] bArr)</span> </span>&#123;</span><br><span class="line">    Intrinsics.checkNotNullParameter(bArr, <span class="string">&quot;enc&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">71</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;abcdefgh13462579&quot;</span>.charAt(UByteArray.m113getw2LRezQ(bArr, i) &amp; UByte.MAX_VALUE) != <span class="string">&quot;ccccebeebbeafbeeeabefabfaffffafaafaaea4b292he31922g6d54a62hchf2bb9ehagdc&quot;</span>.charAt(i)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>根据这个函数，可以直接求出r1的值（判断里的参数），但是这里需要注意的是，jadx不会对参数进行重命名，所以会出现参数名重复的现象，大坑</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">string_2=<span class="string">&quot;ccccebeebbeafbeeeabefabfaffffafaafaaea4b292he31922g6d54a62hchf2bb9ehagdc&quot;</span></span><br><span class="line">string_1=<span class="string">&quot;abcdefgh13462579&quot;</span></span><br><span class="line">bArr=<span class="string">&#x27;123456789getflag&#x27;</span></span><br><span class="line"></span><br><span class="line">barr2=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(string_2)):</span><br><span class="line">    barr2.append((string_1.index(string_2[i]))&amp;<span class="number">255</span>)</span><br><span class="line">barr2_0=[]</span><br><span class="line"><span class="built_in">print</span>(barr2)</span><br><span class="line"><span class="comment"># print(barr2_0)</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    barr2_0.append(barr2[i]*<span class="number">16</span>+barr2[i+<span class="number">36</span>])</span><br></pre></td></tr></table></figure><p>得到r1，也就是上面函数bArr2参数</p><p>这样就可以求出flag了，三个循环，第一个第二个没啥好分析的，直接逆向就行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#前两个循环</span></span><br><span class="line">r0=[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    r0[<span class="number">35</span>-i]=barr2_0[i]^<span class="built_in">ord</span>(bArr[i%<span class="number">16</span>])</span><br><span class="line"><span class="built_in">print</span>(r0)</span><br><span class="line"></span><br><span class="line">flag=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    flag.append(<span class="built_in">chr</span>(r0[i]^i))</span><br></pre></td></tr></table></figure><p>看到第三个循环</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i3 = <span class="number">0</span>; i3 &lt;= <span class="number">35</span>; i3++) &#123;</span><br><span class="line">    byte b = UByteArray.m113getw2LRezQ(bArr2, i3);</span><br><span class="line"><span class="comment">#这里首先把数组里的i位保存给b了</span></span><br><span class="line">    UByteArray.m118setVurrAj0(bArr2, i3, UByte.m64constructorimpl((byte) UnsignedUtils.m361uintDivideJ1ME1BU(UInt.m132constructorimpl(UByte.m64constructorimpl((byte) (UByteArray.m113getw2LRezQ(bArr2, i3) &amp; -<span class="number">16</span>)) &amp; UByte.MAX_VALUE), <span class="number">16</span>)));</span><br><span class="line"><span class="comment">#这里可以简化的看成i位&amp;-16之后又÷16</span></span><br><span class="line">    <span class="comment">#-16的二进制表示是：1111 1111 0000，这里可以看作是保留了这个第i位的前4位</span></span><br><span class="line">           UByteArray.m118setVurrAj0(bArr2, i3 + <span class="number">36</span>, UByte.m64constructorimpl((byte) (b &amp; <span class="number">15</span>)));</span><br><span class="line">    <span class="comment">#15的二进制是：1111，这就是保留后四位</span></span><br><span class="line">    <span class="comment">#总体来看就是将第i位拆开来算了，大坑啊我日</span></span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure><p>这段加密的大体意思就是：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov EAX, [ESP+I]</span><br><span class="line">and [ESP+I], FFFFFFF0</span><br><span class="line">sal [ESP+I], 4</span><br><span class="line">and EAX, 1111</span><br><span class="line">mov [ESP+I+0x24], EAX</span><br></pre></td></tr></table></figure><p>看似对对称的两个数进行操作，实际上还是一个数，给出脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    barr2_0.append(barr2[i]*<span class="number">16</span>+barr2[i+<span class="number">36</span>])</span><br></pre></td></tr></table></figure><p>组合起来就是</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">string_2=&quot;ccccebeebbeafbeeeabefabfaffffafaafaaea4b292he31922g6d54a62hchf2bb9ehagdc&quot;</span><br><span class="line">string_1=&quot;abcdefgh13462579&quot;</span><br><span class="line">bArr=&#x27;123456789getflag&#x27;</span><br><span class="line"></span><br><span class="line">barr2=[]</span><br><span class="line">for i in range(len(string_2)):</span><br><span class="line">    barr2.append((string_1.index(string_2[i]))&amp;255)</span><br><span class="line">barr2_0=[]</span><br><span class="line">print(barr2)</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span>(barr2_0)</span></span><br><span class="line">for i in range(36):</span><br><span class="line">    barr2_0.append(barr2[i]*16+barr2[i+36])</span><br><span class="line"></span><br><span class="line">r0=[0 for i in range(36)]</span><br><span class="line">for i in range(36):</span><br><span class="line">    r0[35-i]=barr2_0[i]^ord(bArr[i%16])</span><br><span class="line">print(r0)</span><br><span class="line"></span><br><span class="line">flag=[]</span><br><span class="line">for i in range(36):</span><br><span class="line">    flag.append(chr(r0[i]^i))</span><br><span class="line">print(&#x27;&#x27;.join(flag))</span><br></pre></td></tr></table></figure><h2 id="APK例外"><a href="#APK例外" class="headerlink" title="APK例外"></a>APK例外</h2><p>也不算是例外，只是我觉得是例外，我做的题太少了……</p><p>apk游戏，buu的PixelShooter</p><p>这是一个由unity引擎支持的一个打飞机游戏，他的flag存在于</p><p>assets\bin\Data\Managed目录下的</p><p><strong>Assembly-CSharp.dll</strong>文件中</p>]]></content>
+      
+      
       <categories>
-        <category>WriteUp</category>
+          
+          <category> WriteUp </category>
+          
       </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>江苏省赛2021题解</title>
-    <url>/2021/09/01/%E6%B1%9F%E8%8B%8F%E7%9C%81%E8%B5%9B2021%E9%A2%98%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="2021领航杯APK逆向"><a href="#2021领航杯APK逆向" class="headerlink" title="2021领航杯APK逆向"></a>2021领航杯APK逆向</h1><p>没见过这么急促、简陋的比赛</p>
-<span id="more"></span>
-<p>言归正传</p>
-<h2 id="本题反思："><a href="#本题反思：" class="headerlink" title="本题反思："></a>本题反思：</h2><p>反码，补码这些要会算，不能只会正数，负数也要会。</p>
-<p>基础不牢啊，这道题如果算对了-16的二进制码就出了，300分可惜可惜</p>
-<p>题目简单，但还是要以此为戒增强基础</p>
-<p>一定要明白运算的含义，不能马虎</p>
-<h2 id="知识提要："><a href="#知识提要：" class="headerlink" title="知识提要："></a>知识提要：</h2><p>APK文件要了解的基础</p>
-<ul>
-<li>每一个apk文件都是可以解压的</li>
-</ul>
-<p>解压之后一般会出现以下文件（纯APK，无添加别的引擎）</p>
-<h3 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h3><p>该文件是每个应用都必须定义和包含的，它描述了应用的名字、版本、权限、引用的库文件等等信息</p>
-<h3 id="META-INF目录"><a href="#META-INF目录" class="headerlink" title="META-INF目录"></a>META-INF目录</h3><p>1.META-INF目录下存放的是签名信息，用来保证apk包的完整性和系统的安全</p>
-<p>2.保证了apk包里的文件不能被随意替换。如果想要替换里面的一幅图片，一段代码， 或一段版权信息，想直接解压缩、替换再重新打包，基本是不可能的。</p>
-<p>3.软件修改后需要将里面的证书文件删除（.RSA、.SF、.MF三个文件）再重新签名，否则软件无法安装</p>
-<h3 id="res目录"><a href="#res目录" class="headerlink" title="res目录"></a>res目录</h3><p>1.res目录存放资源文件。包括图片，字符串等等。</p>
-<p>2.res文件夹里存放的大部分是软件所需的资源及布局文件（drawable存放资源、layout、xml存放布局文件.xml），部分需要汉化的单词、语句会在这些.xml文件里</p>
-<h3 id="lib目录"><a href="#lib目录" class="headerlink" title="lib目录"></a>lib目录</h3><p>存放一些so文件，有的可能没有</p>
-<h3 id="assets目录"><a href="#assets目录" class="headerlink" title="assets目录"></a>assets目录</h3><p>存放一些配置文件，这些文件的内容在程序运行过程中可以通过相关的API获得</p>
-<h3 id="classes-dex文件"><a href="#classes-dex文件" class="headerlink" title="classes.dex文件"></a>classes.dex文件</h3><p>classes.dex是java源码编译后生成的java字节码文件（比如这个题就可以直接分析这个文件）</p>
-<h3 id="resources-arsc"><a href="#resources-arsc" class="headerlink" title="resources.arsc"></a>resources.arsc</h3><p>编译后的二进制资源文件。resources.arsc文件是编译后的资源文件，大多数情况下，需要汉化的单词、语句绝大多数都在这个文件里，<strong>汉化</strong>的时候首先就要看这个文件。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这类简单apk首先就需要找到MainActive函数，这里我直接将class.dex文件用jadx打开了，不要管androidx开头的文件和google开头的文件，找最不一样的、出现次数最少的文件</p>
-<p><img src="image-20210901225721143.png" alt="image-20210901225721143"></p>
-<p>这里轻松获得源码</p>
-<p>看到最下面，找到关键判断</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (check.m39check_final_GBYM_sE(r1)) </span><br><span class="line">&#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>.<span class="keyword">this</span>$<span class="number">0.</span><span class="keyword">this</span>$<span class="number">0.</span>getApplicationContext(),<span class="string">&quot;Rightflag!&quot;</span>,<span class="number">0</span>).show();</span><br><span class="line">&#125; <span class="keyword">else</span> </span><br><span class="line">&#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>.<span class="keyword">this</span>$<span class="number">0.</span><span class="keyword">this</span>$<span class="number">0.</span>getApplicationContext(), <span class="string">&quot;Wrong flag!&quot;</span>, <span class="number">0</span>).show()    &#125;</span><br></pre></td></tr></table></figure>
-<p>这里需要知道参数的含义</p>
-<p>判断关键的“r1”就是由函数</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">check.m40enc_Fz0kQmc(substring, r4, r1);</span><br></pre></td></tr></table></figure>
-<p>得到的</p>
-<p>该函数的三个参数很分析得到就是</p>
-<p>输入的flag中间的内容；从一个文件中读取的几个字符；一个空字符</p>
-<p>跳到这个函数的定义</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">m40enc_Fz0kQmc</span><span class="params">(String str, <span class="keyword">byte</span>[] bArr, <span class="keyword">byte</span>[] bArr2)</span> </span>&#123;</span><br><span class="line">     Intrinsics.checkNotNullParameter(str, <span class="string">&quot;input&quot;</span>);</span><br><span class="line">     Intrinsics.checkNotNullParameter(bArr, <span class="string">&quot;key&quot;</span>);</span><br><span class="line">     Intrinsics.checkNotNullParameter(bArr2, <span class="string">&quot;enc&quot;</span>);</span><br><span class="line">     <span class="keyword">byte</span>[] r0 = UByteArray.m107constructorimpl(<span class="number">36</span>);</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">35</span>; i++) &#123;</span><br><span class="line">         UByteArray.m118setVurrAj0(r0, i, UByte.m64constructorimpl((<span class="keyword">byte</span>) (str.charAt(i) ^ i)));</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i2 = <span class="number">0</span>; i2 &lt;= <span class="number">35</span>; i2++) &#123;</span><br><span class="line">         UByteArray.m118setVurrAj0(bArr2, i2, UByte.m64constructorimpl((<span class="keyword">byte</span>) (UByteArray.m113getw2LRezQ(r0, <span class="number">35</span> - i2) ^ UByteArray.m113getw2LRezQ(bArr, i2 % <span class="number">16</span>))));</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i3 = <span class="number">0</span>; i3 &lt;= <span class="number">35</span>; i3++) &#123;</span><br><span class="line">         <span class="keyword">byte</span> b = UByteArray.m113getw2LRezQ(bArr2, i3);</span><br><span class="line">         UByteArray.m118setVurrAj0(bArr2, i3, UByte.m64constructorimpl((<span class="keyword">byte</span>) UnsignedUtils.m361uintDivideJ1ME1BU(UInt.m132constructorimpl(UByte.m64constructorimpl((<span class="keyword">byte</span>) (UByteArray.m113getw2LRezQ(bArr2, i3) &amp; -<span class="number">16</span>)) &amp; UByte.MAX_VALUE), <span class="number">16</span>)));</span><br><span class="line">         UByteArray.m118setVurrAj0(bArr2, i3 + <span class="number">36</span>, UByte.m64constructorimpl((<span class="keyword">byte</span>) (b &amp; <span class="number">15</span>)));</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>看到主函数判断的函数</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">m39check_final_GBYM_sE</span><span class="params">(<span class="keyword">byte</span>[] bArr)</span> </span>&#123;</span><br><span class="line">    Intrinsics.checkNotNullParameter(bArr, <span class="string">&quot;enc&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">71</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;abcdefgh13462579&quot;</span>.charAt(UByteArray.m113getw2LRezQ(bArr, i) &amp; UByte.MAX_VALUE) != <span class="string">&quot;ccccebeebbeafbeeeabefabfaffffafaafaaea4b292he31922g6d54a62hchf2bb9ehagdc&quot;</span>.charAt(i)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>根据这个函数，可以直接求出r1的值（判断里的参数），但是这里需要注意的是，jadx不会对参数进行重命名，所以会出现参数名重复的现象，大坑</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">string_2=<span class="string">&quot;ccccebeebbeafbeeeabefabfaffffafaafaaea4b292he31922g6d54a62hchf2bb9ehagdc&quot;</span></span><br><span class="line">string_1=<span class="string">&quot;abcdefgh13462579&quot;</span></span><br><span class="line">bArr=<span class="string">&#x27;123456789getflag&#x27;</span></span><br><span class="line"></span><br><span class="line">barr2=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(string_2)):</span><br><span class="line">    barr2.append((string_1.index(string_2[i]))&amp;<span class="number">255</span>)</span><br><span class="line">barr2_0=[]</span><br><span class="line"><span class="built_in">print</span>(barr2)</span><br><span class="line"><span class="comment"># print(barr2_0)</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    barr2_0.append(barr2[i]*<span class="number">16</span>+barr2[i+<span class="number">36</span>])</span><br></pre></td></tr></table></figure>
-<p>得到r1，也就是上面函数bArr2参数</p>
-<p>这样就可以求出flag了，三个循环，第一个第二个没啥好分析的，直接逆向就行</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#前两个循环</span></span><br><span class="line">r0=[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    r0[<span class="number">35</span>-i]=barr2_0[i]^<span class="built_in">ord</span>(bArr[i%<span class="number">16</span>])</span><br><span class="line"><span class="built_in">print</span>(r0)</span><br><span class="line"></span><br><span class="line">flag=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    flag.append(<span class="built_in">chr</span>(r0[i]^i))</span><br></pre></td></tr></table></figure>
-<p>看到第三个循环</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i3 = <span class="number">0</span>; i3 &lt;= <span class="number">35</span>; i3++) &#123;</span><br><span class="line">    byte b = UByteArray.m113getw2LRezQ(bArr2, i3);</span><br><span class="line"><span class="comment">#这里首先把数组里的i位保存给b了</span></span><br><span class="line">    UByteArray.m118setVurrAj0(bArr2, i3, UByte.m64constructorimpl((byte) UnsignedUtils.m361uintDivideJ1ME1BU(UInt.m132constructorimpl(UByte.m64constructorimpl((byte) (UByteArray.m113getw2LRezQ(bArr2, i3) &amp; -<span class="number">16</span>)) &amp; UByte.MAX_VALUE), <span class="number">16</span>)));</span><br><span class="line"><span class="comment">#这里可以简化的看成i位&amp;-16之后又÷16</span></span><br><span class="line">    <span class="comment">#-16的二进制表示是：1111 1111 0000，这里可以看作是保留了这个第i位的前4位</span></span><br><span class="line">           UByteArray.m118setVurrAj0(bArr2, i3 + <span class="number">36</span>, UByte.m64constructorimpl((byte) (b &amp; <span class="number">15</span>)));</span><br><span class="line">    <span class="comment">#15的二进制是：1111，这就是保留后四位</span></span><br><span class="line">    <span class="comment">#总体来看就是将第i位拆开来算了，大坑啊我日</span></span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-<p>这段加密的大体意思就是：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov EAX, [ESP+I]</span><br><span class="line">and [ESP+I], FFFFFFF0</span><br><span class="line">sal [ESP+I], 4	</span><br><span class="line">and EAX, 1111</span><br><span class="line">mov [ESP+I+0x24], EAX</span><br></pre></td></tr></table></figure>
-<p>看似对对称的两个数进行操作，实际上还是一个数，给出脚本</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">36</span>):</span><br><span class="line">    barr2_0.append(barr2[i]*<span class="number">16</span>+barr2[i+<span class="number">36</span>])</span><br></pre></td></tr></table></figure>
-<p>组合起来就是</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">string_2=&quot;ccccebeebbeafbeeeabefabfaffffafaafaaea4b292he31922g6d54a62hchf2bb9ehagdc&quot;</span><br><span class="line">string_1=&quot;abcdefgh13462579&quot;</span><br><span class="line">bArr=&#x27;123456789getflag&#x27;</span><br><span class="line"></span><br><span class="line">barr2=[]</span><br><span class="line">for i in range(len(string_2)):</span><br><span class="line">    barr2.append((string_1.index(string_2[i]))&amp;255)</span><br><span class="line">barr2_0=[]</span><br><span class="line">print(barr2)</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">print</span>(barr2_0)</span></span><br><span class="line">for i in range(36):</span><br><span class="line">    barr2_0.append(barr2[i]*16+barr2[i+36])</span><br><span class="line"></span><br><span class="line">r0=[0 for i in range(36)]</span><br><span class="line">for i in range(36):</span><br><span class="line">    r0[35-i]=barr2_0[i]^ord(bArr[i%16])</span><br><span class="line">print(r0)</span><br><span class="line"></span><br><span class="line">flag=[]</span><br><span class="line">for i in range(36):</span><br><span class="line">    flag.append(chr(r0[i]^i))</span><br><span class="line">print(&#x27;&#x27;.join(flag))</span><br></pre></td></tr></table></figure>
-<h2 id="APK例外"><a href="#APK例外" class="headerlink" title="APK例外"></a>APK例外</h2><p>也不算是例外，只是我觉得是例外，我做的题太少了……</p>
-<p>apk游戏，buu的PixelShooter</p>
-<p>这是一个由unity引擎支持的一个打飞机游戏，他的flag存在于</p>
-<p>assets\bin\Data\Managed目录下的</p>
-<p><strong>Assembly-CSharp.dll</strong>文件中</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Reverse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>逆向工程学习-PE文件格式</title>
+      <link href="/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/"/>
+      <url>/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/</url>
+      
+        <content type="html"><![CDATA[<h1 id="PE文件格式"><a href="#PE文件格式" class="headerlink" title="PE文件格式"></a>PE文件格式</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>PE文件是windows操作系统下的可执行文件的统称，一般指的是32位文件，64位文件称为【PE32+】</p><span id="more"></span><h2 id="文件种类："><a href="#文件种类：" class="headerlink" title="文件种类："></a>文件种类：</h2><div class="table-container"><table><thead><tr><th>种类</th><th>文件</th></tr></thead><tbody><tr><td>可执行文件</td><td>EXE, SCR</td></tr><tr><td>库系列文件</td><td>DLL, OCX, CPL, DRV</td></tr><tr><td>驱动程序</td><td>SYS, VXD</td></tr><tr><td>对象文件</td><td>OBJ</td></tr></tbody></table></div><h2 id="PE文件基本结构："><a href="#PE文件基本结构：" class="headerlink" title="PE文件基本结构："></a>PE文件基本结构：</h2><h3 id="文件组成"><a href="#文件组成" class="headerlink" title="文件组成"></a>文件组成</h3><p>PE头+PE体</p><p>PE头：DOS头；DOS存根；NT头；节区头【text（代码）；data（数据）；rsrc（资源）】</p><p>PE头与各节区的尾部存在一个【NULL填充】区域：</p><p><img src="image-20210831160207999.png" alt="image-20210831160207999" style="zoom:150%;" /></p><h3 id="VA-amp-RVA"><a href="#VA-amp-RVA" class="headerlink" title="VA  &amp;  RVA:"></a>VA  &amp;  RVA:</h3><p>1.VA：进程虚拟内存的绝对地址</p><p>2.RVA：从某个基准位置开始的相对地址</p><p>（虚拟内存：在32位的Windows中，各个进程分配4GB的虚拟内存，所以VA的范围【00000000~ffffffff】）</p><script type="math/tex; mode=display">RVA + ImageBase = VA</script><p>PE内部信息大多数以RVA形式存在，这样方便地址重定位</p><h2 id="PE头："><a href="#PE头：" class="headerlink" title="PE头："></a>PE头：</h2><h3 id="DOS头"><a href="#DOS头" class="headerlink" title="DOS头"></a>DOS头</h3><p>1.起源：微软在创建PE文件时，DOS广泛使用，所以在PE头前面加了一个<strong>IMAGE_DOS_HEADER</strong>结构体，内容如下。</p><p><img src="image-20210831162112162.png" alt="image-20210831162112162"></p><p>2.结构体大小共64字节，有两个重要成员【e_magic   &amp;   e_lfanew】。</p><p>e_magic：DOS签名，对应的是字符===&gt;”MZ”</p><p>e_lfanew：指示NT头的偏移，不同的文件值也不一样。</p><p><img src="image-20210831162156817.png" alt="image-20210831162156817"></p><p>这里看出最后就是e_lfanew的值是 00 00 00 B0（小端序）</p><h4 id="DOS存根"><a href="#DOS存根" class="headerlink" title="DOS存根"></a>DOS存根</h4><p>在dos头下面，大小不固定，有没有都行，由代码和数据混合而成</p><p><img src="image-20210708191640915.png" alt="image-20210708191640915"></p><p>代码的作用就是在你用DOS运行时出现后面那句话</p><h3 id="NT头（IMAGE-NT-HEADER）"><a href="#NT头（IMAGE-NT-HEADER）" class="headerlink" title="NT头（IMAGE_NT_HEADER）"></a>NT头（IMAGE_NT_HEADER）</h3><p>NT头又名”文件头“，是表现文件大致属性的“IMAGE_NT_HEADER”结构体</p><p>内涵3个成员，总共大小为0xF8:(根据DOS头指出的偏移可以找到)</p><p><img src="image-20210831163457833.png" alt="image-20210831163457833"></p><p><img src="image-20210831163317838.png" alt="image-20210831163317838"></p><p>第一个成员是<strong>签名结构体</strong>：值为【50 45 00 00】=====&gt;’PE‘</p><p>第二个成员是<strong>文件头结构体</strong>===&gt;IMAGE_FILE_HEADER</p><p>第三个成员是<strong>可选头结构体</strong>===&gt;IMAGE_OPTIONAL_HEADER</p><h4 id="文件头结构体（IMAGE-FILE-HEADER）"><a href="#文件头结构体（IMAGE-FILE-HEADER）" class="headerlink" title="文件头结构体（IMAGE_FILE_HEADER）"></a>文件头结构体（IMAGE_FILE_HEADER）</h4><p>表现文件大致属性 IMAGE_FILE_HEADER结构体</p><p><img src="image-20210831163600312.png" alt="image-20210831163600312"></p><p><img src="逆向工程学习-PE文件结构/image-20210831165137520.png" alt="image-20210831165137520"></p><p>对应着如下结构体</p><p><img src="image-20210831171701776.png" alt="image-20210831171701776"></p><p>内涵四个重要成员：Machine，NumberOfSections，SizeOfOptionalHeader，Characteristics</p><p>（程序能否运行的关键）</p><ul><li><p>Machine：每个CPU都有唯一的Machine码</p><p><img src="image-20210831163725281.png" alt="image-20210831163725281"></p></li></ul><p>这里看到我的CPU对应的机器码是：0x014C</p><ul><li>NumberOfSections</li></ul><p>指出文件中存在节区的数量，一定要大于零。定义与实际不符会运行失败</p><p>看上图知道应该是”05“</p><ul><li>SizeOfOptionalHeader</li></ul><p>指出NT结构体最后一个成员【IMAGE_OPTIONAL_HEADER32】的结构体长度，64位和32位不同。</p><ul><li>Characerristics</li></ul><p>用于标记文件属性。即文件是否是可运行状态，是否是DLL文件等信息，通过bit OR形式组合起来。</p><p><img src="image-20210831164610110.png" alt="image-20210831164610110"></p><p>注：Characteristics的值有可能是【0002h】（不可执行），比如obj文件和resource DLL文件。</p><p>这里SYS文件时0x1000</p><p>可用于区分不同的文件类型</p><h4 id="可选头结构体（IMAGE-OPTIONAL-HEADER32）"><a href="#可选头结构体（IMAGE-OPTIONAL-HEADER32）" class="headerlink" title="可选头结构体（IMAGE_OPTIONAL_HEADER32）"></a>可选头结构体（IMAGE_OPTIONAL_HEADER32）</h4><p>特点：PE头结构体中最大的结构体：</p><p><img src="image-20210831165328723.png" alt="image-20210831165328723"></p><p>关键成员，出错文件将无法运行：Magic，AddressOfEntryPoint，ImageBase，SectionAlignment，FileAlignment。</p><p><img src="image-20210831165536267.png" alt="image-20210831165536267"></p><p>对应着如下节选的结构体</p><p><img src="image-20210831171800697.png" alt="image-20210831171800697"></p><ul><li>Magic：在32位中，Magic码是10B，64位是20B；这里显然是一个32位程序</li><li><p>AddressOfEntryPoint：拥有EP和RVA的值，该值指出程序最先执行的代码起始地址</p></li><li><p>ImageBase：当PE文件装入内存时，指出文件  的优先装入地址</p><p>Tips：EXE,DLL文件一般装载到用户内存的0~7fffffff中，SYS文件载入内核内存的80000000~ffffffff里；在执行PE文件时，PE装载器事先创建进程，文件载入内存，设置EIP的值为</p></li></ul><ul><li><p>SectionAlignment，FileAlignment：PE文件的PE体部分划分不同区节，存储着不同类别的数据，FileAlignment指定了节区在磁盘文件中的最小单位；SectionAlignment指定了节区在内存中的最小单位；在一个文件中，二者的值不一定相等，但是节区的大小必然是SectionAlignment或FileAlignment的整倍数。</p></li><li><p>SizeOfImage：指定了PE Image在虚拟内存中所占的大小</p></li><li>SizeOfHEADER：指出整个PE头的大小，该值一定是FileAlignment值的整数倍。第一节区所在位置与SizeOfHEADER距离文件开始的偏移量相同</li><li>Subsystem：该值用来区分系统驱动文件和普通的可执行文件。</li></ul><div class="table-container"><table><thead><tr><th>值</th><th>含义</th><th>备注</th></tr></thead><tbody><tr><td>1</td><td>Driver文件</td><td>系统驱动（如：ntfs.sys）</td></tr><tr><td>2</td><td>GUI文件</td><td>窗口应用程序（如：记事本.exe）</td></tr><tr><td>3</td><td>GUI文件</td><td>控制台应用程序（如：CMD.EXE)</td></tr></tbody></table></div><ul><li>NumberOfRvaAndSizes：指定结构体：IMAGE_OPTIONAL_HEADER32最后一个成员数组的个数，虽然明确指出时16，但是也不一定</li><li>DataDirection：IMAGE_OPTIONAL_HEADER32最后一个成员；由IMAGE_DATA_DIRECTORY结构体构成的数组，每一项都有被定义的值：</li></ul><p><img src="image-20210831171409417.png" alt="image-20210831171409417"></p><h3 id="节区头（IMAGE-SECTION-HEADER）"><a href="#节区头（IMAGE-SECTION-HEADER）" class="headerlink" title="节区头（IMAGE_SECTION_HEADER）"></a>节区头（IMAGE_SECTION_HEADER）</h3><p>组成：由IMAGE_SECTION_HEADER结构体组成的数组，每个结构体对应一个节区。</p><p>作用：定义了各节区的属性</p><p><img src="image-20210831172859859.png" alt="image-20210831172859859"></p><p>结构体：</p><p><img src="image-20210831172237863.png" alt="image-20210831172237863"></p><p>重要成员：</p><div class="table-container"><table><thead><tr><th>项目</th><th>含义</th></tr></thead><tbody><tr><td>VirtualSize</td><td>内存中节区所占大小</td></tr><tr><td>VirtualAddress</td><td>内存中节区起始地址</td></tr><tr><td>SizeOfRawData</td><td>硬盘中节区所占大小</td></tr><tr><td>PointerToRawData</td><td>硬盘中节区起始地址</td></tr><tr><td>Characteristics</td><td>节区属性</td></tr></tbody></table></div><p>Tips：VA和PointerToRawData不带有任何值，分别由IMAGE_OPTIONAL_HEADER32结构体中的SectionAlignment和FileAlignment定义；SizeOfRawData和VirtualSize的值一般不同</p><p>Characteristic由以下的值组合而成：</p><p><img src="image-20210831172929874.png" alt="image-20210831172929874"></p><p>Ps:当PE文件加载到内存时，不是原封不动的加载，而是根据节区头中定义的节区起始地址，节区大小等加载，所以在磁盘里的PE文件和在内存中的PE文件具有不同的形态，这一过程称为“映像”（image）</p><h1 id="RVA-to-RAW"><a href="#RVA-to-RAW" class="headerlink" title="RVA to RAW"></a>RVA to RAW</h1><h2 id="是什么："><a href="#是什么：" class="headerlink" title="是什么："></a>是什么：</h2><p>PE文件加载到内存时，每个节区都要能准确完成<strong>内存地址</strong>与<strong>文件偏移</strong>间的映射。这一过程称为RVA   to   RAW（文件偏移）。</p><h2 id="计算方法："><a href="#计算方法：" class="headerlink" title="计算方法："></a>计算方法：</h2><p>公式：</p><ul><li><p>RAW-PointerToRawData=RVA-VA</p></li><li><p>RAW=RVA-VA+PointerToRawData</p></li></ul><p>例题：</p><p><img src="image-20210708205117927.png" alt="image-20210708205117927"></p><p>1.当RAV（相对地址）= 5000时，File Offset = ？</p><p>已知RAV=5000在.text节区，且ImageBase=01000000，根据</p><ul><li>RAW=RVA-VA+PointerToRawData</li></ul><p>RAW=5000-1000+400=4400</p><h1 id="IAT（Import-Address-Tables）"><a href="#IAT（Import-Address-Tables）" class="headerlink" title="IAT（Import_Address_Tables）"></a>IAT（Import_Address_Tables）</h1><h2 id="介绍：-1"><a href="#介绍：-1" class="headerlink" title="介绍："></a>介绍：</h2><p>IAT：Import_Address_Tables,导入地址表）是一个用来记录程序正在使用哪些库里的哪些函数的表格</p><h2 id="DLL（动态链接库）："><a href="#DLL（动态链接库）：" class="headerlink" title="DLL（动态链接库）："></a>DLL（动态链接库）：</h2><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.不需要把库包含到程序中（C语言就需要提前导入库），需要时调用即可。</p><p>2.可以在多个进程中共享。</p><p>3.更新库时只需要替换相关的DLL文件。</p><h3 id="加载方式："><a href="#加载方式：" class="headerlink" title="加载方式："></a>加载方式：</h3><p>1.显示链接：程序使用时加载，使用完毕后释放内存。</p><p>2.隐式链接：程序开始时一同加载DLL，程序终止时释放内存。（IAT提供的机制与隐式链接有关）</p><h2 id="IMAGE-IMPORT-DESCRIPTOR（IID）"><a href="#IMAGE-IMPORT-DESCRIPTOR（IID）" class="headerlink" title="IMAGE_IMPORT_DESCRIPTOR（IID）:"></a>IMAGE_IMPORT_DESCRIPTOR（IID）:</h2><p>也被称为IMPORT Directory Table</p><p>该结构体记录着PE文件要导入哪些库文件。（Import：导入，向库提供服务（函数）；Export：导出，由库向PE文件提供服务（函数））</p><p><img src="image-20210831174510190.png" alt="image-20210831174510190"></p><p>1.执行一个程序需要许多库，导入多少库，就有多少这种结构体，这些结构体构成一个<strong>数组</strong>，该数组以NULL结构体结束。</p><p>2.重要成员：OriginalFirstThunk: 是INT的地址（RVA），Name：库名称字符串的地址（RVA），FirstThunk：IAT的地址 RVA。</p><ul><li>INT===&gt;IMPORT NAME TABLE；IAT===&gt;IMPORE ADDRESS TABLE（table：数组）</li><li>INT与IAT是长整型数组，以NULL结束</li><li>INT中个元素的值为IMAGE_IMPORT_BY_NAME结构体指针</li><li>INT IAT大小应相同</li></ul><p><img src="image-20210831175012865.png" alt="image-20210831175012865"></p><p>PE装载器把导入函数输入至IAT的顺序</p><p><img src="逆向工程学习-PE文件结构/image-20210831175304097.png" alt="image-20210831175304097"></p><h3 id="尝试找到IID结构体"><a href="#尝试找到IID结构体" class="headerlink" title="尝试找到IID结构体"></a>尝试找到IID结构体</h3><p>1.该结构体不在PE头中，他存在于PE体中，但是他的位置在PE头中</p><p>2.位于：IMAGE_OPTIONAL_HEADER32.DataDirectory[1].VritualAddress；这便是结构体的起始地址</p><h1 id="EAT"><a href="#EAT" class="headerlink" title="EAT"></a>EAT</h1><h2 id="介绍：-2"><a href="#介绍：-2" class="headerlink" title="介绍："></a>介绍：</h2><p>1.EAT是一种核心机制，可以让不同的程序调用库提供的函数。只用通过EAT才能准确求得从相应库中导出函数的起始地址。</p><p>2.PE文件特有的结构体image_export_DIRECTORY保存着导出信息。并且PE文件中仅有<strong>一个</strong>用来说明库EAT的结构体</p><p>【用来说明IAT的结构体IMAGE_IMPORT_DESCRIPTOR以数组的形式存在，拥有多个成员，这样PE文件可以同时导入多个库】</p><h2 id="IMAGE-EXPORT-DIRECTORY："><a href="#IMAGE-EXPORT-DIRECTORY：" class="headerlink" title="IMAGE_EXPORT_DIRECTORY："></a>IMAGE_EXPORT_DIRECTORY：</h2><p>结构体如下</p><p><img src="image-20210831180851274.png" alt="image-20210831180851274"></p><p>重要成员：</p><div class="table-container"><table><thead><tr><th>项目</th><th>含义</th></tr></thead><tbody><tr><td>NumberOfFunctions</td><td>实际的Export函数的个数</td></tr><tr><td>NumberOfNames</td><td>Export函数中具名的函数个数</td></tr><tr><td>AddressOfFunctions</td><td>Export函数地址数组（元素个数等于表中第一个项目）</td></tr><tr><td>AddressOfNames</td><td>函数名称的地址数组（元素个数等于表中第二个项目）</td></tr><tr><td>AddressOfNameOrdinals</td><td>Ordinal地址数组（元素个数等于表中第二个项目）</td></tr></tbody></table></div><p>Ordinals：导出函数的固有编号。因为有的函数没有函数名，只有一个编号</p><p><img src="image-20210831204013551.png" alt="image-20210831204013551"></p><h2 id="GetProcAddress"><a href="#GetProcAddress" class="headerlink" title="GetProcAddress():"></a>GetProcAddress():</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>从库中获得函数地址，该API引用EAT来获取指定的API的地址</p><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>通过引用EAT来获取指定API的地址</p><p><img src="image-20210831181112965.png" alt="image-20210831181112965"></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>1.PE规范只是一种规范，仅此而已。</p><p>2.PE头并非一成不变，而是灵活度极高。</p>]]></content>
+      
+      
       <categories>
-        <category>WriteUp</category>
+          
+          <category> 逆向工程学习 </category>
+          
       </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科目三学习</title>
-    <url>/2021/08/29/%E7%A7%91%E7%9B%AE%E4%B8%89%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="一-灯光模拟："><a href="#一-灯光模拟：" class="headerlink" title="一.灯光模拟："></a>一.灯光模拟：</h1><h2 id="1-近光灯："><a href="#1-近光灯：" class="headerlink" title="1.近光灯："></a>1.近光灯：</h2><p>同方向近距离跟车行驶。</p>
-<p>通过有信号灯控制路口。</p>
-<p>在有路灯照明良好的道路上行驶。</p>
-<p>与非机动车会车。</p>
-<span id="more"></span>
-<h2 id="2-远光灯："><a href="#2-远光灯：" class="headerlink" title="2.远光灯："></a>2.远光灯：</h2><p>进入<strong>无照明</strong>的道路行驶。</p>
-<p>夜间进入<strong>照明不良</strong>的道路行驶。</p>
-<h2 id="3-交替灯光："><a href="#3-交替灯光：" class="headerlink" title="3.交替灯光："></a>3.交替灯光：</h2><p>超车。</p>
-<p><strong>通过</strong>急弯，坡路，拱桥，人行横道，没有交通信号灯控制的路口。</p>
-<h2 id="4-小灯-四闪："><a href="#4-小灯-四闪：" class="headerlink" title="4.小灯+四闪："></a>4.小灯+四闪：</h2><p>在路边临时停车。</p>
-<h1 id="二-行驶："><a href="#二-行驶：" class="headerlink" title="二.行驶："></a>二.行驶：</h1><h3 id="（0）挡位与速度匹配："><a href="#（0）挡位与速度匹配：" class="headerlink" title="（0）挡位与速度匹配："></a>（0）挡位与速度匹配：</h3><p>15挂2挡，25挂三档，35挂四档。</p>
-<p>但是这里不是很严格，三档开到40也可以，但是要快速换挡。</p>
-<h3 id="（1）准备起步："><a href="#（1）准备起步：" class="headerlink" title="（1）准备起步："></a>（1）准备起步：</h3><p>1.<strong>逆时针</strong>绕车一圈。</p>
-<p>2.报告考官请求上车。</p>
-<p>3.座椅，后视镜，安全带。</p>
-<p>4.<strong>离合回空挡，松离合，打火</strong>，模拟灯光。</p>
-<p>5.报告个仪表工作正常，请求起步。</p>
-<h3 id="（2）起步："><a href="#（2）起步：" class="headerlink" title="（2）起步："></a>（2）起步：</h3><p>（一踩二挂三转向，四喇叭五看后镜六手刹，轻抬离合把油加）</p>
-<p>1.踩离合挂一档。 </p>
-<p>2.拨左向灯，鸣喇叭。</p>
-<p>3.观察<strong>左右后视镜，回头看</strong>，慢松离合，松手刹。</p>
-<h3 id="（3）超车："><a href="#（3）超车：" class="headerlink" title="（3）超车："></a>（3）超车：</h3><p><strong><em>超</em></strong></p>
-<p>1.听到指令，左转向灯，看<strong>左后视镜，回头看</strong></p>
-<p>2.三秒之后条件允许，往左转方向盘15°左右</p>
-<p>3<strong>.车斜回正，右脚快到路中心，往右打方向盘，车正回正</strong></p>
-<p><strong><em>回</em></strong></p>
-<p>4.开右转向灯，<strong>右后视镜，回头看</strong></p>
-<p>5.三秒以上，条件允许，往右转方向盘15°左右</p>
-<p>6.<strong>车斜回正，右脚快到路中心，往左打方向盘，车正回正</strong></p>
-<h3 id="（4）路口左转弯："><a href="#（4）路口左转弯：" class="headerlink" title="（4）路口左转弯："></a>（4）路口左转弯：</h3><p>1.听到指令，左转向灯</p>
-<p>2.路口前减速至1，2挡，左右观察</p>
-<p>3.肩头快超过人行道时，左打四分之一方向盘</p>
-<p>4.左右观察</p>
-<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
-<h3 id="（5）人行道，学校，公交站，前方路口直行："><a href="#（5）人行道，学校，公交站，前方路口直行：" class="headerlink" title="（5）人行道，学校，公交站，前方路口直行："></a>（5）人行道，学校，公交站，前方路口直行：</h3><p>1.看（听）到后点刹车，左右观察</p>
-<p>2.学校区域减速至<strong>30公里</strong>以下</p>
-<h3 id="（6）路口右转弯："><a href="#（6）路口右转弯：" class="headerlink" title="（6）路口右转弯："></a>（6）路口右转弯：</h3><p>1.听到指令，右转向灯</p>
-<p>2.路口前减速至1，2挡，左右观察</p>
-<p>3.肩头快超过人行道时，右打一半方向盘</p>
-<p>4.观察来车方向</p>
-<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
-<h3 id="（7）掉头："><a href="#（7）掉头：" class="headerlink" title="（7）掉头："></a>（7）掉头：</h3><p>1.听到指令后，左转向灯</p>
-<p>2.路口前减速到1挡，左右观察</p>
-<p>3.肩膀过绿化带，桥墩左打一圈，观察来车方向</p>
-<p>4.条件允许，中间车道加速加档</p>
-<h3 id="（8）靠边停车："><a href="#（8）靠边停车：" class="headerlink" title="（8）靠边停车："></a>（8）靠边停车：</h3><p><strong>一定要注意前车的距离，要有一定的距离可以把车顺正，不然就会挂科 操他妈的</strong></p>
-<p>1.听到指令，右转向灯</p>
-<p>2.<strong>看右后视镜，向后看</strong>，减速减挡到1挡</p>
-<p>3.慢松离合，选好地点，右打半圈方向</p>
-<p>4.看铆钉到马路牙子下沿，回方向（打一次，回两次）</p>
-<p>5.让铆钉压着路边白线行驶后 停车</p>
-<p>6.拉手刹，推空挡，关转向灯，熄火，挂一档，解安全带，后拉座椅；报告考官，请求下车</p>
-<p>（手刹空挡转向灯，熄火一档安全带）</p>
-<p>7.<strong>看左后视镜，后头看</strong>，确认安全，下车顺时针到考官处，<strong>谢谢考官</strong></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Reverse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>逆向工程学习-基础篇</title>
+      <link href="/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
+      <url>/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
+      
+        <content type="html"><![CDATA[<h1 id="逆向工程学习-基础1"><a href="#逆向工程学习-基础1" class="headerlink" title="逆向工程学习-基础1"></a>逆向工程学习-基础1</h1><span id="more"></span><p><a href="http://www.baidu.com">http://www.baidu.com</a></p><h2 id="字节序："><a href="#字节序：" class="headerlink" title="字节序："></a>字节序：</h2><h3 id="1-小端序"><a href="#1-小端序" class="headerlink" title="1.小端序"></a>1.小端序</h3><p>1.当一个数据只有一个字节时，大小端序都一样</p><p>2.地址高位存储数据的高位，人眼看来是逆序存储</p><p><img src="image-20210831121649274.png" alt="image-20210831121649274"></p><h3 id="2-大端序"><a href="#2-大端序" class="headerlink" title="2.大端序"></a>2.大端序</h3><p>1.地址低位存储数据高位，人眼看起来是正常的</p><p>2.应用于大型服务器和risc系列的CPU。</p><h3 id="另外："><a href="#另外：" class="headerlink" title="另外："></a>另外：</h3><p>【字符数组】在内存中是连续的，无论大小端序，储存顺序相同</p><h2 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h2><h3 id="基本程序运行寄存器"><a href="#基本程序运行寄存器" class="headerlink" title="基本程序运行寄存器"></a>基本程序运行寄存器</h3><div class="table-container"><table><thead><tr><th>寄存器类型</th><th>寄存器名称</th></tr></thead><tbody><tr><td>通用寄存器</td><td>eax, ebx, ecx, edx, esi, edi, ebp, esp</td></tr><tr><td>段寄存器</td><td>cs, ds, ss, es, fs, gs</td></tr><tr><td>程序状态与控制寄存器</td><td>EFLAGS</td></tr><tr><td>指令指针寄存器</td><td>EIP</td></tr></tbody></table></div><h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>ESP（栈顶指针）:指示栈区域的栈顶地址。</p><p>EBP（栈帧指针）:表示栈区域的基地址，函数被调用时，保存ESP的的值，函数返回时再将值还给ESP，以保证栈不会崩溃（栈帧技术）。</p><p>ESI,EDI：这两个寄存器与特定指令（LODS, STOP, REP, MOVS等）一起使用时，主要用于内存复制（例：upx解压缩时恢复upx0节区）</p><h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>1.什么是段：是一种将内存划分为多个区段的内存保护技术，与分页技术一起将虚拟内存变为实际物理内存。段内存记录在Segment Deskcriptor Table(SDT)段描述表中，段寄存器持有这些SDT的索引</p><p><img src="image-20210831140543512.png" alt="image-20210831140543512"></p><p>每个段寄存器指向的段描述符结合虚拟内存，形成一个线性地址，在借助分页技术，线性地址转化为实际的物理地址（如果没有分页技术，线性地址直接变成物理地址）</p><h3 id="程序状态与控制寄存器"><a href="#程序状态与控制寄存器" class="headerlink" title="程序状态与控制寄存器"></a>程序状态与控制寄存器</h3><p>就是所说的标志位寄存器，一开始我认为是不同的寄存器，现在发现是一个寄存器中的不同的位</p><p><img src="image-20210831141323762.png" alt="image-20210831141323762"></p><p>32位程序中，该寄存器由原来的16位的FLAGS寄存器拓展到了32的EFLAGS寄存器，其中常用的有ZF, OF, CF。</p><p>ZF（0标志）：若运算结果是“0“，那么该标志位为”1“</p><p>OF（溢出标志）：有符号整数溢出时，该标志位为”1“；或最高有效位改变时，该标志位为”1“</p><p>CF（进位标志）：无符号整数溢出时为”1“</p><h3 id="指令指针寄存器"><a href="#指令指针寄存器" class="headerlink" title="指令指针寄存器"></a>指令指针寄存器</h3><p>当程序运行时，cpu会读取EIP中的一条地址，当地址传递到缓冲区后，eip会增加，增加的大小就是读取指令的字节大小。</p><h2 id="栈："><a href="#栈：" class="headerlink" title="栈："></a>栈：</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul><li><p>一种由高地址像低地址拓展的数据结构</p></li><li><p>暂时保存函数内部的局部变量</p></li><li>传递参数</li><li>保存函数的返回地址（就是call指令的下一条地址）</li></ul><p><img src="image-20210831142251690.png" alt="image-20210831142251690"></p><h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><p>1.两个指针：栈顶指针ESP；栈帧指针EBP</p><p>2.向栈中push数据时，栈顶指针ESP会减小（上移），当pop数据时，ESP会增加（下移）。</p><p>3.栈顶指针（ESP）在初始状态下指向栈底（高地址），所以初始化栈即为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">push EBP//使用EBP前先将已有值保存在栈中</span><br><span class="line">MOV EBP, ESP//保存当前ESP到EBP中</span><br><span class="line">……</span><br><span class="line">MOV ESP, EBP//将函数的起始地址还给ESP</span><br><span class="line">POP EBP//将一开始push进栈的地址还给EBP</span><br></pre></td></tr></table></figure><h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p>1.是什么：是利用EBP（栈帧指针）寄存器访问栈内局部变量、参数、函数返回地址等的手段。 </p><p>2.为什么需要用到栈帧指针EBP：因为栈顶是在不断变化的（push, pop, call等都会影响栈顶），所以如果用ESP来当作基址进行索引是很复杂的，所以就需要一个相对固定的来打下手的帮忙，就是EBP。所以在开始的时候，都会把esp的值给ebp。</p><h2 id="函数调用约定"><a href="#函数调用约定" class="headerlink" title="函数调用约定"></a>函数调用约定</h2><h3 id="cdecl"><a href="#cdecl" class="headerlink" title="_cdecl"></a>_cdecl</h3><p>C语言的默认调用方式，调用者负责恢复栈结构。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add esp, 0x8</span><br></pre></td></tr></table></figure><p><img src="image-20210831151852977.png" alt="image-20210831151852977"  /></p><p>这里因为push了两个int类型的参数，所以栈空间-0x8</p><p>好处：可以向 被调用函数 传递 参数可变 的函数</p><h3 id="stdcall"><a href="#stdcall" class="headerlink" title="stdcall"></a>stdcall</h3><p>由被调用者恢复堆栈</p><p>该调用方式被Win32 API采用，以获得更好的兼容性</p><h3 id="fastcall"><a href="#fastcall" class="headerlink" title="fastcall"></a>fastcall</h3><p>与stdcall类似，只不过前两个参数通过寄存器【ECX, EDX】快速调用。顾名思义，这里可以实现更快的调用函数，因为CPU访问寄存器的速度远高于CPU访问内存的速度。</p>]]></content>
+      
+      
       <categories>
-        <category>悠哉日常</category>
+          
+          <category> 逆向工程学习 </category>
+          
       </categories>
-      <tags>
-        <tag>学车</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>纪念一下</title>
-    <url>/2021/09/02/%E7%BA%AA%E5%BF%B5%E4%B8%80%E4%B8%8B/</url>
-    <content><![CDATA[<p>​    纪念一下<strong><em>2021-09-02 23:34:04</em></strong>，BUU的逆向第二页圆满完成</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Reverse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>计</title>
+      <link href="/2021/08/30/%E8%AE%A1/"/>
+      <url>/2021/08/30/%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="————忘掉掌声，按自己的方式，继续前行，跑过一生"><a href="#————忘掉掌声，按自己的方式，继续前行，跑过一生" class="headerlink" title="————忘掉掌声，按自己的方式，继续前行，跑过一生"></a>————忘掉掌声，按自己的方式，继续前行，跑过一生</h1><ul><li>每周至少要联系一次家里人，报个平安</li></ul><ul><li>每周起码更新四次技术性博客</li></ul><ul><li>每月至少熟悉一项二进制技术或某个工具的使用</li></ul><ul><li>每月读古籍，并记录感悟</li></ul><ul><li>每月起码发表一篇技术性文章到博客</li></ul><ul><li>每月至少参见一次比赛，背100个单词</li></ul><ul><li>周报，月报，年报，日记有事则记</li></ul><ul><li>有空多做题，多记录，少看手机</li></ul><ul><li>克勤克俭，戒骄戒躁</li></ul><h1 id="————但使龙城飞将在，不教胡马度阴山。"><a href="#————但使龙城飞将在，不教胡马度阴山。" class="headerlink" title="————但使龙城飞将在，不教胡马度阴山。"></a>————但使龙城飞将在，不教胡马度阴山。</h1>]]></content>
+      
+      
       <categories>
-        <category>逆向工程学习</category>
+          
+          <category> 计2021 </category>
+          
       </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>逆向工程学习-PE文件格式</title>
-    <url>/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h1 id="PE文件格式"><a href="#PE文件格式" class="headerlink" title="PE文件格式"></a>PE文件格式</h1><h2 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h2><p>PE文件是windows操作系统下的可执行文件的统称，一般指的是32位文件，64位文件称为【PE32+】</p>
-<span id="more"></span>
-<h2 id="文件种类："><a href="#文件种类：" class="headerlink" title="文件种类："></a>文件种类：</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>种类</th>
-<th>文件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>可执行文件</td>
-<td>EXE, SCR</td>
-</tr>
-<tr>
-<td>库系列文件</td>
-<td>DLL, OCX, CPL, DRV</td>
-</tr>
-<tr>
-<td>驱动程序</td>
-<td>SYS, VXD</td>
-</tr>
-<tr>
-<td>对象文件</td>
-<td>OBJ</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="PE文件基本结构："><a href="#PE文件基本结构：" class="headerlink" title="PE文件基本结构："></a>PE文件基本结构：</h2><h3 id="文件组成"><a href="#文件组成" class="headerlink" title="文件组成"></a>文件组成</h3><p>PE头+PE体</p>
-<p>PE头：DOS头；DOS存根；NT头；节区头【text（代码）；data（数据）；rsrc（资源）】</p>
-<p>PE头与各节区的尾部存在一个【NULL填充】区域：</p>
-<p><img src="image-20210831160207999.png" alt="image-20210831160207999" style="zoom:150%;" /></p>
-<h3 id="VA-amp-RVA"><a href="#VA-amp-RVA" class="headerlink" title="VA  &amp;  RVA:"></a>VA  &amp;  RVA:</h3><p>1.VA：进程虚拟内存的绝对地址</p>
-<p>2.RVA：从某个基准位置开始的相对地址</p>
-<p>（虚拟内存：在32位的Windows中，各个进程分配4GB的虚拟内存，所以VA的范围【00000000~ffffffff】）</p>
-<script type="math/tex; mode=display">
-RVA + ImageBase = VA</script><p>PE内部信息大多数以RVA形式存在，这样方便地址重定位</p>
-<h2 id="PE头："><a href="#PE头：" class="headerlink" title="PE头："></a>PE头：</h2><h3 id="DOS头"><a href="#DOS头" class="headerlink" title="DOS头"></a>DOS头</h3><p>1.起源：微软在创建PE文件时，DOS广泛使用，所以在PE头前面加了一个<strong>IMAGE_DOS_HEADER</strong>结构体，内容如下。</p>
-<p><img src="image-20210831162112162.png" alt="image-20210831162112162"></p>
-<p>2.结构体大小共64字节，有两个重要成员【e_magic   &amp;   e_lfanew】。</p>
-<p>e_magic：DOS签名，对应的是字符===&gt;”MZ”</p>
-<p>e_lfanew：指示NT头的偏移，不同的文件值也不一样。</p>
-<p><img src="image-20210831162156817.png" alt="image-20210831162156817"></p>
-<p>这里看出最后就是e_lfanew的值是 00 00 00 B0（小端序）</p>
-<h4 id="DOS存根"><a href="#DOS存根" class="headerlink" title="DOS存根"></a>DOS存根</h4><p>在dos头下面，大小不固定，有没有都行，由代码和数据混合而成</p>
-<p><img src="image-20210708191640915.png" alt="image-20210708191640915"></p>
-<p>代码的作用就是在你用DOS运行时出现后面那句话</p>
-<h3 id="NT头（IMAGE-NT-HEADER）"><a href="#NT头（IMAGE-NT-HEADER）" class="headerlink" title="NT头（IMAGE_NT_HEADER）"></a>NT头（IMAGE_NT_HEADER）</h3><p>NT头又名”文件头“，是表现文件大致属性的“IMAGE_NT_HEADER”结构体</p>
-<p>内涵3个成员，总共大小为0xF8:(根据DOS头指出的偏移可以找到)</p>
-<p><img src="image-20210831163457833.png" alt="image-20210831163457833"></p>
-<p><img src="image-20210831163317838.png" alt="image-20210831163317838"></p>
-<p>第一个成员是<strong>签名结构体</strong>：值为【50 45 00 00】=====&gt;’PE‘</p>
-<p>第二个成员是<strong>文件头结构体</strong>===&gt;IMAGE_FILE_HEADER</p>
-<p>第三个成员是<strong>可选头结构体</strong>===&gt;IMAGE_OPTIONAL_HEADER</p>
-<h4 id="文件头结构体（IMAGE-FILE-HEADER）"><a href="#文件头结构体（IMAGE-FILE-HEADER）" class="headerlink" title="文件头结构体（IMAGE_FILE_HEADER）"></a>文件头结构体（IMAGE_FILE_HEADER）</h4><p>表现文件大致属性 IMAGE_FILE_HEADER结构体</p>
-<p><img src="image-20210831163600312.png" alt="image-20210831163600312"></p>
-<p><img src="逆向工程学习-PE文件结构/image-20210831165137520.png" alt="image-20210831165137520"></p>
-<p>对应着如下结构体</p>
-<p><img src="image-20210831171701776.png" alt="image-20210831171701776"></p>
-<p>内涵四个重要成员：Machine，NumberOfSections，SizeOfOptionalHeader，Characteristics</p>
-<p>（程序能否运行的关键）</p>
-<ul>
-<li><p>Machine：每个CPU都有唯一的Machine码</p>
-<p><img src="image-20210831163725281.png" alt="image-20210831163725281"></p>
-</li>
-</ul>
-<p>这里看到我的CPU对应的机器码是：0x014C</p>
-<ul>
-<li>NumberOfSections</li>
-</ul>
-<p>指出文件中存在节区的数量，一定要大于零。定义与实际不符会运行失败</p>
-<p>看上图知道应该是”05“</p>
-<ul>
-<li>SizeOfOptionalHeader</li>
-</ul>
-<p>指出NT结构体最后一个成员【IMAGE_OPTIONAL_HEADER32】的结构体长度，64位和32位不同。</p>
-<ul>
-<li>Characerristics</li>
-</ul>
-<p>用于标记文件属性。即文件是否是可运行状态，是否是DLL文件等信息，通过bit OR形式组合起来。</p>
-<p><img src="image-20210831164610110.png" alt="image-20210831164610110"></p>
-<p>注：Characteristics的值有可能是【0002h】（不可执行），比如obj文件和resource DLL文件。</p>
-<p>这里SYS文件时0x1000</p>
-<p>可用于区分不同的文件类型</p>
-<h4 id="可选头结构体（IMAGE-OPTIONAL-HEADER32）"><a href="#可选头结构体（IMAGE-OPTIONAL-HEADER32）" class="headerlink" title="可选头结构体（IMAGE_OPTIONAL_HEADER32）"></a>可选头结构体（IMAGE_OPTIONAL_HEADER32）</h4><p>特点：PE头结构体中最大的结构体：</p>
-<p><img src="image-20210831165328723.png" alt="image-20210831165328723"></p>
-<p>关键成员，出错文件将无法运行：Magic，AddressOfEntryPoint，ImageBase，SectionAlignment，FileAlignment。</p>
-<p><img src="image-20210831165536267.png" alt="image-20210831165536267"></p>
-<p>对应着如下节选的结构体</p>
-<p><img src="image-20210831171800697.png" alt="image-20210831171800697"></p>
-<ul>
-<li>Magic：在32位中，Magic码是10B，64位是20B；这里显然是一个32位程序</li>
-<li><p>AddressOfEntryPoint：拥有EP和RVA的值，该值指出程序最先执行的代码起始地址</p>
-</li>
-<li><p>ImageBase：当PE文件装入内存时，指出文件  的优先装入地址</p>
-<p>Tips：EXE,DLL文件一般装载到用户内存的0~7fffffff中，SYS文件载入内核内存的80000000~ffffffff里；在执行PE文件时，PE装载器事先创建进程，文件载入内存，设置EIP的值为</p>
-</li>
-</ul>
-<ul>
-<li><p>SectionAlignment，FileAlignment：PE文件的PE体部分划分不同区节，存储着不同类别的数据，FileAlignment指定了节区在磁盘文件中的最小单位；SectionAlignment指定了节区在内存中的最小单位；在一个文件中，二者的值不一定相等，但是节区的大小必然是SectionAlignment或FileAlignment的整倍数。</p>
-</li>
-<li><p>SizeOfImage：指定了PE Image在虚拟内存中所占的大小</p>
-</li>
-<li>SizeOfHEADER：指出整个PE头的大小，该值一定是FileAlignment值的整数倍。第一节区所在位置与SizeOfHEADER距离文件开始的偏移量相同</li>
-<li>Subsystem：该值用来区分系统驱动文件和普通的可执行文件。</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>含义</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Driver文件</td>
-<td>系统驱动（如：ntfs.sys）</td>
-</tr>
-<tr>
-<td>2</td>
-<td>GUI文件</td>
-<td>窗口应用程序（如：记事本.exe）</td>
-</tr>
-<tr>
-<td>3</td>
-<td>GUI文件</td>
-<td>控制台应用程序（如：CMD.EXE)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>NumberOfRvaAndSizes：指定结构体：IMAGE_OPTIONAL_HEADER32最后一个成员数组的个数，虽然明确指出时16，但是也不一定</li>
-<li>DataDirection：IMAGE_OPTIONAL_HEADER32最后一个成员；由IMAGE_DATA_DIRECTORY结构体构成的数组，每一项都有被定义的值：</li>
-</ul>
-<p><img src="image-20210831171409417.png" alt="image-20210831171409417"></p>
-<h3 id="节区头（IMAGE-SECTION-HEADER）"><a href="#节区头（IMAGE-SECTION-HEADER）" class="headerlink" title="节区头（IMAGE_SECTION_HEADER）"></a>节区头（IMAGE_SECTION_HEADER）</h3><p>组成：由IMAGE_SECTION_HEADER结构体组成的数组，每个结构体对应一个节区。</p>
-<p>作用：定义了各节区的属性</p>
-<p><img src="image-20210831172859859.png" alt="image-20210831172859859"></p>
-<p>结构体：</p>
-<p><img src="image-20210831172237863.png" alt="image-20210831172237863"></p>
-<p>重要成员：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>VirtualSize</td>
-<td>内存中节区所占大小</td>
-</tr>
-<tr>
-<td>VirtualAddress</td>
-<td>内存中节区起始地址</td>
-</tr>
-<tr>
-<td>SizeOfRawData</td>
-<td>硬盘中节区所占大小</td>
-</tr>
-<tr>
-<td>PointerToRawData</td>
-<td>硬盘中节区起始地址</td>
-</tr>
-<tr>
-<td>Characteristics</td>
-<td>节区属性</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Tips：VA和PointerToRawData不带有任何值，分别由IMAGE_OPTIONAL_HEADER32结构体中的SectionAlignment和FileAlignment定义；SizeOfRawData和VirtualSize的值一般不同</p>
-<p>Characteristic由以下的值组合而成：</p>
-<p><img src="image-20210831172929874.png" alt="image-20210831172929874"></p>
-<p>Ps:当PE文件加载到内存时，不是原封不动的加载，而是根据节区头中定义的节区起始地址，节区大小等加载，所以在磁盘里的PE文件和在内存中的PE文件具有不同的形态，这一过程称为“映像”（image）</p>
-<h1 id="RVA-to-RAW"><a href="#RVA-to-RAW" class="headerlink" title="RVA to RAW"></a>RVA to RAW</h1><h2 id="是什么："><a href="#是什么：" class="headerlink" title="是什么："></a>是什么：</h2><p>PE文件加载到内存时，每个节区都要能准确完成<strong>内存地址</strong>与<strong>文件偏移</strong>间的映射。这一过程称为RVA   to   RAW（文件偏移）。</p>
-<h2 id="计算方法："><a href="#计算方法：" class="headerlink" title="计算方法："></a>计算方法：</h2><p>公式：</p>
-<ul>
-<li><p>RAW-PointerToRawData=RVA-VA</p>
-</li>
-<li><p>RAW=RVA-VA+PointerToRawData</p>
-</li>
-</ul>
-<p>例题：</p>
-<p><img src="image-20210708205117927.png" alt="image-20210708205117927"></p>
-<p>1.当RAV（相对地址）= 5000时，File Offset = ？</p>
-<p>已知RAV=5000在.text节区，且ImageBase=01000000，根据</p>
-<ul>
-<li>RAW=RVA-VA+PointerToRawData</li>
-</ul>
-<p>RAW=5000-1000+400=4400</p>
-<h1 id="IAT（Import-Address-Tables）"><a href="#IAT（Import-Address-Tables）" class="headerlink" title="IAT（Import_Address_Tables）"></a>IAT（Import_Address_Tables）</h1><h2 id="介绍：-1"><a href="#介绍：-1" class="headerlink" title="介绍："></a>介绍：</h2><p>IAT：Import_Address_Tables,导入地址表）是一个用来记录程序正在使用哪些库里的哪些函数的表格</p>
-<h2 id="DLL（动态链接库）："><a href="#DLL（动态链接库）：" class="headerlink" title="DLL（动态链接库）："></a>DLL（动态链接库）：</h2><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.不需要把库包含到程序中（C语言就需要提前导入库），需要时调用即可。</p>
-<p>2.可以在多个进程中共享。</p>
-<p>3.更新库时只需要替换相关的DLL文件。</p>
-<h3 id="加载方式："><a href="#加载方式：" class="headerlink" title="加载方式："></a>加载方式：</h3><p>1.显示链接：程序使用时加载，使用完毕后释放内存。</p>
-<p>2.隐式链接：程序开始时一同加载DLL，程序终止时释放内存。（IAT提供的机制与隐式链接有关）</p>
-<h2 id="IMAGE-IMPORT-DESCRIPTOR（IID）"><a href="#IMAGE-IMPORT-DESCRIPTOR（IID）" class="headerlink" title="IMAGE_IMPORT_DESCRIPTOR（IID）:"></a>IMAGE_IMPORT_DESCRIPTOR（IID）:</h2><p>也被称为IMPORT Directory Table</p>
-<p>该结构体记录着PE文件要导入哪些库文件。（Import：导入，向库提供服务（函数）；Export：导出，由库向PE文件提供服务（函数））</p>
-<p><img src="image-20210831174510190.png" alt="image-20210831174510190"></p>
-<p>1.执行一个程序需要许多库，导入多少库，就有多少这种结构体，这些结构体构成一个<strong>数组</strong>，该数组以NULL结构体结束。</p>
-<p>2.重要成员：OriginalFirstThunk: 是INT的地址（RVA），Name：库名称字符串的地址（RVA），FirstThunk：IAT的地址 RVA。</p>
-<ul>
-<li>INT===&gt;IMPORT NAME TABLE；IAT===&gt;IMPORE ADDRESS TABLE（table：数组）</li>
-<li>INT与IAT是长整型数组，以NULL结束</li>
-<li>INT中个元素的值为IMAGE_IMPORT_BY_NAME结构体指针</li>
-<li>INT IAT大小应相同</li>
-</ul>
-<p><img src="image-20210831175012865.png" alt="image-20210831175012865"></p>
-<p>PE装载器把导入函数输入至IAT的顺序</p>
-<p><img src="逆向工程学习-PE文件结构/image-20210831175304097.png" alt="image-20210831175304097"></p>
-<h3 id="尝试找到IID结构体"><a href="#尝试找到IID结构体" class="headerlink" title="尝试找到IID结构体"></a>尝试找到IID结构体</h3><p>1.该结构体不在PE头中，他存在于PE体中，但是他的位置在PE头中</p>
-<p>2.位于：IMAGE_OPTIONAL_HEADER32.DataDirectory[1].VritualAddress；这便是结构体的起始地址</p>
-<h1 id="EAT"><a href="#EAT" class="headerlink" title="EAT"></a>EAT</h1><h2 id="介绍：-2"><a href="#介绍：-2" class="headerlink" title="介绍："></a>介绍：</h2><p>1.EAT是一种核心机制，可以让不同的程序调用库提供的函数。只用通过EAT才能准确求得从相应库中导出函数的起始地址。</p>
-<p>2.PE文件特有的结构体image_export_DIRECTORY保存着导出信息。并且PE文件中仅有<strong>一个</strong>用来说明库EAT的结构体</p>
-<p>【用来说明IAT的结构体IMAGE_IMPORT_DESCRIPTOR以数组的形式存在，拥有多个成员，这样PE文件可以同时导入多个库】</p>
-<h2 id="IMAGE-EXPORT-DIRECTORY："><a href="#IMAGE-EXPORT-DIRECTORY：" class="headerlink" title="IMAGE_EXPORT_DIRECTORY："></a>IMAGE_EXPORT_DIRECTORY：</h2><p>结构体如下</p>
-<p><img src="image-20210831180851274.png" alt="image-20210831180851274"></p>
-<p>重要成员：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NumberOfFunctions</td>
-<td>实际的Export函数的个数</td>
-</tr>
-<tr>
-<td>NumberOfNames</td>
-<td>Export函数中具名的函数个数</td>
-</tr>
-<tr>
-<td>AddressOfFunctions</td>
-<td>Export函数地址数组（元素个数等于表中第一个项目）</td>
-</tr>
-<tr>
-<td>AddressOfNames</td>
-<td>函数名称的地址数组（元素个数等于表中第二个项目）</td>
-</tr>
-<tr>
-<td>AddressOfNameOrdinals</td>
-<td>Ordinal地址数组（元素个数等于表中第二个项目）</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Ordinals：导出函数的固有编号。因为有的函数没有函数名，只有一个编号</p>
-<p><img src="image-20210831204013551.png" alt="image-20210831204013551"></p>
-<h2 id="GetProcAddress"><a href="#GetProcAddress" class="headerlink" title="GetProcAddress():"></a>GetProcAddress():</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>从库中获得函数地址，该API引用EAT来获取指定的API的地址</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>通过引用EAT来获取指定API的地址</p>
-<p><img src="image-20210831181112965.png" alt="image-20210831181112965"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>1.PE规范只是一种规范，仅此而已。</p>
-<p>2.PE头并非一成不变，而是灵活度极高。</p>
-]]></content>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>科目三学习</title>
+      <link href="/2021/08/29/%E7%A7%91%E7%9B%AE%E4%B8%89%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2021/08/29/%E7%A7%91%E7%9B%AE%E4%B8%89%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一-灯光模拟："><a href="#一-灯光模拟：" class="headerlink" title="一.灯光模拟："></a>一.灯光模拟：</h1><h2 id="1-近光灯："><a href="#1-近光灯：" class="headerlink" title="1.近光灯："></a>1.近光灯：</h2><p>同方向近距离跟车行驶。</p><p>通过有信号灯控制路口。</p><p>在有路灯照明良好的道路上行驶。</p><p>与非机动车会车。</p><span id="more"></span><h2 id="2-远光灯："><a href="#2-远光灯：" class="headerlink" title="2.远光灯："></a>2.远光灯：</h2><p>进入<strong>无照明</strong>的道路行驶。</p><p>夜间进入<strong>照明不良</strong>的道路行驶。</p><h2 id="3-交替灯光："><a href="#3-交替灯光：" class="headerlink" title="3.交替灯光："></a>3.交替灯光：</h2><p>超车。</p><p><strong>通过</strong>急弯，坡路，拱桥，人行横道，没有交通信号灯控制的路口。</p><h2 id="4-小灯-四闪："><a href="#4-小灯-四闪：" class="headerlink" title="4.小灯+四闪："></a>4.小灯+四闪：</h2><p>在路边临时停车。</p><h1 id="二-行驶："><a href="#二-行驶：" class="headerlink" title="二.行驶："></a>二.行驶：</h1><h3 id="（0）挡位与速度匹配："><a href="#（0）挡位与速度匹配：" class="headerlink" title="（0）挡位与速度匹配："></a>（0）挡位与速度匹配：</h3><p>15挂2挡，25挂三档，35挂四档。</p><p>但是这里不是很严格，三档开到40也可以，但是要快速换挡。</p><h3 id="（1）准备起步："><a href="#（1）准备起步：" class="headerlink" title="（1）准备起步："></a>（1）准备起步：</h3><p>1.<strong>逆时针</strong>绕车一圈。</p><p>2.报告考官请求上车。</p><p>3.座椅，后视镜，安全带。</p><p>4.<strong>离合回空挡，松离合，打火</strong>，模拟灯光。</p><p>5.报告个仪表工作正常，请求起步。</p><h3 id="（2）起步："><a href="#（2）起步：" class="headerlink" title="（2）起步："></a>（2）起步：</h3><p>（一踩二挂三转向，四喇叭五看后镜六手刹，轻抬离合把油加）</p><p>1.踩离合挂一档。 </p><p>2.拨左向灯，鸣喇叭。</p><p>3.观察<strong>左右后视镜，回头看</strong>，慢松离合，松手刹。</p><h3 id="（3）超车："><a href="#（3）超车：" class="headerlink" title="（3）超车："></a>（3）超车：</h3><p><strong><em>超</em></strong></p><p>1.听到指令，左转向灯，看<strong>左后视镜，回头看</strong></p><p>2.三秒之后条件允许，往左转方向盘15°左右</p><p>3<strong>.车斜回正，右脚快到路中心，往右打方向盘，车正回正</strong></p><p><strong><em>回</em></strong></p><p>4.开右转向灯，<strong>右后视镜，回头看</strong></p><p>5.三秒以上，条件允许，往右转方向盘15°左右</p><p>6.<strong>车斜回正，右脚快到路中心，往左打方向盘，车正回正</strong></p><h3 id="（4）路口左转弯："><a href="#（4）路口左转弯：" class="headerlink" title="（4）路口左转弯："></a>（4）路口左转弯：</h3><p>1.听到指令，左转向灯</p><p>2.路口前减速至1，2挡，左右观察</p><p>3.肩头快超过人行道时，左打四分之一方向盘</p><p>4.左右观察</p><p>5.条件允许进入中间车道，回正方向，加速加挡</p><h3 id="（5）人行道，学校，公交站，前方路口直行："><a href="#（5）人行道，学校，公交站，前方路口直行：" class="headerlink" title="（5）人行道，学校，公交站，前方路口直行："></a>（5）人行道，学校，公交站，前方路口直行：</h3><p>1.看（听）到后点刹车，左右观察</p><p>2.学校区域减速至<strong>30公里</strong>以下</p><h3 id="（6）路口右转弯："><a href="#（6）路口右转弯：" class="headerlink" title="（6）路口右转弯："></a>（6）路口右转弯：</h3><p>1.听到指令，右转向灯</p><p>2.路口前减速至1，2挡，左右观察</p><p>3.肩头快超过人行道时，右打一半方向盘</p><p>4.观察来车方向</p><p>5.条件允许进入中间车道，回正方向，加速加挡</p><h3 id="（7）掉头："><a href="#（7）掉头：" class="headerlink" title="（7）掉头："></a>（7）掉头：</h3><p>1.听到指令后，左转向灯</p><p>2.路口前减速到1挡，左右观察</p><p>3.肩膀过绿化带，桥墩左打一圈，观察来车方向</p><p>4.条件允许，中间车道加速加档</p><h3 id="（8）靠边停车："><a href="#（8）靠边停车：" class="headerlink" title="（8）靠边停车："></a>（8）靠边停车：</h3><p><strong>一定要注意前车的距离，要有一定的距离可以把车顺正，不然就会挂科 操他妈的</strong></p><p>1.听到指令，右转向灯</p><p>2.<strong>看右后视镜，向后看</strong>，减速减挡到1挡</p><p>3.慢松离合，选好地点，右打半圈方向</p><p>4.看铆钉到马路牙子下沿，回方向（打一次，回两次）</p><p>5.让铆钉压着路边白线行驶后 停车</p><p>6.拉手刹，推空挡，关转向灯，熄火，挂一档，解安全带，后拉座椅；报告考官，请求下车</p><p>（手刹空挡转向灯，熄火一档安全带）</p><p>7.<strong>看左后视镜，后头看</strong>，确认安全，下车顺时针到考官处，<strong>谢谢考官</strong></p>]]></content>
+      
+      
       <categories>
-        <category>逆向工程学习</category>
+          
+          <category> 悠哉日常 </category>
+          
       </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计</title>
-    <url>/2021/08/30/%E8%AE%A1/</url>
-    <content><![CDATA[<h1 id="————忘掉掌声，按自己的方式，继续前行，跑过一生"><a href="#————忘掉掌声，按自己的方式，继续前行，跑过一生" class="headerlink" title="————忘掉掌声，按自己的方式，继续前行，跑过一生"></a>————忘掉掌声，按自己的方式，继续前行，跑过一生</h1><ul>
-<li>每周至少要联系一次家里人，报个平安</li>
-</ul>
-<ul>
-<li>每周起码更新四次技术性博客</li>
-</ul>
-<ul>
-<li>每月至少熟悉一项二进制技术或某个工具的使用</li>
-</ul>
-<ul>
-<li>每月读古籍，并记录感悟</li>
-</ul>
-<ul>
-<li>每月起码发表一篇技术性文章到博客</li>
-</ul>
-<ul>
-<li>每月至少参见一次比赛，背100个单词</li>
-</ul>
-<ul>
-<li>周报，月报，年报，日记有事则记</li>
-</ul>
-<ul>
-<li>有空多做题，多记录，少看手机</li>
-</ul>
-<ul>
-<li>克勤克俭，戒骄戒躁</li>
-</ul>
-<h1 id="————但使龙城飞将在，不教胡马度阴山。"><a href="#————但使龙城飞将在，不教胡马度阴山。" class="headerlink" title="————但使龙城飞将在，不教胡马度阴山。"></a>————但使龙城飞将在，不教胡马度阴山。</h1>]]></content>
+      
+      
+        <tags>
+            
+            <tag> 学车 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>东北大学招新_re</title>
+      <link href="/2021/08/29/%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E6%8B%9B%E6%96%B0-re/"/>
+      <url>/2021/08/29/%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E6%8B%9B%E6%96%B0-re/</url>
+      
+        <content type="html"><![CDATA[<p> elf文件，ida64打开，看到程序很简单的加密，但是涉及到<strong>数据类型之间的转化和经典的逆向过程</strong></p><span id="more"></span><p><img src="image-20210829132912959.png" alt="image-20210829132912959"></p><p>确定了输入的flag是22位，然后经过三轮运算，将得到的和给出的数组进行比较，逻辑简单，开始逆向！</p><h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#首先将三轮运算逆向回去</span></span><br><span class="line">targ=[  <span class="number">0x03</span>, <span class="number">0x1D</span>, <span class="number">0x24</span>, <span class="number">0x1C</span>, <span class="number">0x06</span>, <span class="number">0x1A</span>, <span class="number">0x3C</span>, <span class="number">0x3F</span>, <span class="number">0x04</span>, <span class="number">0x32</span>,</span><br><span class="line">  <span class="number">0x3E</span>, <span class="number">0x11</span>, <span class="number">0x1C</span>, <span class="number">0x0B</span>, <span class="number">0x0D</span>, <span class="number">0x1F</span>, <span class="number">0xFD</span>, <span class="number">0x09</span>, <span class="number">0xF3</span>, <span class="number">0xFB</span>,</span><br><span class="line">      <span class="number">0x98</span>, <span class="number">0x92</span>, <span class="number">0x00</span>]</span><br><span class="line"><span class="comment">#每一位和后一位异或，所以最后一位是不会变的，这就是突破口</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]^targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]-targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[i]-=i</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure><p>这时得到的数组是</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">targ=[-<span class="number">154</span>, <span class="number">365</span>, -<span class="number">157</span>, <span class="number">362</span>, -<span class="number">129</span>, <span class="number">374</span>, -<span class="number">131</span>, <span class="number">364</span>, -<span class="number">151</span>, <span class="number">385</span>,</span><br><span class="line">      -<span class="number">147</span>, <span class="number">367</span>, -<span class="number">141</span>, <span class="number">384</span>, -<span class="number">145</span>, <span class="number">373</span>, -<span class="number">140</span>, <span class="number">386</span>, -<span class="number">375</span>, <span class="number">377</span>, </span><br><span class="line">      -<span class="number">136</span>, <span class="number">146</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure><p>这里很明显看到因为python的数据类型基本没有限制，所以会出现 很多大数和负数</p><p>在C语言里面，一个byte的无符号整数是0-255，这里看到程序里面都是单字节，所以会出现循环现象，这里将他门进行复原</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line"><span class="comment">#因为这里超过256会循环，所以要%256</span></span><br><span class="line">    <span class="keyword">if</span> targ[i]&lt;<span class="number">0</span>:</span><br><span class="line">        targ[i]&amp;=<span class="number">0xffffffff</span></span><br><span class="line"><span class="comment">#考虑到负数的缘故，要先将负数转化成正数（有符号数转化无符号数）</span></span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="comment">#最后统一规矩一下数据，然后字符输出就可以了</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">23</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(targ[i]),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>()</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure><p>最后得到flag：</p><p><strong>flag{qweaxcdgsafdqwfd}</strong></p>]]></content>
+      
+      
       <categories>
-        <category>计2021</category>
+          
+          <category> WriteUp </category>
+          
       </categories>
-  </entry>
-  <entry>
-    <title>逆向工程学习-基础篇</title>
-    <url>/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
-    <content><![CDATA[<h1 id="逆向工程学习-基础1"><a href="#逆向工程学习-基础1" class="headerlink" title="逆向工程学习-基础1"></a>逆向工程学习-基础1</h1><span id="more"></span>
-<p><a href="http://www.baidu.com">http://www.baidu.com</a></p>
-<h2 id="字节序："><a href="#字节序：" class="headerlink" title="字节序："></a>字节序：</h2><h3 id="1-小端序"><a href="#1-小端序" class="headerlink" title="1.小端序"></a>1.小端序</h3><p>1.当一个数据只有一个字节时，大小端序都一样</p>
-<p>2.地址高位存储数据的高位，人眼看来是逆序存储</p>
-<p><img src="image-20210831121649274.png" alt="image-20210831121649274"></p>
-<h3 id="2-大端序"><a href="#2-大端序" class="headerlink" title="2.大端序"></a>2.大端序</h3><p>1.地址低位存储数据高位，人眼看起来是正常的</p>
-<p>2.应用于大型服务器和risc系列的CPU。</p>
-<h3 id="另外："><a href="#另外：" class="headerlink" title="另外："></a>另外：</h3><p>【字符数组】在内存中是连续的，无论大小端序，储存顺序相同</p>
-<h2 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h2><h3 id="基本程序运行寄存器"><a href="#基本程序运行寄存器" class="headerlink" title="基本程序运行寄存器"></a>基本程序运行寄存器</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>寄存器类型</th>
-<th>寄存器名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>通用寄存器</td>
-<td>eax, ebx, ecx, edx, esi, edi, ebp, esp</td>
-</tr>
-<tr>
-<td>段寄存器</td>
-<td>cs, ds, ss, es, fs, gs</td>
-</tr>
-<tr>
-<td>程序状态与控制寄存器</td>
-<td>EFLAGS</td>
-</tr>
-<tr>
-<td>指令指针寄存器</td>
-<td>EIP</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>ESP（栈顶指针）:指示栈区域的栈顶地址。</p>
-<p>EBP（栈帧指针）:表示栈区域的基地址，函数被调用时，保存ESP的的值，函数返回时再将值还给ESP，以保证栈不会崩溃（栈帧技术）。</p>
-<p>ESI,EDI：这两个寄存器与特定指令（LODS, STOP, REP, MOVS等）一起使用时，主要用于内存复制（例：upx解压缩时恢复upx0节区）</p>
-<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>1.什么是段：是一种将内存划分为多个区段的内存保护技术，与分页技术一起将虚拟内存变为实际物理内存。段内存记录在Segment Deskcriptor Table(SDT)段描述表中，段寄存器持有这些SDT的索引</p>
-<p><img src="image-20210831140543512.png" alt="image-20210831140543512"></p>
-<p>每个段寄存器指向的段描述符结合虚拟内存，形成一个线性地址，在借助分页技术，线性地址转化为实际的物理地址（如果没有分页技术，线性地址直接变成物理地址）</p>
-<h3 id="程序状态与控制寄存器"><a href="#程序状态与控制寄存器" class="headerlink" title="程序状态与控制寄存器"></a>程序状态与控制寄存器</h3><p>就是所说的标志位寄存器，一开始我认为是不同的寄存器，现在发现是一个寄存器中的不同的位</p>
-<p><img src="image-20210831141323762.png" alt="image-20210831141323762"></p>
-<p>32位程序中，该寄存器由原来的16位的FLAGS寄存器拓展到了32的EFLAGS寄存器，其中常用的有ZF, OF, CF。</p>
-<p>ZF（0标志）：若运算结果是“0“，那么该标志位为”1“</p>
-<p>OF（溢出标志）：有符号整数溢出时，该标志位为”1“；或最高有效位改变时，该标志位为”1“</p>
-<p>CF（进位标志）：无符号整数溢出时为”1“</p>
-<h3 id="指令指针寄存器"><a href="#指令指针寄存器" class="headerlink" title="指令指针寄存器"></a>指令指针寄存器</h3><p>当程序运行时，cpu会读取EIP中的一条地址，当地址传递到缓冲区后，eip会增加，增加的大小就是读取指令的字节大小。</p>
-<h2 id="栈："><a href="#栈：" class="headerlink" title="栈："></a>栈：</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
-<li><p>一种由高地址像低地址拓展的数据结构</p>
-</li>
-<li><p>暂时保存函数内部的局部变量</p>
-</li>
-<li>传递参数</li>
-<li>保存函数的返回地址（就是call指令的下一条地址）</li>
-</ul>
-<p><img src="image-20210831142251690.png" alt="image-20210831142251690"></p>
-<h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><p>1.两个指针：栈顶指针ESP；栈帧指针EBP</p>
-<p>2.向栈中push数据时，栈顶指针ESP会减小（上移），当pop数据时，ESP会增加（下移）。</p>
-<p>3.栈顶指针（ESP）在初始状态下指向栈底（高地址），所以初始化栈即为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push EBP		//使用EBP前先将已有值保存在栈中</span><br><span class="line">MOV EBP, ESP	//保存当前ESP到EBP中</span><br><span class="line">……</span><br><span class="line">MOV ESP, EBP	//将函数的起始地址还给ESP</span><br><span class="line">POP EBP			//将一开始push进栈的地址还给EBP</span><br></pre></td></tr></table></figure>
-<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p>1.是什么：是利用EBP（栈帧指针）寄存器访问栈内局部变量、参数、函数返回地址等的手段。 </p>
-<p>2.为什么需要用到栈帧指针EBP：因为栈顶是在不断变化的（push, pop, call等都会影响栈顶），所以如果用ESP来当作基址进行索引是很复杂的，所以就需要一个相对固定的来打下手的帮忙，就是EBP。所以在开始的时候，都会把esp的值给ebp。</p>
-<h2 id="函数调用约定"><a href="#函数调用约定" class="headerlink" title="函数调用约定"></a>函数调用约定</h2><h3 id="cdecl"><a href="#cdecl" class="headerlink" title="_cdecl"></a>_cdecl</h3><p>C语言的默认调用方式，调用者负责恢复栈结构。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add esp, 0x8</span><br></pre></td></tr></table></figure>
-<p><img src="image-20210831151852977.png" alt="image-20210831151852977"  /></p>
-<p>这里因为push了两个int类型的参数，所以栈空间-0x8</p>
-<p>好处：可以向 被调用函数 传递 参数可变 的函数</p>
-<h3 id="stdcall"><a href="#stdcall" class="headerlink" title="stdcall"></a>stdcall</h3><p>由被调用者恢复堆栈</p>
-<p>该调用方式被Win32 API采用，以获得更好的兼容性</p>
-<h3 id="fastcall"><a href="#fastcall" class="headerlink" title="fastcall"></a>fastcall</h3><p>与stdcall类似，只不过前两个参数通过寄存器【ECX, EDX】快速调用。顾名思义，这里可以实现更快的调用函数，因为CPU访问寄存器的速度远高于CPU访问内存的速度。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Reverse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>博客改良(持续记录)</title>
+      <link href="/2021/08/28/%E5%8D%9A%E5%AE%A2%E6%94%B9%E8%89%AF/"/>
+      <url>/2021/08/28/%E5%8D%9A%E5%AE%A2%E6%94%B9%E8%89%AF/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-删除强力驱动："><a href="#1-删除强力驱动：" class="headerlink" title="1.删除强力驱动："></a>1.删除强力驱动：</h2><p>1.在【themes/layout/_partial/footer】文件中的最后，删除如下代码</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;%- if theme<span class="selector-class">.footer</span><span class="selector-class">.powered</span> %&#125;</span><br><span class="line">  &lt;<span class="selector-tag">div</span> class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org<span class="string">&#x27; if theme.scheme === &#x27;</span>Gemini<span class="string">&#x27; else &#x27;</span>https://theme-next.js.org/<span class="string">&#x27; + theme.scheme | lower + &#x27;</span>/<span class="string">&#x27; %&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- __(&#x27;</span>footer.powered<span class="string">&#x27;, next_url(&#x27;</span>https://hexo.io<span class="string">&#x27;, &#x27;</span>Hexo<span class="string">&#x27;) + &#x27;</span> &amp; <span class="string">&#x27; + next_url(next_site, &#x27;</span>NexT.<span class="string">&#x27; + theme.scheme)) &#125;&#125;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;%- endif %&#125;</span></span><br></pre></td></tr></table></figure><p>2.同样，如果想在该位置添加一些别的文字，直接在这个文件里面加就行</p><span id="more"></span><h2 id="2-更改字体颜色："><a href="#2-更改字体颜色：" class="headerlink" title="2.更改字体颜色："></a>2.更改字体颜色：</h2><p>在_data文件里面添加：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span> #色号</span><br></pre></td></tr></table></figure><p><img src="image-20210828115628268.png" alt="image-20210828115628268"></p><p><img src="image-20210828115713939.png" alt="image-20210828115713939"></p><p><img src="image-20210828115742828.png" alt="image-20210828115742828"></p><h2 id="3-利用不通的分类："><a href="#3-利用不通的分类：" class="headerlink" title="3.利用不通的分类："></a>3.利用不通的分类：</h2><p>这里用“categories”为例</p><p>找到在categories目录下的哪个index.md文件，在开头的地方加上一行</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type: <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure><p>效果：</p><p><img src="image-20210828122741712.png" alt="image-20210828122741712"></p><p>这样就可以在那个界面里面看到不通的分类了</p><h2 id="4-在文中添加超链接"><a href="#4-在文中添加超链接" class="headerlink" title="4.在文中添加超链接"></a>4.在文中添加超链接</h2><p>利用markdown特性，将链接放在&lt;&gt;中间</p><p>例如<a href="https://hellorootkit.github.io">https://hellorootkit.github.io</a></p><h2 id="5-修改字体颜色"><a href="#5-修改字体颜色" class="headerlink" title="5.修改字体颜色"></a>5.修改字体颜色</h2><h3 id="1-修改博文标题："><a href="#1-修改博文标题：" class="headerlink" title="1.修改博文标题："></a>1.修改博文标题：</h3><p>找到目录\hexo-theme-next\source\css_common\components\post下的post-header文件</p><p>然后找到.post-title-link</p><p>修改颜色即可生效</p><h3 id="2-修改博文颜色："><a href="#2-修改博文颜色：" class="headerlink" title="2.修改博文颜色："></a>2.修改博文颜色：</h3><p>同2</p><h3 id="3-日志分类标签统计："><a href="#3-日志分类标签统计：" class="headerlink" title="3.日志分类标签统计："></a>3.日志分类标签统计：</h3><p>目录\hexo-theme-next\source\css_common\outline\sidebar\site-state.styl</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.site-state-item-name</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#40E0D0</span>;//$site-state-item-name-<span class="attribute">color</span>;//日志，分类，标签的颜色</span><br><span class="line">  <span class="attribute">font-size</span>: $site-state-item-name-font-size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="4-头像下面和描述："><a href="#4-头像下面和描述：" class="headerlink" title="4.头像下面和描述："></a>4.头像下面和描述：</h3><p>目录\hexo-theme-next\source\css_common\outline\sidebar\author.styl</p><h3 id="5-站点描述："><a href="#5-站点描述：" class="headerlink" title="5.站点描述："></a>5.站点描述：</h3><p>themes\hexo-theme-next\source\css_schemes\Pisces_sidebar.styl</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.sidebar-inner &#123;//站点概况</span><br><span class="line">  background: rgba(128,138,135,0.1)//var(--content-bg-color);</span><br><span class="line">  border-radius: $border-radius;</span><br><span class="line">  box-shadow: $box-shadow;</span><br><span class="line">  box-sizing: border-box;</span><br><span class="line">  color: var(--text-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>逆向工程学习</category>
+          
+          <category> 博客装修 </category>
+          
       </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>注册谷歌</title>
-    <url>/2021/09/04/signgoogle/</url>
-    <content><![CDATA[<p>主要为了解决在注册时手机号无法使用的问题</p>
-<p>This phone number cannot be used for verification.</p>
-<span id="more"></span>
-<h1 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h1><p>1.这里以采用香港节点为例</p>
-<p>2.将注册界面的语言设置为繁体字</p>
-<h1 id="开始注册："><a href="#开始注册：" class="headerlink" title="开始注册："></a>开始注册：</h1><p>按照步骤来就可以了，电话就可以用你的了，注意国旗还是要大陆的</p>
-<p><strong><em>Ps:</em></strong></p>
-<ul>
-<li><p>这里注意的是要将浏览器界面的语言设置成符合自己所用节点的语言，可能会更顺利一些</p>
-</li>
-<li><p>一次不行，不要频繁尝试，等一会再试，否则容易误判</p>
-</li>
-<li><strong>科学上网，请遵守法律法规</strong></li>
-</ul>
-]]></content>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>insert_photo</title>
+      <link href="/2021/08/27/insert-photo/"/>
+      <url>/2021/08/27/insert-photo/</url>
+      
+        <content type="html"><![CDATA[<p>​    Do you konw how to insert photo?</p><p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>how2buildBlog</title>
+      <link href="/2021/08/27/how2buildBlog/"/>
+      <url>/2021/08/27/how2buildBlog/</url>
+      
+        <content type="html"><![CDATA[<p> 搭建好博客，记录搭建过程：</p><h1 id="搭建博客："><a href="#搭建博客：" class="headerlink" title="搭建博客："></a>搭建博客：</h1><p>博客搭建基于【Github+hexo】模式；用的是hexo的next的模板。</p><h2 id="准备工具："><a href="#准备工具：" class="headerlink" title="准备工具："></a>准备工具：</h2><p>1.git</p><p>2.hexo</p><p>3.github</p><p>4.nodejs</p><h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.首先是在GitHub上创建一个仓库，仓库名称需为：名称.github.io</p><p>名称最好是和仓库名相同，这样方便索引：</p><span id="more"></span><p><img src="image-20210827182643655.png" alt="image-20210827182643655"></p><p>像这样即可</p><p>2.然后需要先安装git（熟悉Windows的可以直接用cmd）；然后下载nodejs，用<code>node -v</code>进行检查是否安装成功；然后安装<code>npm install hexo -g</code>用命令：<code>hexo -v</code>查看是否安装成功；之后需要安装hexo的一系列的以来文件<code>nmp install hexo-deployer-git --save</code>,这里需要注意的是—save的位置可以放到install那里，这个看个人情况。</p><p>3.这里最后需要配置SSH KEY，相当于一个身份验证：</p><p>通过git，输入命令：<code>cd ~/.ssh</code>进入ssh文件——-&gt;通过命令<code>cat id_rsa.pub</code>查看密钥，然后在github的设置里：</p><p><img src="image-20210827183729815.png" alt="image-20210827183729815"></p><p>将刚刚的一大串直接复制进去，这样就可以了</p><p>用<code>ssh -T git@github.com</code>检验是否成功</p><p>成功用</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;liyunchen&quot; #你的github用户名</span><br><span class="line">$ git config --global user.email &quot;xxx@163.com&quot; #填写你的github注册邮箱</span><br></pre></td></tr></table></figure><p>命令来设置邮箱和用户名</p><h2 id="开始搭建："><a href="#开始搭建：" class="headerlink" title="开始搭建："></a>开始搭建：</h2><p>1.在一个较大的盘里新建文件夹，取一个洋文名字防止出灵异事件</p><p>2.git bash here，在该目录下打开git</p><p>3.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.hexo init</span><br><span class="line"><span class="comment">#初始化hexo，此时目录下多了一堆文件</span></span><br></pre></td></tr></table></figure><p>事先在<a href="https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：">https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：</a></p><p><img src="image-20210827184605759.png" alt="image-20210827184605759"></p><p>这里标黄的是要改成自己的仓库，下面的branch根据实际情况决定是main还是master。</p><p>themes后面跟的是主题的文件夹的名字，注意空格，<strong>千万不能少</strong></p><p>4.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.hexo s<span class="comment">#在本机生成一个预览可以看到效果</span></span><br><span class="line">2.hexo g<span class="comment">#生成html界面</span></span><br><span class="line">3.hexo d<span class="comment">#部署到github</span></span><br></pre></td></tr></table></figure><p>此时就可以看到自己的博客的初始状态，也就搭建基本完毕了</p><h1 id="完善博客："><a href="#完善博客：" class="headerlink" title="完善博客："></a>完善博客：</h1><p>搭建好之后需要完善成人类友好的界面（next为例子）</p><h2 id="1-首页风格："><a href="#1-首页风格：" class="headerlink" title="1.首页风格："></a>1.首页风格：</h2><p>找到你下载的主题里的_config.yml文件（没错，主题里面也有）</p><p>找到：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//这里是四种风格，选一个喜欢的去掉前面的井号</span><br><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">scheme: Gemini</span><br><span class="line">//这里是模式，亮还是暗</span><br><span class="line"># Dark Mode</span><br><span class="line">darkmode: true</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//这里是菜单设置，去掉喜欢的前面的#</span><br><span class="line">menu:</span><br><span class="line">  home: / || home                          //首页</span><br><span class="line">  archives: /archives/ || archive          //归档</span><br><span class="line">  categories: /categories/ || th           //分类</span><br><span class="line">  tags: /tags/ || tags                     //标签</span><br><span class="line">  about: /about/ || user                   //关于</span><br><span class="line">  #schedule: /schedule/ || calendar        //日程表</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap        //站点地图</span><br><span class="line">  #commonweal: /404/ || heartbeat          //公益404</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//侧栏设置，看好适用风格</span><br><span class="line"># Sidebar Position - 侧栏位置（只对Pisces | Gemini两种风格有效）</span><br><span class="line">  position: left        //靠左放置</span><br><span class="line">  #position: right      //靠右放置</span><br><span class="line"></span><br><span class="line"># Sidebar Display - 侧栏显示时机（只对Muse | Mist两种风格有效）</span><br><span class="line">  #display: post        //默认行为，在文章页面（拥有目录列表）时显示</span><br><span class="line">  display: always       //在所有页面中都显示</span><br><span class="line">  #display: hide        //在所有页面中都隐藏（可以手动展开）</span><br><span class="line">  #display: remove      //完全移除</span><br><span class="line"></span><br><span class="line">  offset: 12            //文章间距（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  b2t: false            //返回顶部按钮（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  scrollpercent: true   //返回顶部按钮的百分比</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//头像设置，将头像设为header.jpg，然后拖到themes\hexo-theme-next\source\images目录下</span><br><span class="line"># Sidebar Avatar</span><br><span class="line">avatar: /images/header.jpg</span><br></pre></td></tr></table></figure><h2 id="2-语言文字："><a href="#2-语言文字：" class="headerlink" title="2.语言文字："></a>2.语言文字：</h2><p>打开主目录的_config.yml文件，开头就是这几个，后面的内容自己写写，注意空格</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Site</span><br><span class="line">title: R-o-o-t-k-i-t</span><br><span class="line">subtitle: &#x27;&#x27;</span><br><span class="line">description: 自由，平等，公正，法制</span><br><span class="line">keywords: rootkit，+-*/</span><br><span class="line">author: rootkit/+-*</span><br><span class="line">language: zh-CN</span><br><span class="line">timezone: &#x27;&#x27;#网站时区（Hexo 默认使用您电脑的时区，不用写）</span><br></pre></td></tr></table></figure><h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><p><img src="image-20210827190155039.png" alt="image-20210827190155039"></p><h1 id="上传日志："><a href="#上传日志：" class="headerlink" title="上传日志："></a>上传日志：</h1><p>在该文件夹里通过git或者cmd使用命令<code>hexo new &#39;#######&#39;</code>,就会在sources目录里生成一个#####.md文件，然后正常写点东西（在下面的正文部分，上面的灰色框是自带的）</p><p>写完之后通过命令<code>hexo g</code>和<code>hexo d</code>来上传</p><p>这样就完成了上面的效果。</p>]]></content>
+      
+      
       <categories>
-        <category>悠哉日常</category>
+          
+          <category> 博客装修 </category>
+          
       </categories>
-      <tags>
-        <tag>你好，世界</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 关于博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2021/08/27/First-test-blog/"/>
+      <url>/2021/08/27/First-test-blog/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">14</span>];</span><br><span class="line">    s=<span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>道生一，一生二，二生三，三生万物，万物负阴而抱阳，中气以为和。</p><p>​                                                                                                                        ——————————《道德经》</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 你好，世界 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
