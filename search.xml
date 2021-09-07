@@ -12,6 +12,66 @@
       </tags>
   </entry>
   <entry>
+    <title>VScode环境配置</title>
+    <url>/2021/09/07/VScode/</url>
+    <content><![CDATA[<p> 最近发现dev c++喜欢报一些奇奇怪怪的错，所以这里将阵地转移到了Vscode，看看网上吹的是不是都是真的，记录一下配置的过程</p>
+<span id="more"></span>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>vscode这个软件</li>
+<li>Windows下的这个gcc</li>
+</ul>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="下载编译器："><a href="#下载编译器：" class="headerlink" title="下载编译器："></a>下载编译器：</h2><p>先下载gcc，安装，将其中的bin目录的地址给到path路径下，然后将include的路径也给到path</p>
+<p><img src="VScode/image-20210907141602495.png" alt="image-20210907141602495" style="zoom:150%;" /></p>
+<p>然后打开dos窗口输入【gcc -v】出现</p>
+<p><img src="image-20210907141708826.png" alt="image-20210907141708826"></p>
+<p>这些东西就说明安装好了</p>
+<h2 id="配置VScode："><a href="#配置VScode：" class="headerlink" title="配置VScode："></a>配置VScode：</h2><p>打开vscode</p>
+<p>1.首先在插件商店安装汉化插件，C语言插件，运行插件</p>
+<p><img src="image-20210907142042232.png" alt="image-20210907142042232"></p>
+<p>这样就完成了基本的配置，重启一下软件让他们生效</p>
+<p>2.然后开始配置以些文件</p>
+<ul>
+<li><p>先进入一个文件夹，这里我新创建了一个</p>
+</li>
+<li><p>按快捷键Ctrl+Shift+P调出命令面板，输入”C/C++“，选择“Edit Configurations(UI)”进入配置。这里配置两个选项： - 编译器路径：D:/……/bin/gcc.exe【填写你自己的路径】</p>
+</li>
+<li>然后划到这一页最下面，找到###Sense模式，选则gcc-x64</li>
+</ul>
+<p>这时可以看到文件夹内生成了一个.vscode文件夹，里面有c_cpp_properties.json文件，打开之后会发现有自己的gcc.exe的目录，如果那个目录不是，需要人为改正</p>
+<p>2.创建一个tasks.json文件来告诉VS Code如何构建（编译）程序。该任务将调用gcc编译器基于源代码创建可执行文件。 按快捷键Ctrl+Shift+P调出命令面板，输入tasks，选择“Tasks:Configure Default Build Task”：</p>
+<p>再选“C/C++: g++.exe build active file”（可能前面的不一样，后面的几个英文对了就可以）</p>
+<p>这时就会出现tasks.json文件，打开文件，看一下路径是否正确，不对就自己改改</p>
+<p>3.配置调试文件GDB: 这里主要是为了在.vscode文件夹中产生一个launch.json文件，用来配置调试的相关信息。点击菜单栏的<em>Debug</em>—&gt;<em>Start Debugging</em>：</p>
+<p>选择C++(GDB/LLDB)</p>
+<p>这时可以看到生成了一个launch.json文件，这个文件就是关于调试用的</p>
+<p>这里我采用了网上大神的代码，全部替换</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Use IntelliSense to learn about possible attributes.</span></span><br><span class="line">    <span class="comment">// Hover to view descriptions of existing attributes.</span></span><br><span class="line">    <span class="comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;0.2.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span>: [</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;(gdb) Launch&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;preLaunchTask&quot;</span>: <span class="string">&quot;g++.exe build active file&quot;</span>,<span class="comment">//调试前执行的任务，就是之前配置的tasks.json中的label字段</span></span><br><span class="line">            <span class="comment">//这里需要去查看一下，这个字段要统一，但是不一定是这一个</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;cppdbg&quot;</span>,<span class="comment">//配置类型，只能为cppdbg</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span>: <span class="string">&quot;launch&quot;</span>,<span class="comment">//请求配置类型，可以为launch（启动）或attach（附加）</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span>: <span class="string">&quot;$&#123;fileDirname&#125;\\$&#123;fileBasenameNoExtension&#125;.exe&quot;</span>,<span class="comment">//调试程序的路径名称</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span>: [],<span class="comment">//调试传递参数</span></span><br><span class="line">            <span class="attr">&quot;stopAtEntry&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">&quot;cwd&quot;</span>: <span class="string">&quot;$&#123;workspaceFolder&#125;&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;environment&quot;</span>: [],</span><br><span class="line">            <span class="attr">&quot;externalConsole&quot;</span>: <span class="literal">true</span>,<span class="comment">//true显示外置的控制台窗口，false显示内置终端</span></span><br><span class="line">            <span class="comment">//弹不弹出新的dos窗口，网上说弹出会被说是小白</span></span><br><span class="line">            <span class="attr">&quot;MIMode&quot;</span>: <span class="string">&quot;gdb&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;miDebuggerPath&quot;</span>: <span class="string">&quot;D:\\mingw-w64\\x86_64-8.1.0-win32-seh-rt_v6-rev0\\mingw64\\bin\\gdb.exe&quot;</span>,</span><br><span class="line">            <span class="comment">//注意bin文件里面gdb的路径，写自己的</span></span><br><span class="line">            <span class="attr">&quot;setupCommands&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;Enable pretty-printing for gdb&quot;</span>,</span><br><span class="line">                    <span class="attr">&quot;text&quot;</span>: <span class="string">&quot;-enable-pretty-printing&quot;</span>,</span><br><span class="line">                    <span class="attr">&quot;ignoreFailures&quot;</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在终端运行："><a href="#在终端运行：" class="headerlink" title="在终端运行："></a>在终端运行：</h2><p>这样是为了防止code run插件出现乱码</p>
+<ul>
+<li>选择 文件 -&gt; 首选项 -&gt; 设置，打开 VS Code 设置页面，</li>
+<li>找到 Run Code configuration，勾上 Run In Terminal 选项。</li>
+<li>设置之后，代码就会在 Terminal 中运行即可。</li>
+</ul>
+<p>这时该文件夹就已经写好了，现在任意位置创建一个C语言文件，看能不能像dev一样方便</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>在桌面新建了一个C文件，这里直接用vscode打开，写好程序</p>
+<p><strong>先保存，不然会出错</strong></p>
+<p>写完之后“Ctrl+Alt+N”开始运行</p>
+<p><strong>每一次debug完事都要保存</strong></p>
+<p><img src="image-20210907151430340.png" alt="image-20210907151430340"></p>
+<p>这是没问题的，现在来开始调试一下</p>
+<p><strong>需要注意的是这里的路径和文件名不能又中文，否则会调试失败</strong></p>
+<p>将.vscode文件和需要调试的文件放在同一个目录下，然后用vscode打开这个目录，就可以调试了</p>
+<p><img src="image-20210907154001133.png" alt="image-20210907154001133"></p>
+<p>这时就基本完成了</p>
+]]></content>
+      <categories>
+        <category>悠哉日常</category>
+      </categories>
+      <tags>
+        <tag>悠哉日常</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>注册谷歌</title>
     <url>/2021/09/04/signgoogle/</url>
     <content><![CDATA[<p>主要为了解决在注册时手机号无法使用的问题</p>
