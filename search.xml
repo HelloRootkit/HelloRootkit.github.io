@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>IDA动态调试APK</title>
+      <link href="/2021/10/02/ida-remote-android/"/>
+      <url>/2021/10/02/ida-remote-android/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>夜神模拟器使用于调试32位的apk程序，因为apk为了安全很少将关键数据放在java层，所以这里通过动态调试以达到对native层的逆向。</p><span id="more"></span><h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><p>ida与模拟器通过adb指令进行连接</p><h2 id="安装adb"><a href="#安装adb" class="headerlink" title="安装adb"></a>安装adb</h2><p>从<a href="https://developer.android.com/studio/releases/platform-tools.html下载adb，安装">https://developer.android.com/studio/releases/platform-tools.html下载adb，安装</a></p><p>找到目录中的adb.exe文件的路径，添加到patch</p><p>cmd窗口输入adb -version查看是否成功，出现版本号和命令帮助则成功</p><h2 id="adb连接"><a href="#adb连接" class="headerlink" title="adb连接"></a>adb连接</h2><h3 id="配置模拟器"><a href="#配置模拟器" class="headerlink" title="配置模拟器"></a>配置模拟器</h3><p>以下为夜神模拟器思路：</p><p>进入夜神模拟器设置，“关于平板电脑选项”，连续点击5次 “版本号” ，进入开发者模式</p><p>打开开发者模式中调试选项中的 ”USB调试“</p><p>—-<strong>模拟器配置完成</strong>—</p><h3 id="连接主机"><a href="#连接主机" class="headerlink" title="连接主机"></a>连接主机</h3><p>1.连接：cmd命令【adb connect 127.0.0.1:62001】</p><p>62001: 夜神模拟器的默认端口号，因模拟器而异</p><p>2.查看：cmd命令 【adb devices】；成功会显示出当前的连接，失败则显示“device not found”.</p><p>3.与ida建立关系：cmd命令 【adb push 路径\android_server /data/local/tmp/】</p><p>将ida安装目录中远程调试目录下的android_server文件push向模拟器，后者为push进模拟器的路径</p><p>4.进入模拟器：cmd命令 【adb shell】, 乱码不要在意，继续cmd命令 【su】,进入管理员模式</p><p>5.执行server文件：cmd命令 【cd /data/local/tmp/】,【ls】查看文件是否存在</p><p>【chmod 777 android_server】赋予文件777权限，【./android_server】执行文件，建立ida联系</p><p>6.端口转发：另外打开cmd，cmd命令 【adb forward tcp:23946  tcp:23946】</p><p><strong><em>常见异常</em></strong>：</p><p>1.执行文件时显示文件已经执行：命令【ps | grep android_server】寻找进程【kill -s 9 ID】关闭进程，然后重新执行</p><p>2.端口转发异常：(1)device not found：结束server文件执行，重新启动模拟器。（2）端口被占用：主机查看后酌情选择</p><h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>在模拟器中事先打开需要调试的文件</p><p>1.打开空白ida，或已经载入so文件的ida</p><p>2.空白ida：Debugger选项中的“attach”选项中的“Remote ARM……”选项</p><p>hostname选择填入“127.0.0.1”，端口默认，密码为空</p><p>2_1.已经载入so文件的ida：Debugger选项中的 “Select debugger” 选项中的“Remote ARM……”选项</p><p>然后 Debugger选项中 “process option” 选项，参数按需，hostname同上，端口，密码默认</p><p>3.选择进程：一般会在进程列表的底部找到目标程序的进程</p><p>连接完成，可以开始调试</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 逆向工程学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Reverse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PEviewer</title>
       <link href="/2021/09/26/PEviewer/"/>
       <url>/2021/09/26/PEviewer/</url>
