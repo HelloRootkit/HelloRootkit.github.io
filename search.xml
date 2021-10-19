@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>近期比赛问题</title>
+      <link href="/2021/10/16/%E8%BF%91%E6%9C%9F%E6%AF%94%E8%B5%9B%E9%97%AE%E9%A2%98/"/>
+      <url>/2021/10/16/%E8%BF%91%E6%9C%9F%E6%AF%94%E8%B5%9B%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<pre><code> 2021-10 强网杯，字节跳动，莲城杯等比赛总结</code></pre><p>安恒月赛中的逆向相对容易，但是涉及到大量的对称加密以及非对称加密的问题，拿到带有加密的逆向多少手足无措。还有就是编程基础的欠缺，对编程语言知之甚少，还有就是对编程术语比如“断言”，“Panic”</p><h2 id="莲城杯"><a href="#莲城杯" class="headerlink" title="莲城杯"></a>莲城杯</h2><p>baby_rust：是用rust语言写的程序，通过wp知道根据rust语言的特点可以很快解答</p><p>longtime：对算法的理解和关键代码的定位能力欠缺，不能有效的识别算法，也不能优化算法。</p><p>brainfuck: 一种比较脑洞的加密形式，理解分析能力不够，编码能力差的离谱</p><p>README：代码分析能力，AES算法不了解，分辨不出魔改的TEA加密。</p><h2 id="强网杯"><a href="#强网杯" class="headerlink" title="强网杯"></a>强网杯</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 比赛总结 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Reverse </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IDA动态调试APK</title>
       <link href="/2021/10/02/ida-remote-android/"/>
       <url>/2021/10/02/ida-remote-android/</url>
