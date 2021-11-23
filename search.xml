@@ -12,6 +12,199 @@
       </tags>
   </entry>
   <entry>
+    <title>flare-on2014复现记录</title>
+    <url>/2021/11/14/flare-2014/</url>
+    <content><![CDATA[<p> 复现了flare-on2014的部分题目，有的题目已经不具时效性，或者相关软件已经无法找到，便不再复现。</p>
+<span id="more"></span>
+<h2 id="Flare-on-1"><a href="#Flare-on-1" class="headerlink" title="Flare-on 1"></a>Flare-on 1</h2><p>签到题，给了一个安装程序（这个不是题目），安装之后得到一个NET文件，直接拖进dnspy</p>
+<p>断在程序入口点</p>
+<p><img src="flare-2014/image-20211123202529321.png" alt="image-20211123202529321"></p>
+<p>跟进Form1()下好断点</p>
+<p>然后在他下面的函数那里下好断电</p>
+<p><img src="flare-2014/image-20211123202715849.png" alt="image-20211123202715849"></p>
+<p>看到下面的几个for循环，这里直接下断点</p>
+<p><img src="flare-2014/image-20211123202844320.png" alt="image-20211123202844320"></p>
+<p>然后直接继续运行，这里观察下面的内存窗口，就可以看到flag</p>
+<p><img src="flare-2014/image-20211123202936006.png" alt="image-20211123202936006"></p>
+<p>这个题目一开始给一张图片，然后按下按钮上面的字会变成乱码，很容易猜到这是把flag给改变了</p>
+<h2 id="Flare-on-2"><a href="#Flare-on-2" class="headerlink" title="Flare-on 2"></a>Flare-on 2</h2><p>题目给了一个图片，直接想到可能是图片隐写，winhex观察</p>
+<p><img src="flare-2014/image-20211123203219289.png" alt="image-20211123203219289"></p>
+<p>这里看反正是隐写了一种语言的代码，再下面还有一些代码</p>
+<p><img src="flare-2014/image-20211123203331215.png" alt="image-20211123203331215"></p>
+<p>将数据和代码提取出来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">order = [</span><br><span class="line">	<span class="number">59</span>, <span class="number">71</span>, <span class="number">73</span>, <span class="number">13</span>, <span class="number">35</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">81</span>, <span class="number">76</span>, <span class="number">10</span>, <span class="number">28</span>, <span class="number">63</span>, <span class="number">12</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">11</span>, <span class="number">76</span>, <span class="number">68</span>, <span class="number">50</span>, <span class="number">30</span>, <span class="number">11</span>, <span class="number">24</span>, <span class="number">7</span>, <span class="number">63</span>, <span class="number">45</span>, <span class="number">20</span>, <span class="number">23</span>, <span class="number">68</span>, <span class="number">87</span>, <span class="number">42</span>, <span class="number">24</span>, <span class="number">60</span>, <span class="number">87</span>, <span class="number">63</span>, <span class="number">18</span>, <span class="number">58</span>, <span class="number">87</span>, <span class="number">63</span>, <span class="number">18</span>, <span class="number">58</span>, <span class="number">87</span>, <span class="number">63</span>, <span class="number">83</span>, <span class="number">43</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">90</span>, <span class="number">38</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">19</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">17</span>, <span class="number">37</span>, <span class="number">63</span>, <span class="number">58</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">83</span>, <span class="number">43</span>, <span class="number">87</span>, <span class="number">42</span>, <span class="number">24</span>, <span class="number">60</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">87</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">66</span>, <span class="number">63</span>, <span class="number">50</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">17</span>, <span class="number">1</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">45</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">40</span>, <span class="number">11</span>, <span class="number">25</span>, <span class="number">5</span>, <span class="number">70</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">12</span>, <span class="number">1</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">81</span>, <span class="number">37</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">12</span>, <span class="number">63</span>, <span class="number">25</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">83</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">87</span>, <span class="number">23</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">75</span>, <span class="number">49</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">49</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">18</span>, <span class="number">50</span>, <span class="number">87</span>, <span class="number">42</span>, <span class="number">18</span>, <span class="number">90</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">81</span>, <span class="number">40</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">40</span>, <span class="number">11</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">70</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">12</span>, <span class="number">68</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">81</span>, <span class="number">7</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">66</span>, <span class="number">63</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">40</span>, <span class="number">63</span>, <span class="number">25</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">24</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">63</span>, <span class="number">12</span>, <span class="number">68</span>, <span class="number">87</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">17</span>, <span class="number">37</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">17</span>, <span class="number">37</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">40</span>, <span class="number">42</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">49</span>, <span class="number">42</span>, <span class="number">25</span>, <span class="number">5</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">70</span>, <span class="number">42</span>, <span class="number">25</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">75</span>, <span class="number">1</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">1</span>, <span class="number">17</span>, <span class="number">80</span>, <span class="number">58</span>, <span class="number">66</span>, <span class="number">3</span>, <span class="number">86</span>, <span class="number">27</span>, <span class="number">88</span>, <span class="number">77</span>, <span class="number">80</span>, <span class="number">38</span>, <span class="number">25</span>, <span class="number">40</span>, <span class="number">81</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">76</span>, <span class="number">81</span>, <span class="number">15</span>, <span class="number">50</span>, <span class="number">12</span>, <span class="number">1</span>, <span class="number">24</span>, <span class="number">81</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">40</span>, <span class="number">90</span>, <span class="number">58</span>, <span class="number">81</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">75</span>, <span class="number">1</span>, <span class="number">27</span>, <span class="number">19</span>, <span class="number">75</span>, <span class="number">28</span>, <span class="number">7</span>, <span class="number">88</span>, <span class="number">32</span>, <span class="number">45</span>, <span class="number">7</span>, <span class="number">90</span>, <span class="number">52</span>, <span class="number">80</span>, <span class="number">58</span>, <span class="number">5</span>, <span class="number">70</span>, <span class="number">63</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">66</span>, <span class="number">42</span>, <span class="number">25</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">0</span>, <span class="number">12</span>, <span class="number">50</span>, <span class="number">87</span>, <span class="number">63</span>, <span class="number">83</span>, <span class="number">43</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">90</span>, <span class="number">38</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">7</span>, <span class="number">63</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">37</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">1</span>, <span class="number">87</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">72</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">40</span>, <span class="number">0</span>, <span class="number">25</span>, <span class="number">5</span>, <span class="number">37</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">1</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">11</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">87</span>, <span class="number">70</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">7</span>, <span class="number">63</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">37</span>, <span class="number">0</span>, <span class="number">18</span>, <span class="number">1</span>, <span class="number">87</span>, <span class="number">42</span>, <span class="number">24</span>, <span class="number">60</span>, <span class="number">87</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">17</span>, <span class="number">91</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">75</span>, <span class="number">49</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">45</span>, <span class="number">12</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">40</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">37</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">90</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">81</span>, <span class="number">37</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">49</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">40</span>, <span class="number">63</span>, <span class="number">25</span>, <span class="number">5</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">37</span>, <span class="number">0</span>, <span class="number">18</span>, <span class="number">68</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">1</span>, <span class="number">18</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">40</span>, <span class="number">0</span>, <span class="number">25</span>, <span class="number">5</span>, <span class="number">37</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">90</span>, <span class="number">87</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">72</span>, <span class="number">37</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">66</span>, <span class="number">63</span>, <span class="number">50</span>, <span class="number">5</span>, <span class="number">40</span>, <span class="number">63</span>, <span class="number">25</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">24</span>, <span class="number">63</span>, <span class="number">87</span>, <span class="number">63</span>, <span class="number">12</span>, <span class="number">68</span>, <span class="number">87</span>, <span class="number">0</span>, <span class="number">24</span>, <span class="number">17</span>, <span class="number">37</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">40</span>, <span class="number">90</span>, <span class="number">25</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">18</span>, <span class="number">90</span>, <span class="number">87</span>, <span class="number">93</span>, <span class="number">18</span>, <span class="number">90</span>, <span class="number">38</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">19</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">75</span>, <span class="number">70</span>, <span class="number">28</span>, <span class="number">48</span>, <span class="number">19</span>, <span class="number">40</span>, <span class="number">90</span>, <span class="number">58</span>, <span class="number">37</span>, <span class="number">91</span>, <span class="number">63</span>, <span class="number">75</span>, <span class="number">11</span>, <span class="number">79</span>, <span class="number">28</span>, <span class="number">27</span>, <span class="number">75</span>, <span class="number">3</span>, <span class="number">42</span>, <span class="number">23</span>, <span class="number">88</span>, <span class="number">30</span>, <span class="number">35</span>, <span class="number">47</span>, <span class="number">59</span>, <span class="number">71</span>, <span class="number">71</span>, <span class="number">73</span>, <span class="number">35</span>, <span class="number">68</span>, <span class="number">38</span>, <span class="number">63</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">38</span>, <span class="number">45</span>, <span class="number">30</span>, <span class="number">81</span>, <span class="number">15</span>, <span class="number">50</span>, <span class="number">12</span>, <span class="number">1</span>, <span class="number">24</span>, <span class="number">81</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">40</span>, <span class="number">90</span>, <span class="number">58</span>, <span class="number">81</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">75</span>, <span class="number">1</span>, <span class="number">27</span>, <span class="number">19</span>, <span class="number">75</span>, <span class="number">28</span>, <span class="number">23</span>, <span class="number">75</span>, <span class="number">77</span>, <span class="number">1</span>, <span class="number">28</span>, <span class="number">1</span>, <span class="number">43</span>, <span class="number">52</span>, <span class="number">31</span>, <span class="number">19</span>, <span class="number">75</span>, <span class="number">81</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">75</span>, <span class="number">1</span>, <span class="number">27</span>, <span class="number">75</span>, <span class="number">77</span>, <span class="number">35</span>, <span class="number">47</span>, <span class="number">59</span>, <span class="number">71</span>, <span class="number">71</span>, <span class="number">71</span>, <span class="number">73</span>, <span class="number">21</span>, <span class="number">4</span>, <span class="number">37</span>, <span class="number">51</span>, <span class="number">40</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">91</span>, <span class="number">7</span>, <span class="number">4</span>, <span class="number">37</span>, <span class="number">77</span>, <span class="number">49</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">91</span>, <span class="number">70</span>, <span class="number">4</span>, <span class="number">37</span>, <span class="number">49</span>, <span class="number">51</span>, <span class="number">4</span>, <span class="number">51</span>, <span class="number">91</span>, <span class="number">4</span>, <span class="number">37</span>, <span class="number">70</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">91</span>, <span class="number">91</span>, <span class="number">4</span>, <span class="number">37</span>, <span class="number">51</span>, <span class="number">70</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">91</span>, <span class="number">49</span>, <span class="number">4</span>, <span class="number">37</span>, <span class="number">51</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">91</span>, <span class="number">91</span>, <span class="number">4</span>, <span class="number">37</span>, <span class="number">51</span>, <span class="number">70</span>, <span class="number">21</span>, <span class="number">47</span>, <span class="number">93</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">58</span>, <span class="number">82</span>, <span class="number">59</span>, <span class="number">71</span>, <span class="number">71</span>, <span class="number">71</span>, <span class="number">82</span>, <span class="number">59</span>, <span class="number">71</span>, <span class="number">71</span>, <span class="number">29</span>, <span class="number">29</span>, <span class="number">47</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">terms = [</span><br><span class="line">	<span class="string">&quot;M&quot;</span>, <span class="string">&quot;Z&quot;</span>, <span class="string">&quot;]&quot;</span>, <span class="string">&quot;p&quot;</span>, <span class="string">&quot;\\&quot;</span>, <span class="string">&quot;w&quot;</span>, <span class="string">&quot;f&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;v&quot;</span>, <span class="string">&quot;&lt;&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;Q&quot;</span>, <span class="string">&quot;z&quot;</span>, <span class="string">&quot; &quot;</span>, <span class="string">&quot;s&quot;</span>, <span class="string">&quot;m&quot;</span>, <span class="string">&quot;+&quot;</span>, <span class="string">&quot;E&quot;</span>, <span class="string">&quot;D&quot;</span>, <span class="string">&quot;g&quot;</span>, <span class="string">&quot;W&quot;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&quot;q&quot;</span>, <span class="string">&quot;y&quot;</span>, <span class="string">&quot;T&quot;</span>, <span class="string">&quot;V&quot;</span>, <span class="string">&quot;n&quot;</span>, <span class="string">&quot;S&quot;</span>, <span class="string">&quot;X&quot;</span>, <span class="string">&quot;)&quot;</span>, <span class="string">&quot;9&quot;</span>, <span class="string">&quot;C&quot;</span>, <span class="string">&quot;P&quot;</span>, <span class="string">&quot;r&quot;</span>, <span class="string">&quot;&amp;&quot;</span>, <span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;!&quot;</span>, <span class="string">&quot;x&quot;</span>, <span class="string">&quot;G&quot;</span>, <span class="string">&quot;:&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;~&quot;</span>, <span class="string">&quot;O&quot;</span>, <span class="string">&quot;h&quot;</span>, <span class="string">&quot;u&quot;</span>, <span class="string">&quot;U&quot;</span>, <span class="string">&quot;@&quot;</span>, <span class="string">&quot;;&quot;</span>, <span class="string">&quot;H&quot;</span>, <span class="string">&quot;3&quot;</span>, <span class="string">&quot;F&quot;</span>, <span class="string">&quot;6&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;L&quot;</span>, <span class="string">&quot;&gt;&quot;</span>, <span class="string">&quot;^&quot;</span>, <span class="string">&quot;,&quot;</span>, <span class="string">&quot;.&quot;</span>, <span class="string">&quot;l&quot;</span>, <span class="string">&quot;$&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;`&quot;</span>, <span class="string">&quot;%&quot;</span>, <span class="string">&quot;N&quot;</span>, <span class="string">&quot;*&quot;</span>, <span class="string">&quot;[&quot;</span>, <span class="string">&quot;0&quot;</span>, <span class="string">&quot;&#125;&quot;</span>, <span class="string">&quot;J&quot;</span>, <span class="string">&quot;-&quot;</span>, <span class="string">&quot;5&quot;</span>, <span class="string">&quot;_&quot;</span>, <span class="string">&quot;A&quot;</span>, <span class="string">&quot;=&quot;</span>, <span class="string">&quot;&#123;&quot;</span>, <span class="string">&quot;k&quot;</span>, <span class="string">&quot;o&quot;</span>, <span class="string">&quot;7&quot;</span>, <span class="string">&quot;#&quot;</span>, <span class="string">&quot;i&quot;</span>, <span class="string">&quot;I&quot;</span>, <span class="string">&quot;Y&quot;</span>, <span class="string">&quot;(&quot;</span>, <span class="string">&quot;j&quot;</span>, <span class="string">&quot;/&quot;</span>, <span class="string">&quot;?&quot;</span>, <span class="string">&quot;K&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;t&quot;</span>, <span class="string">&quot;R&quot;</span>, <span class="string">&quot;4&quot;</span>, <span class="string">&quot;8&quot;</span>, <span class="string">&quot;e&quot;</span>, <span class="string">&quot;|&quot;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这里就是用orde里的值来索引trems</p>
+<p>用python来跑一下，得到一串base64密文，</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$_</span>=<span class="string">&#x27;aWYoaXNzZXQoJF9QT1NUWyJcOTdcNDlcNDlcNjhceDRGXDg0XDExNlx4NjhcOTdceDc0XHg0NFx4NEZceDU0XHg2QVw5N1x4NzZceDYxXHgzNVx4NjNceDcyXDk3XHg3MFx4NDFcODRceDY2XHg2Q1w5N1x4NzJceDY1XHg0NFw2NVx4NTNcNzJcMTExXDExMFw2OFw3OVw4NFw5OVx4NkZceDZEIl0pKSB7IGV2YWwoYmFzZTY0X2RlY29kZSgkX1BPU1RbIlw5N1w0OVx4MzFcNjhceDRGXHg1NFwxMTZcMTA0XHg2MVwxMTZceDQ0XDc5XHg1NFwxMDZcOTdcMTE4XDk3XDUzXHg2M1wxMTRceDYxXHg3MFw2NVw4NFwxMDJceDZDXHg2MVwxMTRcMTAxXHg0NFw2NVx4NTNcNzJcMTExXHg2RVx4NDRceDRGXDg0XDk5XHg2Rlx4NkQiXSkpOyB9&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$__</span>=<span class="string">&#x27;JGNvZGU9YmFzZTY0X2RlY29kZSgkXyk7ZXZhbCgkY29kZSk7&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$___</span>=<span class="string">&quot;\x62\141\x73\145\x36\64\x5f\144\x65\143\x6f\144\x65&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">eval</span>(<span class="variable">$___</span>(<span class="variable">$__</span>));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>解开密文，得到</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&quot;\97\49\49\68\x4F\84\116\x68\97\x74\x44\x4F\x54\x6A\97\x76\x61\x35\x63\x72\97\x70\x41\84\x66\x6C\97\x72\x65\x44\65\x53\72\111\110\68\79\84\99\x6F\x6D&quot;</span>])) </span><br><span class="line">&#123; <span class="keyword">eval</span>(base64_decode(<span class="variable">$_POST</span>[<span class="string">&quot;\97\49\x31\68\x4F\x54\116\104\x61\116\x44\79\x54\106\97\118\97\53\x63\114\x61\x70\65\84\102\x6C\x61\114\101\x44\65\x53\72\111\x6E\x44\x4F\84\99\x6F\x6D&quot;</span>])); </span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$code</span>=base64_decode(<span class="variable">$_</span>);<span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line">下面那个没解出来</span><br></pre></td></tr></table></figure>
+<p>直接把后面的内容再用base解开，就能得到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a11DOTthatDOTjava5crapATflareDASHonDOTcom</span><br></pre></td></tr></table></figure>
+<p>这里把里面的DOT换成点，AT换成@，DASH换成-</p>
+<p>网页其实是迷惑人的，关键在图片隐写</p>
+<h2 id="Flare-on-3"><a href="#Flare-on-3" class="headerlink" title="Flare-on 3"></a>Flare-on 3</h2><p>这个就纯动态调试了，没啥别的。不过出题人的本意应该是考察idc的使用</p>
+<p>给了一个没有后缀的32位PE文件（winhex得出），然后加上后缀运行，直接弹错。不难看出，这里的报错是刻意为之的</p>
+<p>进ida看一下</p>
+<p><img src="flare-2014/image-20211123204253909.png" alt="image-20211123204253909"></p>
+<p>函数不多，但是没有什么实际价值</p>
+<p><img src="flare-2014/image-20211123204310491.png" alt="image-20211123204310491"></p>
+<p>这里看起来需要动态调试，打开x32dbg，直接在0x401000处下断点，然后f9，来到最后的一个call这里</p>
+<p><img src="flare-2014/image-20211103194501505.png" alt="image-20211103194501505"></p>
+<p>f7跟进之后，f8往下走，发现这里一个和0x66的异或，看一下异或之后的数据</p>
+<p>在循环的时候，看到下面的指令在不断变化，这里直接在内存窗口看一下</p>
+<p>循环结束之后发下字符串</p>
+<p> <code>so it beginshus</code>：这应该是开始的标志</p>
+<p>在jmp之后又遇到一个循环，看到又在内存中生成了一串字符串</p>
+<p><img src="flare-2014/image-20211103195406253.png" alt="image-20211103195406253"></p>
+<p>这里还是不清楚他想表达什么，但是这些字符串没有出现在程序窗口中，应该是作者刻意为之，继续往下跑</p>
+<p>时刻观察着内存窗口，然后一直往下跑，不一会就看到了flag</p>
+<p><img src="flare-2014/image-20211103195648942.png" alt="image-20211103195648942"></p>
+<h2 id="Flare-on-4"><a href="#Flare-on-4" class="headerlink" title="Flare-on 4"></a>Flare-on 4</h2><p>这个pdf有一个背景，就是mandiant公司在2014年揭露了一个中国的国营黑客组织</p>
+<blockquote>
+<p> “61398股”工作的性质被中国视为国家机密：然而，我们相信它从事有害的”计算机网络操作”。</p>
+<p>61398号机组部分位于高桥镇大同路（路旁），位于上海浦东新区（区）。该大院的中心建筑是一个 130，663 平方英尺的设施，高 12 层，建于 2007 年初。</p>
+<p>我们估计，61398股有成百上千的人员，根据61398股的有形基础设施的规模。</p>
+<p>中国电信以国防的名义为该单位提供了特殊的光纤通信基础设施。</p>
+<p>61398股要求其人员接受计算机安全和计算机网络操作培训，并要求其人员精通英语。</p>
+</blockquote>
+<p>给了一个PDF，看官方wp，在用老版本的pdf阅读器的时候，程序会执行一些代码，但是我没有找到这个阅读器，现在的阅读器过于先进和安全，所以就没有成功复现</p>
+<h2 id="Flare-on-5"><a href="#Flare-on-5" class="headerlink" title="Flare-on 5"></a>Flare-on 5</h2><p>这是一个简单的dll逆向吧，开始想去直接动态调试，但是dll文件没有动起来，就只能静态看看了</p>
+<p>ida进去找到dllmain函数</p>
+<p><img src="flare-2014/image-20211107214222015.png" alt="image-20211107214222015"></p>
+<p>分析了一堆没啥用的api函数，最后在下面找到了关键函数</p>
+<p><img src="flare-2014/image-20211107214331089.png" alt="image-20211107214331089"></p>
+<p>这里发现有俩函数，都跟进去看一下</p>
+<p>第一个函数：</p>
+<p><img src="flare-2014/image-20211107214452357.png" alt="image-20211107214452357"></p>
+<p>这时要学会浏览函数列表，列表中总会有一些函数，有奇怪的作用（算是一个逆向的技巧吧）</p>
+<p>然后找到了一个函数（从上往下第四位）</p>
+<p><img src="flare-2014/image-20211107214757593.png" alt="image-20211107214757593"></p>
+<p>函数很大，这里直接用c语言模拟一下</p>
+<p><img src="flare-2014/image-20211107215840081.png" alt="image-20211107215840081"></p>
+<p>得到这个，考虑到这是dll文件，所以这里考虑输出这个函数，他就运行成功了</p>
+<p>然后跟进xref向回引用查找</p>
+<p><img src="flare-2014/image-20211107220004372.png" alt="image-20211107220004372"></p>
+<p>这里调用了成功函数，看到只有当这个数组&gt;0时，才可以，所以看一下他在哪里被赋值了</p>
+<p><img src="flare-2014/image-20211107220110634.png" alt="image-20211107220110634"></p>
+<p>这里跳转到下面那个，</p>
+<p><img src="flare-2014/image-20211107220139870.png" alt="image-20211107220139870"></p>
+<p>这里再看他赋值为1的条件，是上面那个大于0，以此类推，靠着这个数组的和0比较的大小，不停的向回跳转，然后每一个函数最后都有一个返回值</p>
+<p><img src="flare-2014/image-20211107220319910.png" alt="image-20211107220319910"></p>
+<p>根据xref的顺序记录一下返回值（这把一些英文单词换成符号）</p>
+<p>得到：l0gging.ur.5tr0ke5atflare-on.com</p>
+<h2 id="Flare-on-6"><a href="#Flare-on-6" class="headerlink" title="Flare-on 6"></a>Flare-on 6</h2><p>这个elf文件不会，看他们分析也分析不出来</p>
+<h2 id="Flare-on-7"><a href="#Flare-on-7" class="headerlink" title="Flare-on 7"></a>Flare-on 7</h2><p>这个程序我不敢在本机跑，然后再win7虚拟机里跑也会出错，说他是个16位的程序，但是实际上是32位的，我不理解，这里记录一下题目中的涉及的反调试函数</p>
+<p>IsDebuggerPresent() //调试时会返回1</p>
+<p>IDT() //检查是否使用虚拟机</p>
+<p><img src="flare-2014/image-20211123210400912.png" alt="image-20211123210400912"></p>
+<p>通过使用特权指令判断是否使用虚拟机</p>
+<p><img src="flare-2014/image-20211123210427090.png" alt="image-20211123210427090"></p>
+<p>计算了1e1030到1e1780之间的0xCC数量，未调试时应为0x55</p>
+<p><img src="flare-2014/image-20211123210524084.png" alt="image-20211123210524084"></p>
+<p>peb中的BeingDebugged，当调试时这个值为1</p>
+<p><img src="flare-2014/image-20211123210559391.png" alt="image-20211123210559391"></p>
+<p>peb偏移0x68处为未公开的一处位置，调试时这个值为0x70</p>
+<p><img src="flare-2014/image-20211123210629610.png" alt="image-20211123210629610"></p>
+<p>以上参考harmonica11师傅的博客，我也没有找到这些函数</p>
+]]></content>
+      <categories>
+        <category>WriteUp</category>
+      </categories>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>近期比赛问题</title>
+    <url>/2021/10/16/%E8%BF%91%E6%9C%9F%E6%AF%94%E8%B5%9B%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<pre><code> 2021-10 强网杯，字节跳动，莲城杯等比赛总结
+</code></pre><p>安恒月赛中的逆向相对容易，但是涉及到大量的对称加密以及非对称加密的问题，拿到带有加密的逆向多少手足无措。还有就是编程基础的欠缺，对编程语言知之甚少，还有就是对编程术语比如“断言”，“Panic”</p>
+<h2 id="莲城杯"><a href="#莲城杯" class="headerlink" title="莲城杯"></a>莲城杯</h2><p>baby_rust：是用rust语言写的程序，通过wp知道根据rust语言的特点可以很快解答</p>
+<p>longtime：对算法的理解和关键代码的定位能力欠缺，不能有效的识别算法，也不能优化算法。</p>
+<p>brainfuck: 一种比较脑洞的加密形式，理解分析能力不够，编码能力差的离谱</p>
+<p>README：代码分析能力，AES算法不了解，分辨不出魔改的TEA加密。</p>
+<h2 id="强网杯"><a href="#强网杯" class="headerlink" title="强网杯"></a>强网杯</h2>]]></content>
+      <categories>
+        <category>比赛总结</category>
+      </categories>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IDA动态调试APK</title>
+    <url>/2021/10/02/ida-remote-android/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>夜神模拟器使用于调试32位的apk程序，因为apk为了安全很少将关键数据放在java层，所以这里通过动态调试以达到对native层的逆向。</p>
+<span id="more"></span>
+<h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><p>ida与模拟器通过adb指令进行连接</p>
+<h2 id="安装adb"><a href="#安装adb" class="headerlink" title="安装adb"></a>安装adb</h2><p>从<a href="https://developer.android.com/studio/releases/platform-tools.html下载adb，安装">https://developer.android.com/studio/releases/platform-tools.html下载adb，安装</a></p>
+<p>找到目录中的adb.exe文件的路径，添加到patch</p>
+<p>cmd窗口输入adb -version查看是否成功，出现版本号和命令帮助则成功</p>
+<h2 id="adb连接"><a href="#adb连接" class="headerlink" title="adb连接"></a>adb连接</h2><h3 id="配置模拟器"><a href="#配置模拟器" class="headerlink" title="配置模拟器"></a>配置模拟器</h3><p>以下为夜神模拟器思路：</p>
+<p>进入夜神模拟器设置，“关于平板电脑选项”，连续点击5次 “版本号” ，进入开发者模式</p>
+<p>打开开发者模式中调试选项中的 ”USB调试“</p>
+<p>—-<strong>模拟器配置完成</strong>—</p>
+<h3 id="连接主机"><a href="#连接主机" class="headerlink" title="连接主机"></a>连接主机</h3><p>1.连接：cmd命令【adb connect 127.0.0.1:62001】</p>
+<p>62001: 夜神模拟器的默认端口号，因模拟器而异</p>
+<p>2.查看：cmd命令 【adb devices】；成功会显示出当前的连接，失败则显示“device not found”.</p>
+<p>3.与ida建立关系：cmd命令 【adb push 路径\android_server /data/local/tmp/】</p>
+<p>将ida安装目录中远程调试目录下的android_server文件push向模拟器，后者为push进模拟器的路径</p>
+<p>4.进入模拟器：cmd命令 【adb shell】, 乱码不要在意，继续cmd命令 【su】,进入管理员模式</p>
+<p>5.执行server文件：cmd命令 【cd /data/local/tmp/】,【ls】查看文件是否存在</p>
+<p>【chmod 777 android_server】赋予文件777权限，【./android_server】执行文件，建立ida联系</p>
+<p>6.端口转发：另外打开cmd，cmd命令 【adb forward tcp:23946  tcp:23946】</p>
+<p><strong><em>常见异常</em></strong>：</p>
+<p>1.执行文件时显示文件已经执行：命令【ps | grep android_server】寻找进程【kill -s 9 ID】关闭进程，然后重新执行</p>
+<p>2.端口转发异常：(1)device not found：结束server文件执行，重新启动模拟器。（2）端口被占用：主机查看后酌情选择</p>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>在模拟器中事先打开需要调试的文件</p>
+<p>1.打开空白ida，或已经载入so文件的ida</p>
+<p>2.空白ida：Debugger选项中的“attach”选项中的“Remote ARM……”选项</p>
+<p>hostname选择填入“127.0.0.1”，端口默认，密码为空</p>
+<p>2_1.已经载入so文件的ida：Debugger选项中的 “Select debugger” 选项中的“Remote ARM……”选项</p>
+<p>然后 Debugger选项中 “process option” 选项，参数按需，hostname同上，端口，密码默认</p>
+<p>3.选择进程：一般会在进程列表的底部找到目标程序的进程</p>
+<p>连接完成，可以开始调试</p>
+]]></content>
+      <categories>
+        <category>逆向工程学习</category>
+      </categories>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PEviewer</title>
+    <url>/2021/09/26/PEviewer/</url>
+    <content><![CDATA[<p>​    为了深入理解PE文件的结构，又参考多方资料，代码，思路，图片，讲解等等，用C语言写了一个简陋，不完善的PEviewer，代码如下，vscode运行不会报错</p>
+<span id="more"></span>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">IMAGE_DOS_HEADER dosheader;<span class="comment">//Dos头</span></span><br><span class="line">IMAGE_FILE_HEADER fileheader;<span class="comment">//文件头</span></span><br><span class="line">IMAGE_SECTION_HEADER SectionHeader;<span class="comment">//节区头</span></span><br><span class="line">IMAGE_OPTIONAL_HEADER32 optionalheader;<span class="comment">//NT头里的可选头	</span></span><br><span class="line">IMAGE_IMPORT_DESCRIPTOR iid;<span class="comment">//IID</span></span><br><span class="line">DWORD PointerToPeHeader = <span class="number">0</span>;</span><br><span class="line">DWORD Size_Of_File = <span class="number">0</span>;</span><br><span class="line">DWORD Pe_Signature = <span class="number">0</span>;</span><br><span class="line">WORD Size_Of_Opt_Header = <span class="number">0</span>;</span><br><span class="line">WORD subsys = <span class="number">0</span>;</span><br><span class="line">DWORD Addr_of_EP = <span class="number">0</span>;</span><br><span class="line">DWORD PtrIdata = <span class="number">0</span>;</span><br><span class="line">DWORD ImageBase = <span class="number">0</span>;</span><br><span class="line">DWORD ImportsVA = <span class="number">0</span>;</span><br><span class="line">DWORD ImportsSize = <span class="number">0</span>;</span><br><span class="line">DWORD ImportDirAddr = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> NrOfSections = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SectionInfo</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">char</span> name[<span class="number">10</span>];</span><br><span class="line">        <span class="keyword">int</span> VA;</span><br><span class="line">        <span class="keyword">int</span> VirtualSize;</span><br><span class="line">        <span class="keyword">int</span> SizeOfRAW;</span><br><span class="line">        <span class="keyword">int</span> Ptr2RAW;<span class="comment">//是一个文件偏移地址(FOA),该节区在硬盘文件中的地址</span></span><br><span class="line">	&#125;; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_section</span><span class="params">(struct SectionInfo *section_info)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s节区:\n&quot;</span>, section_info-&gt;name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t装如内存虚拟空间后的地址（RVA） : 0x%x\n&quot;</span>, section_info-&gt;VA);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t该节区装入内存后的总大小: %d byte\n&quot;</span>, section_info-&gt;VirtualSize);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t该节区在硬盘文件中的地址(FOA) : 0x%x\n&quot;</span>, section_info-&gt;Ptr2RAW);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t该节区在硬盘上初始化数据的大小 : %d byte\n&quot;</span>, section_info-&gt;SizeOfRAW);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> name[] = <span class="string">&quot;ty.exe&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请将测试文件与本程序放在同一目录下\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入文件名：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,name);</span><br><span class="line">   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;测试文件%s\n&quot;</span>,name);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;-----------文件信息-----------\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//打开文件</span></span><br><span class="line">    FILE* fp;</span><br><span class="line"></span><br><span class="line">    fp=fopen(name , <span class="string">&quot;rb&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fp == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;文件打开失败\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//读取DOS头&quot;MZ&quot;</span></span><br><span class="line">    fseek(fp,<span class="number">0</span>,SEEK_SET);</span><br><span class="line">    fread(&amp;dosheader , <span class="number">1</span> , <span class="keyword">sizeof</span>(dosheader) , fp);<span class="comment">//从fp流里面读出&quot;MZ&quot;</span></span><br><span class="line">    WORD MZ=dosheader.e_magic;</span><br><span class="line">    <span class="keyword">if</span>(MZ != <span class="number">0x5a4d</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;这不是PE文件，或者你把DOS头删了\nfuck you\n&quot;</span>);</span><br><span class="line">        fclose(fp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;PE文件的Dos头是：%x\n&quot;</span>,MZ);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;DOS结构体里面有两个重要成员：e_magic(MZ)  e_lfanew\n&quot;</span>);</span><br><span class="line">    WORD NToffset=dosheader.e_lfanew;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;NT头的偏移 = 0x%x\n&quot;</span>,NToffset);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//寻找NT头</span></span><br><span class="line">    fseek(fp,NToffset,SEEK_SET);</span><br><span class="line">    fread(&amp;Pe_Signature,<span class="number">1</span>,<span class="keyword">sizeof</span>(Pe_Signature),fp);</span><br><span class="line">    WORD signature=Pe_Signature;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;PE签名是：%x\n&quot;</span>,signature);</span><br><span class="line">    <span class="keyword">if</span>(signature != <span class="number">0x4550</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;你PE头呢？\nFuck you&quot;</span>);</span><br><span class="line">        fclose(fp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//文件头结构体</span></span><br><span class="line">    fread(&amp;fileheader,<span class="number">1</span>,<span class="keyword">sizeof</span>(fileheader),fp);</span><br><span class="line">    WORD m_code=fileheader.Machine;</span><br><span class="line">    <span class="keyword">if</span> (m_code==<span class="number">0x014c</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;该CPU是intel-386(X32)\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(m_code==<span class="number">0x8664</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;该CPU是（X64）\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;谁知道你这是么cpu，自己百度去\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//节区数</span></span><br><span class="line">    <span class="keyword">if</span> (fileheader.NumberOfSections==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;不可能有0个节区\n&quot;</span>);</span><br><span class="line">        fclose(fp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    WORD section_num=fileheader.NumberOfSections;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;文件一共有%x个节区\n&quot;</span>,fileheader.NumberOfSections);</span><br><span class="line"><span class="comment">//可选头大小</span></span><br><span class="line">    WORD optional_header_size=fileheader.SizeOfOptionalHeader;</span><br><span class="line">    <span class="keyword">int</span> xbit=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (optional_header_size==<span class="number">0xE0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        xbit=<span class="number">32</span>;</span><br><span class="line">        <span class="comment">// pritnf(&quot;这是一个32位程序\n&quot;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        xbit=<span class="number">64</span>;</span><br><span class="line">        <span class="comment">// printf(&quot;这是一个64位程序\n&quot;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;可选头结构体的大小是：0x%x\n这是一个X%d程序\n&quot;</span>,optional_header_size,xbit);</span><br><span class="line"><span class="comment">//找到可选头</span></span><br><span class="line">    fread(&amp;optionalheader,<span class="number">1</span>,optional_header_size,fp);</span><br><span class="line">    </span><br><span class="line">    subsys=optionalheader.Subsystem;</span><br><span class="line">    <span class="keyword">if</span> (subsys==<span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;这是一个Windows GUI 子系统\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(subsys==<span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;这是一个Windows 控制台子系统\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;俺也不知道了，恁自己查吧\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    DWORD iid_addr=optionalheader.DataDirectory[<span class="number">1</span>].VirtualAddress;</span><br><span class="line">    DWORD iid_size=optionalheader.DataDirectory[<span class="number">1</span>].Size;</span><br><span class="line"></span><br><span class="line">    DWORD ope_addr=optionalheader.AddressOfEntryPoint;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;程序最先执行的代码的地址(RVA)是：0x%x&quot;</span>,ope_addr);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;如果想要在一个可执行文件中附加了一段代码并且要让这段代码首先被执行，就可以通过更改入口地址到目标代码上，然后再跳转回原有的入口地址。\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;就像upx压缩那样\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;代码节的起始地址：0x%x, &quot;</span>,optionalheader.BaseOfCode);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;数据节的起始地址：0x%x\n&quot;</span>,optionalheader.BaseOfData);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//打印出所有的节区</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">SectionInfo</span> <span class="title">section_info</span>[<span class="title">section_num</span>];</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;section_num;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        fread(&amp;SectionHeader,<span class="number">1</span>,<span class="keyword">sizeof</span>(SectionHeader),fp);</span><br><span class="line">        <span class="built_in">memcpy</span>(section_info[i].name,SectionHeader.Name,<span class="number">10</span>);        </span><br><span class="line">        section_info[i].VA=SectionHeader.VirtualAddress;</span><br><span class="line">        section_info[i].VirtualSize=SectionHeader.Misc.VirtualSize;</span><br><span class="line">        <span class="comment">//这个成员指定了该节区装入内存后的总大小，以字节为单位</span></span><br><span class="line">        section_info[i].Ptr2RAW=SectionHeader.PointerToRawData;</span><br><span class="line">        print_section(&amp;section_info[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//RVA---&gt;RAW</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">RVA2RAW</span><span class="params">(<span class="keyword">int</span> rva)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i,raw;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;section_num;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((rva&gt;=section_info[i].VA) &amp;&amp; (rva&lt;=(section_info[i].VA + section_info[i].VirtualSize)))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//RAW = RVA - VA + PointerToRawData</span></span><br><span class="line">                raw = rva - section_info[i].VA + section_info[i].VirtualSize;</span><br><span class="line">                <span class="keyword">return</span> raw;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">//尝试打印出dll的名称</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;IID结构体的大小：%d\n&quot;</span>,iid_size);</span><br><span class="line">    <span class="keyword">int</span> IID_addr=RVA2RAW(iid_addr);</span><br><span class="line">    fseek(fp,IID_addr,SEEK_SET);</span><br><span class="line">    fread(&amp;iid,<span class="number">1</span>,<span class="number">20</span>,fp); <span class="comment">//read the first Import</span></span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(iid.Name!=<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		fread(&amp;iid,<span class="number">1</span>,<span class="number">20</span>,fp);	</span><br><span class="line">		count++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	IMAGE_IMPORT_DESCRIPTOR Imported[count<span class="number">-1</span>];</span><br><span class="line">	fseek(fp, iid_addr, SEEK_SET);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// char *dll_name;</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(count<span class="number">-1</span>);i++)</span><br><span class="line">	&#123;</span><br><span class="line">		fread(&amp;Imported[i],<span class="number">1</span>,<span class="number">20</span>,fp);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[%d] DLL文件的名称在地址 0x%lx 处。\n&quot;</span>, i, Imported[i].Name);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//尝试获取dll的名称，失败</span></span><br><span class="line">        <span class="comment">// if (i==3)</span></span><br><span class="line">        <span class="comment">// &#123;</span></span><br><span class="line">        <span class="comment">//     fseek(fp,Imported[i].Name,SEEK_SET);</span></span><br><span class="line">        <span class="comment">//     fread(&amp;name,1,10,fp);</span></span><br><span class="line">        <span class="comment">//     printf(&quot;--%s--\n&quot;,dll_name);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">	</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;文件用到的DLL：\n&quot;</span>);</span><br><span class="line"><span class="comment">// //尝试获取dll的名称，失败</span></span><br><span class="line"><span class="comment">//     DWORD DLL_NAME;</span></span><br><span class="line"><span class="comment">//     for(int i=0;i&lt;(count-1);i++)</span></span><br><span class="line"><span class="comment">//     &#123;</span></span><br><span class="line"><span class="comment">//         DLL_NAME = RVA2RAW(Imported[i].Name);//找出name的RAW</span></span><br><span class="line"><span class="comment">//         // DLL_NAME = Imported[i].Name;</span></span><br><span class="line"><span class="comment">//         fseek(fp , DLL_NAME , SEEK_SET);//定位文件</span></span><br><span class="line"><span class="comment">//         do</span></span><br><span class="line"><span class="comment">//         &#123;</span></span><br><span class="line"><span class="comment">//             char c;</span></span><br><span class="line"><span class="comment">//             c = fgetc(fp);//按字节获取地址里的内容</span></span><br><span class="line"><span class="comment">//             if (c==0)//ascii字符串用0结尾</span></span><br><span class="line"><span class="comment">//             &#123;</span></span><br><span class="line"><span class="comment">//                 printf(&quot;\n&quot;);</span></span><br><span class="line"><span class="comment">//                 break;</span></span><br><span class="line"><span class="comment">//             &#125;</span></span><br><span class="line"><span class="comment">//             printf(&quot;%c&quot;,c);</span></span><br><span class="line"><span class="comment">//         &#125; while (1);</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"></span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>该PEviewer能够准确的识别PE文件的位数，节区数等等，有些也不能准确识别，后期会不定期改进，先发上来，有意见和建议或者指出错误或者告诉我怎么识别dll名称的，欢迎联系我（QQ：MTYyMTA0Mzk4Ng==）</p>
+]]></content>
+      <categories>
+        <category>逆向工程学习</category>
+      </categories>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读过的书</title>
+    <url>/2021/09/12/%E8%AF%BB%E8%BF%87%E7%9A%84%E4%B9%A6/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>daily</title>
+    <url>/2021/09/12/daily/</url>
+    <content><![CDATA[<p>​    人间最美好的，莫过于可以不受打扰，安心的干自己喜欢的事。</p>
+]]></content>
+      <categories>
+        <category>悠哉日常</category>
+      </categories>
+      <tags>
+        <tag>悠哉日常</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VScode环境配置</title>
     <url>/2021/09/07/VScode/</url>
     <content><![CDATA[<p> 最近发现dev c++喜欢报一些奇奇怪怪的错，所以这里将阵地转移到了Vscode，看看网上吹的是不是都是真的，记录一下配置的过程</p>
@@ -72,142 +265,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PEviewer</title>
-    <url>/2021/09/26/PEviewer/</url>
-    <content><![CDATA[<p>​    为了深入理解PE文件的结构，又参考多方资料，代码，思路，图片，讲解等等，用C语言写了一个简陋，不完善的PEviewer，代码如下，vscode运行不会报错</p>
-<span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">IMAGE_DOS_HEADER dosheader;<span class="comment">//Dos头</span></span><br><span class="line">IMAGE_FILE_HEADER fileheader;<span class="comment">//文件头</span></span><br><span class="line">IMAGE_SECTION_HEADER SectionHeader;<span class="comment">//节区头</span></span><br><span class="line">IMAGE_OPTIONAL_HEADER32 optionalheader;<span class="comment">//NT头里的可选头	</span></span><br><span class="line">IMAGE_IMPORT_DESCRIPTOR iid;<span class="comment">//IID</span></span><br><span class="line">DWORD PointerToPeHeader = <span class="number">0</span>;</span><br><span class="line">DWORD Size_Of_File = <span class="number">0</span>;</span><br><span class="line">DWORD Pe_Signature = <span class="number">0</span>;</span><br><span class="line">WORD Size_Of_Opt_Header = <span class="number">0</span>;</span><br><span class="line">WORD subsys = <span class="number">0</span>;</span><br><span class="line">DWORD Addr_of_EP = <span class="number">0</span>;</span><br><span class="line">DWORD PtrIdata = <span class="number">0</span>;</span><br><span class="line">DWORD ImageBase = <span class="number">0</span>;</span><br><span class="line">DWORD ImportsVA = <span class="number">0</span>;</span><br><span class="line">DWORD ImportsSize = <span class="number">0</span>;</span><br><span class="line">DWORD ImportDirAddr = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> NrOfSections = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SectionInfo</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">char</span> name[<span class="number">10</span>];</span><br><span class="line">        <span class="keyword">int</span> VA;</span><br><span class="line">        <span class="keyword">int</span> VirtualSize;</span><br><span class="line">        <span class="keyword">int</span> SizeOfRAW;</span><br><span class="line">        <span class="keyword">int</span> Ptr2RAW;<span class="comment">//是一个文件偏移地址(FOA),该节区在硬盘文件中的地址</span></span><br><span class="line">	&#125;; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_section</span><span class="params">(struct SectionInfo *section_info)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s节区:\n&quot;</span>, section_info-&gt;name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t装如内存虚拟空间后的地址（RVA） : 0x%x\n&quot;</span>, section_info-&gt;VA);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t该节区装入内存后的总大小: %d byte\n&quot;</span>, section_info-&gt;VirtualSize);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t该节区在硬盘文件中的地址(FOA) : 0x%x\n&quot;</span>, section_info-&gt;Ptr2RAW);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\t该节区在硬盘上初始化数据的大小 : %d byte\n&quot;</span>, section_info-&gt;SizeOfRAW);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> name[] = <span class="string">&quot;ty.exe&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请将测试文件与本程序放在同一目录下\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入文件名：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,name);</span><br><span class="line">   </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;测试文件%s\n&quot;</span>,name);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;-----------文件信息-----------\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//打开文件</span></span><br><span class="line">    FILE* fp;</span><br><span class="line"></span><br><span class="line">    fp=fopen(name , <span class="string">&quot;rb&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(fp == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;文件打开失败\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//读取DOS头&quot;MZ&quot;</span></span><br><span class="line">    fseek(fp,<span class="number">0</span>,SEEK_SET);</span><br><span class="line">    fread(&amp;dosheader , <span class="number">1</span> , <span class="keyword">sizeof</span>(dosheader) , fp);<span class="comment">//从fp流里面读出&quot;MZ&quot;</span></span><br><span class="line">    WORD MZ=dosheader.e_magic;</span><br><span class="line">    <span class="keyword">if</span>(MZ != <span class="number">0x5a4d</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;这不是PE文件，或者你把DOS头删了\nfuck you\n&quot;</span>);</span><br><span class="line">        fclose(fp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;PE文件的Dos头是：%x\n&quot;</span>,MZ);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;DOS结构体里面有两个重要成员：e_magic(MZ)  e_lfanew\n&quot;</span>);</span><br><span class="line">    WORD NToffset=dosheader.e_lfanew;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;NT头的偏移 = 0x%x\n&quot;</span>,NToffset);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//寻找NT头</span></span><br><span class="line">    fseek(fp,NToffset,SEEK_SET);</span><br><span class="line">    fread(&amp;Pe_Signature,<span class="number">1</span>,<span class="keyword">sizeof</span>(Pe_Signature),fp);</span><br><span class="line">    WORD signature=Pe_Signature;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;PE签名是：%x\n&quot;</span>,signature);</span><br><span class="line">    <span class="keyword">if</span>(signature != <span class="number">0x4550</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;你PE头呢？\nFuck you&quot;</span>);</span><br><span class="line">        fclose(fp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//文件头结构体</span></span><br><span class="line">    fread(&amp;fileheader,<span class="number">1</span>,<span class="keyword">sizeof</span>(fileheader),fp);</span><br><span class="line">    WORD m_code=fileheader.Machine;</span><br><span class="line">    <span class="keyword">if</span> (m_code==<span class="number">0x014c</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;该CPU是intel-386(X32)\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(m_code==<span class="number">0x8664</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;该CPU是（X64）\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;谁知道你这是么cpu，自己百度去\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//节区数</span></span><br><span class="line">    <span class="keyword">if</span> (fileheader.NumberOfSections==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;不可能有0个节区\n&quot;</span>);</span><br><span class="line">        fclose(fp);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    WORD section_num=fileheader.NumberOfSections;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;文件一共有%x个节区\n&quot;</span>,fileheader.NumberOfSections);</span><br><span class="line"><span class="comment">//可选头大小</span></span><br><span class="line">    WORD optional_header_size=fileheader.SizeOfOptionalHeader;</span><br><span class="line">    <span class="keyword">int</span> xbit=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (optional_header_size==<span class="number">0xE0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        xbit=<span class="number">32</span>;</span><br><span class="line">        <span class="comment">// pritnf(&quot;这是一个32位程序\n&quot;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        xbit=<span class="number">64</span>;</span><br><span class="line">        <span class="comment">// printf(&quot;这是一个64位程序\n&quot;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;可选头结构体的大小是：0x%x\n这是一个X%d程序\n&quot;</span>,optional_header_size,xbit);</span><br><span class="line"><span class="comment">//找到可选头</span></span><br><span class="line">    fread(&amp;optionalheader,<span class="number">1</span>,optional_header_size,fp);</span><br><span class="line">    </span><br><span class="line">    subsys=optionalheader.Subsystem;</span><br><span class="line">    <span class="keyword">if</span> (subsys==<span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;这是一个Windows GUI 子系统\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(subsys==<span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;这是一个Windows 控制台子系统\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;俺也不知道了，恁自己查吧\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    DWORD iid_addr=optionalheader.DataDirectory[<span class="number">1</span>].VirtualAddress;</span><br><span class="line">    DWORD iid_size=optionalheader.DataDirectory[<span class="number">1</span>].Size;</span><br><span class="line"></span><br><span class="line">    DWORD ope_addr=optionalheader.AddressOfEntryPoint;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;程序最先执行的代码的地址(RVA)是：0x%x&quot;</span>,ope_addr);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;如果想要在一个可执行文件中附加了一段代码并且要让这段代码首先被执行，就可以通过更改入口地址到目标代码上，然后再跳转回原有的入口地址。\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;就像upx压缩那样\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;代码节的起始地址：0x%x, &quot;</span>,optionalheader.BaseOfCode);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;数据节的起始地址：0x%x\n&quot;</span>,optionalheader.BaseOfData);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//打印出所有的节区</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">SectionInfo</span> <span class="title">section_info</span>[<span class="title">section_num</span>];</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;section_num;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        fread(&amp;SectionHeader,<span class="number">1</span>,<span class="keyword">sizeof</span>(SectionHeader),fp);</span><br><span class="line">        <span class="built_in">memcpy</span>(section_info[i].name,SectionHeader.Name,<span class="number">10</span>);        </span><br><span class="line">        section_info[i].VA=SectionHeader.VirtualAddress;</span><br><span class="line">        section_info[i].VirtualSize=SectionHeader.Misc.VirtualSize;</span><br><span class="line">        <span class="comment">//这个成员指定了该节区装入内存后的总大小，以字节为单位</span></span><br><span class="line">        section_info[i].Ptr2RAW=SectionHeader.PointerToRawData;</span><br><span class="line">        print_section(&amp;section_info[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//RVA---&gt;RAW</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">RVA2RAW</span><span class="params">(<span class="keyword">int</span> rva)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i,raw;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;section_num;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> ((rva&gt;=section_info[i].VA) &amp;&amp; (rva&lt;=(section_info[i].VA + section_info[i].VirtualSize)))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//RAW = RVA - VA + PointerToRawData</span></span><br><span class="line">                raw = rva - section_info[i].VA + section_info[i].VirtualSize;</span><br><span class="line">                <span class="keyword">return</span> raw;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">//尝试打印出dll的名称</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;IID结构体的大小：%d\n&quot;</span>,iid_size);</span><br><span class="line">    <span class="keyword">int</span> IID_addr=RVA2RAW(iid_addr);</span><br><span class="line">    fseek(fp,IID_addr,SEEK_SET);</span><br><span class="line">    fread(&amp;iid,<span class="number">1</span>,<span class="number">20</span>,fp); <span class="comment">//read the first Import</span></span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(iid.Name!=<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		fread(&amp;iid,<span class="number">1</span>,<span class="number">20</span>,fp);	</span><br><span class="line">		count++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	IMAGE_IMPORT_DESCRIPTOR Imported[count<span class="number">-1</span>];</span><br><span class="line">	fseek(fp, iid_addr, SEEK_SET);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// char *dll_name;</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(count<span class="number">-1</span>);i++)</span><br><span class="line">	&#123;</span><br><span class="line">		fread(&amp;Imported[i],<span class="number">1</span>,<span class="number">20</span>,fp);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[%d] DLL文件的名称在地址 0x%lx 处。\n&quot;</span>, i, Imported[i].Name);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//尝试获取dll的名称，失败</span></span><br><span class="line">        <span class="comment">// if (i==3)</span></span><br><span class="line">        <span class="comment">// &#123;</span></span><br><span class="line">        <span class="comment">//     fseek(fp,Imported[i].Name,SEEK_SET);</span></span><br><span class="line">        <span class="comment">//     fread(&amp;name,1,10,fp);</span></span><br><span class="line">        <span class="comment">//     printf(&quot;--%s--\n&quot;,dll_name);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">	</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;文件用到的DLL：\n&quot;</span>);</span><br><span class="line"><span class="comment">// //尝试获取dll的名称，失败</span></span><br><span class="line"><span class="comment">//     DWORD DLL_NAME;</span></span><br><span class="line"><span class="comment">//     for(int i=0;i&lt;(count-1);i++)</span></span><br><span class="line"><span class="comment">//     &#123;</span></span><br><span class="line"><span class="comment">//         DLL_NAME = RVA2RAW(Imported[i].Name);//找出name的RAW</span></span><br><span class="line"><span class="comment">//         // DLL_NAME = Imported[i].Name;</span></span><br><span class="line"><span class="comment">//         fseek(fp , DLL_NAME , SEEK_SET);//定位文件</span></span><br><span class="line"><span class="comment">//         do</span></span><br><span class="line"><span class="comment">//         &#123;</span></span><br><span class="line"><span class="comment">//             char c;</span></span><br><span class="line"><span class="comment">//             c = fgetc(fp);//按字节获取地址里的内容</span></span><br><span class="line"><span class="comment">//             if (c==0)//ascii字符串用0结尾</span></span><br><span class="line"><span class="comment">//             &#123;</span></span><br><span class="line"><span class="comment">//                 printf(&quot;\n&quot;);</span></span><br><span class="line"><span class="comment">//                 break;</span></span><br><span class="line"><span class="comment">//             &#125;</span></span><br><span class="line"><span class="comment">//             printf(&quot;%c&quot;,c);</span></span><br><span class="line"><span class="comment">//         &#125; while (1);</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"></span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>该PEviewer能够准确的识别PE文件的位数，节区数等等，有些也不能准确识别，后期会不定期改进，先发上来，有意见和建议或者指出错误或者告诉我怎么识别dll名称的，欢迎联系我（QQ：MTYyMTA0Mzk4Ng==）</p>
-]]></content>
-      <categories>
-        <category>逆向工程学习</category>
-      </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>daily</title>
-    <url>/2021/09/12/daily/</url>
-    <content><![CDATA[<p>​    人间最美好的，莫过于可以不受打扰，安心的干自己喜欢的事。</p>
-]]></content>
-      <categories>
-        <category>悠哉日常</category>
-      </categories>
-      <tags>
-        <tag>悠哉日常</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>flare-on2014复现记录</title>
-    <url>/2021/11/14/flare-2014/</url>
-    <content><![CDATA[<p> 复现了flare-on2014的部分题目，有的题目已经不具时效性，或者相关软件已经无法找到，便不再复现。</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>WriteUp</category>
-      </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>how2buildBlog</title>
-    <url>/2021/08/27/how2buildBlog/</url>
-    <content><![CDATA[<p> 搭建好博客，记录搭建过程：</p>
-<h1 id="搭建博客："><a href="#搭建博客：" class="headerlink" title="搭建博客："></a>搭建博客：</h1><p>博客搭建基于【Github+hexo】模式；用的是hexo的next的模板。</p>
-<h2 id="准备工具："><a href="#准备工具：" class="headerlink" title="准备工具："></a>准备工具：</h2><p>1.git</p>
-<p>2.hexo</p>
-<p>3.github</p>
-<p>4.nodejs</p>
-<h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.首先是在GitHub上创建一个仓库，仓库名称需为：名称.github.io</p>
-<p>名称最好是和仓库名相同，这样方便索引：</p>
-<span id="more"></span>
-<p><img src="image-20210827182643655.png" alt="image-20210827182643655"></p>
-<p>像这样即可</p>
-<p>2.然后需要先安装git（熟悉Windows的可以直接用cmd）；然后下载nodejs，用<code>node -v</code>进行检查是否安装成功；然后安装<code>npm install hexo -g</code>用命令：<code>hexo -v</code>查看是否安装成功；之后需要安装hexo的一系列的以来文件<code>nmp install hexo-deployer-git --save</code>,这里需要注意的是—save的位置可以放到install那里，这个看个人情况。</p>
-<p>3.这里最后需要配置SSH KEY，相当于一个身份验证：</p>
-<p>通过git，输入命令：<code>cd ~/.ssh</code>进入ssh文件——-&gt;通过命令<code>cat id_rsa.pub</code>查看密钥，然后在github的设置里：</p>
-<p><img src="image-20210827183729815.png" alt="image-20210827183729815"></p>
-<p>将刚刚的一大串直接复制进去，这样就可以了</p>
-<p>用<code>ssh -T git@github.com</code>检验是否成功</p>
-<p>成功用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;liyunchen&quot; #你的github用户名</span><br><span class="line">$ git config --global user.email &quot;xxx@163.com&quot; #填写你的github注册邮箱</span><br></pre></td></tr></table></figure>
-<p>命令来设置邮箱和用户名</p>
-<h2 id="开始搭建："><a href="#开始搭建：" class="headerlink" title="开始搭建："></a>开始搭建：</h2><p>1.在一个较大的盘里新建文件夹，取一个洋文名字防止出灵异事件</p>
-<p>2.git bash here，在该目录下打开git</p>
-<p>3.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo init</span><br><span class="line"><span class="comment">#初始化hexo，此时目录下多了一堆文件</span></span><br></pre></td></tr></table></figure>
-<p>事先在<a href="https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：">https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：</a></p>
-<p><img src="image-20210827184605759.png" alt="image-20210827184605759"></p>
-<p>这里标黄的是要改成自己的仓库，下面的branch根据实际情况决定是main还是master。</p>
-<p>themes后面跟的是主题的文件夹的名字，注意空格，<strong>千万不能少</strong></p>
-<p>4.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo s<span class="comment">#在本机生成一个预览可以看到效果</span></span><br><span class="line">2.hexo g<span class="comment">#生成html界面</span></span><br><span class="line">3.hexo d<span class="comment">#部署到github</span></span><br></pre></td></tr></table></figure>
-<p>此时就可以看到自己的博客的初始状态，也就搭建基本完毕了</p>
-<h1 id="完善博客："><a href="#完善博客：" class="headerlink" title="完善博客："></a>完善博客：</h1><p>搭建好之后需要完善成人类友好的界面（next为例子）</p>
-<h2 id="1-首页风格："><a href="#1-首页风格：" class="headerlink" title="1.首页风格："></a>1.首页风格：</h2><p>找到你下载的主题里的_config.yml文件（没错，主题里面也有）</p>
-<p>找到：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//这里是四种风格，选一个喜欢的去掉前面的井号</span><br><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">scheme: Gemini</span><br><span class="line">//这里是模式，亮还是暗</span><br><span class="line"># Dark Mode</span><br><span class="line">darkmode: true</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//这里是菜单设置，去掉喜欢的前面的#</span><br><span class="line">menu:</span><br><span class="line">  home: / || home                          //首页</span><br><span class="line">  archives: /archives/ || archive          //归档</span><br><span class="line">  categories: /categories/ || th           //分类</span><br><span class="line">  tags: /tags/ || tags                     //标签</span><br><span class="line">  about: /about/ || user                   //关于</span><br><span class="line">  #schedule: /schedule/ || calendar        //日程表</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap        //站点地图</span><br><span class="line">  #commonweal: /404/ || heartbeat          //公益404</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//侧栏设置，看好适用风格</span><br><span class="line"># Sidebar Position - 侧栏位置（只对Pisces | Gemini两种风格有效）</span><br><span class="line">  position: left        //靠左放置</span><br><span class="line">  #position: right      //靠右放置</span><br><span class="line"></span><br><span class="line"># Sidebar Display - 侧栏显示时机（只对Muse | Mist两种风格有效）</span><br><span class="line">  #display: post        //默认行为，在文章页面（拥有目录列表）时显示</span><br><span class="line">  display: always       //在所有页面中都显示</span><br><span class="line">  #display: hide        //在所有页面中都隐藏（可以手动展开）</span><br><span class="line">  #display: remove      //完全移除</span><br><span class="line"></span><br><span class="line">  offset: 12            //文章间距（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  b2t: false            //返回顶部按钮（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  scrollpercent: true   //返回顶部按钮的百分比</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//头像设置，将头像设为header.jpg，然后拖到themes\hexo-theme-next\source\images目录下</span><br><span class="line"># Sidebar Avatar</span><br><span class="line">avatar: /images/header.jpg</span><br></pre></td></tr></table></figure>
-<h2 id="2-语言文字："><a href="#2-语言文字：" class="headerlink" title="2.语言文字："></a>2.语言文字：</h2><p>打开主目录的_config.yml文件，开头就是这几个，后面的内容自己写写，注意空格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Site</span><br><span class="line">title: R-o-o-t-k-i-t</span><br><span class="line">subtitle: &#x27;&#x27;</span><br><span class="line">description: 自由，平等，公正，法制</span><br><span class="line">keywords: rootkit，+-*/</span><br><span class="line">author: rootkit/+-*</span><br><span class="line">language: zh-CN</span><br><span class="line">timezone: &#x27;&#x27;#网站时区（Hexo 默认使用您电脑的时区，不用写）</span><br></pre></td></tr></table></figure>
-<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><p><img src="image-20210827190155039.png" alt="image-20210827190155039"></p>
-<h1 id="上传日志："><a href="#上传日志：" class="headerlink" title="上传日志："></a>上传日志：</h1><p>在该文件夹里通过git或者cmd使用命令<code>hexo new &#39;#######&#39;</code>,就会在sources目录里生成一个#####.md文件，然后正常写点东西（在下面的正文部分，上面的灰色框是自带的）</p>
-<p>写完之后通过命令<code>hexo g</code>和<code>hexo d</code>来上传</p>
-<p>这样就完成了上面的效果。</p>
-]]></content>
-      <categories>
-        <category>博客装修</category>
-      </categories>
-      <tags>
-        <tag>关于博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IDA动态调试APK</title>
-    <url>/2021/10/02/ida-remote-android/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>夜神模拟器使用于调试32位的apk程序，因为apk为了安全很少将关键数据放在java层，所以这里通过动态调试以达到对native层的逆向。</p>
-<span id="more"></span>
-<h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><p>ida与模拟器通过adb指令进行连接</p>
-<h2 id="安装adb"><a href="#安装adb" class="headerlink" title="安装adb"></a>安装adb</h2><p>从<a href="https://developer.android.com/studio/releases/platform-tools.html下载adb，安装">https://developer.android.com/studio/releases/platform-tools.html下载adb，安装</a></p>
-<p>找到目录中的adb.exe文件的路径，添加到patch</p>
-<p>cmd窗口输入adb -version查看是否成功，出现版本号和命令帮助则成功</p>
-<h2 id="adb连接"><a href="#adb连接" class="headerlink" title="adb连接"></a>adb连接</h2><h3 id="配置模拟器"><a href="#配置模拟器" class="headerlink" title="配置模拟器"></a>配置模拟器</h3><p>以下为夜神模拟器思路：</p>
-<p>进入夜神模拟器设置，“关于平板电脑选项”，连续点击5次 “版本号” ，进入开发者模式</p>
-<p>打开开发者模式中调试选项中的 ”USB调试“</p>
-<p>—-<strong>模拟器配置完成</strong>—</p>
-<h3 id="连接主机"><a href="#连接主机" class="headerlink" title="连接主机"></a>连接主机</h3><p>1.连接：cmd命令【adb connect 127.0.0.1:62001】</p>
-<p>62001: 夜神模拟器的默认端口号，因模拟器而异</p>
-<p>2.查看：cmd命令 【adb devices】；成功会显示出当前的连接，失败则显示“device not found”.</p>
-<p>3.与ida建立关系：cmd命令 【adb push 路径\android_server /data/local/tmp/】</p>
-<p>将ida安装目录中远程调试目录下的android_server文件push向模拟器，后者为push进模拟器的路径</p>
-<p>4.进入模拟器：cmd命令 【adb shell】, 乱码不要在意，继续cmd命令 【su】,进入管理员模式</p>
-<p>5.执行server文件：cmd命令 【cd /data/local/tmp/】,【ls】查看文件是否存在</p>
-<p>【chmod 777 android_server】赋予文件777权限，【./android_server】执行文件，建立ida联系</p>
-<p>6.端口转发：另外打开cmd，cmd命令 【adb forward tcp:23946  tcp:23946】</p>
-<p><strong><em>常见异常</em></strong>：</p>
-<p>1.执行文件时显示文件已经执行：命令【ps | grep android_server】寻找进程【kill -s 9 ID】关闭进程，然后重新执行</p>
-<p>2.端口转发异常：(1)device not found：结束server文件执行，重新启动模拟器。（2）端口被占用：主机查看后酌情选择</p>
-<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>在模拟器中事先打开需要调试的文件</p>
-<p>1.打开空白ida，或已经载入so文件的ida</p>
-<p>2.空白ida：Debugger选项中的“attach”选项中的“Remote ARM……”选项</p>
-<p>hostname选择填入“127.0.0.1”，端口默认，密码为空</p>
-<p>2_1.已经载入so文件的ida：Debugger选项中的 “Select debugger” 选项中的“Remote ARM……”选项</p>
-<p>然后 Debugger选项中 “process option” 选项，参数按需，hostname同上，端口，密码默认</p>
-<p>3.选择进程：一般会在进程列表的底部找到目标程序的进程</p>
-<p>连接完成，可以开始调试</p>
-]]></content>
-      <categories>
-        <category>逆向工程学习</category>
-      </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>注册谷歌</title>
     <url>/2021/09/04/signgoogle/</url>
     <content><![CDATA[<p>主要为了解决在注册时手机号无法使用的问题</p>
@@ -233,68 +290,16 @@
       </tags>
   </entry>
   <entry>
-    <title>东北大学招新_re</title>
-    <url>/2021/08/29/%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E6%8B%9B%E6%96%B0-re/</url>
-    <content><![CDATA[<p> elf文件，ida64打开，看到程序很简单的加密，但是涉及到<strong>数据类型之间的转化和经典的逆向过程</strong></p>
-<span id="more"></span>
-<p><img src="image-20210829132912959.png" alt="image-20210829132912959"></p>
-<p>确定了输入的flag是22位，然后经过三轮运算，将得到的和给出的数组进行比较，逻辑简单，开始逆向！</p>
-<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#首先将三轮运算逆向回去</span></span><br><span class="line">targ=[  <span class="number">0x03</span>, <span class="number">0x1D</span>, <span class="number">0x24</span>, <span class="number">0x1C</span>, <span class="number">0x06</span>, <span class="number">0x1A</span>, <span class="number">0x3C</span>, <span class="number">0x3F</span>, <span class="number">0x04</span>, <span class="number">0x32</span>,</span><br><span class="line">  		<span class="number">0x3E</span>, <span class="number">0x11</span>, <span class="number">0x1C</span>, <span class="number">0x0B</span>, <span class="number">0x0D</span>, <span class="number">0x1F</span>, <span class="number">0xFD</span>, <span class="number">0x09</span>, <span class="number">0xF3</span>, <span class="number">0xFB</span>,</span><br><span class="line">      	<span class="number">0x98</span>, <span class="number">0x92</span>, <span class="number">0x00</span>]</span><br><span class="line"><span class="comment">#每一位和后一位异或，所以最后一位是不会变的，这就是突破口</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]^targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]-targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[i]-=i</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
-<p>这时得到的数组是</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">targ=[-<span class="number">154</span>, <span class="number">365</span>, -<span class="number">157</span>, <span class="number">362</span>, -<span class="number">129</span>, <span class="number">374</span>, -<span class="number">131</span>, <span class="number">364</span>, -<span class="number">151</span>, <span class="number">385</span>,</span><br><span class="line">      -<span class="number">147</span>, <span class="number">367</span>, -<span class="number">141</span>, <span class="number">384</span>, -<span class="number">145</span>, <span class="number">373</span>, -<span class="number">140</span>, <span class="number">386</span>, -<span class="number">375</span>, <span class="number">377</span>, </span><br><span class="line">      -<span class="number">136</span>, <span class="number">146</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-<p>这里很明显看到因为python的数据类型基本没有限制，所以会出现 很多大数和负数</p>
-<p>在C语言里面，一个byte的无符号整数是0-255，这里看到程序里面都是单字节，所以会出现循环现象，这里将他门进行复原</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line"><span class="comment">#因为这里超过256会循环，所以要%256</span></span><br><span class="line">    <span class="keyword">if</span> targ[i]&lt;<span class="number">0</span>:</span><br><span class="line">        targ[i]&amp;=<span class="number">0xffffffff</span></span><br><span class="line"><span class="comment">#考虑到负数的缘故，要先将负数转化成正数（有符号数转化无符号数）</span></span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="comment">#最后统一规矩一下数据，然后字符输出就可以了</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">23</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(targ[i]),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>()</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
-<p>最后得到flag：</p>
-<p><strong>flag{qweaxcdgsafdqwfd}</strong></p>
+    <title>纪念一下</title>
+    <url>/2021/09/02/%E7%BA%AA%E5%BF%B5%E4%B8%80%E4%B8%8B/</url>
+    <content><![CDATA[<p>​    纪念一下<strong><em>2021-09-02 23:34:04</em></strong>，BUU的逆向第二页圆满完成</p>
 ]]></content>
       <categories>
-        <category>WriteUp</category>
+        <category>逆向工程学习</category>
       </categories>
       <tags>
         <tag>Reverse</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>insert_photo</title>
-    <url>/2021/08/27/insert-photo/</url>
-    <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
-<p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>博客改良(持续记录)</title>
-    <url>/2021/08/28/%E5%8D%9A%E5%AE%A2%E6%94%B9%E8%89%AF/</url>
-    <content><![CDATA[<h2 id="1-删除强力驱动："><a href="#1-删除强力驱动：" class="headerlink" title="1.删除强力驱动："></a>1.删除强力驱动：</h2><p>1.在【themes/layout/_partial/footer】文件中的最后，删除如下代码</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme<span class="selector-class">.footer</span><span class="selector-class">.powered</span> %&#125;</span><br><span class="line">  &lt;<span class="selector-tag">div</span> class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org<span class="string">&#x27; if theme.scheme === &#x27;</span>Gemini<span class="string">&#x27; else &#x27;</span>https://theme-next.js.org/<span class="string">&#x27; + theme.scheme | lower + &#x27;</span>/<span class="string">&#x27; %&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- __(&#x27;</span>footer.powered<span class="string">&#x27;, next_url(&#x27;</span>https://hexo.io<span class="string">&#x27;, &#x27;</span>Hexo<span class="string">&#x27;) + &#x27;</span> &amp; <span class="string">&#x27; + next_url(next_site, &#x27;</span>NexT.<span class="string">&#x27; + theme.scheme)) &#125;&#125;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;%- endif %&#125;</span></span><br></pre></td></tr></table></figure>
-<p>2.同样，如果想在该位置添加一些别的文字，直接在这个文件里面加就行</p>
-<span id="more"></span>
-<h2 id="2-更改字体颜色："><a href="#2-更改字体颜色：" class="headerlink" title="2.更改字体颜色："></a>2.更改字体颜色：</h2><p>在_data文件里面添加：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">color</span> #色号</span><br></pre></td></tr></table></figure>
-<p><img src="image-20210828115628268.png" alt="image-20210828115628268"></p>
-<p><img src="image-20210828115713939.png" alt="image-20210828115713939"></p>
-<p><img src="image-20210828115742828.png" alt="image-20210828115742828"></p>
-<h2 id="3-利用不通的分类："><a href="#3-利用不通的分类：" class="headerlink" title="3.利用不通的分类："></a>3.利用不通的分类：</h2><p>这里用“categories”为例</p>
-<p>找到在categories目录下的哪个index.md文件，在开头的地方加上一行</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">type: <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<p><img src="image-20210828122741712.png" alt="image-20210828122741712"></p>
-<p>这样就可以在那个界面里面看到不通的分类了</p>
-<h2 id="4-在文中添加超链接"><a href="#4-在文中添加超链接" class="headerlink" title="4.在文中添加超链接"></a>4.在文中添加超链接</h2><p>利用markdown特性，将链接放在&lt;&gt;中间</p>
-<p>例如<a href="https://hellorootkit.github.io">https://hellorootkit.github.io</a></p>
-<h2 id="5-修改字体颜色"><a href="#5-修改字体颜色" class="headerlink" title="5.修改字体颜色"></a>5.修改字体颜色</h2><h3 id="1-修改博文标题："><a href="#1-修改博文标题：" class="headerlink" title="1.修改博文标题："></a>1.修改博文标题：</h3><p>找到目录\hexo-theme-next\source\css_common\components\post下的post-header文件</p>
-<p>然后找到.post-title-link</p>
-<p>修改颜色即可生效</p>
-<h3 id="2-修改博文颜色："><a href="#2-修改博文颜色：" class="headerlink" title="2.修改博文颜色："></a>2.修改博文颜色：</h3><p>同2</p>
-<h3 id="3-日志分类标签统计："><a href="#3-日志分类标签统计：" class="headerlink" title="3.日志分类标签统计："></a>3.日志分类标签统计：</h3><p>目录\hexo-theme-next\source\css_common\outline\sidebar\site-state.styl</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.site-state-item-name</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#40E0D0</span>;//$site-state-item-name-<span class="attribute">color</span>;//日志，分类，标签的颜色</span><br><span class="line">  <span class="attribute">font-size</span>: $site-state-item-name-font-size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-头像下面和描述："><a href="#4-头像下面和描述：" class="headerlink" title="4.头像下面和描述："></a>4.头像下面和描述：</h3><p>目录\hexo-theme-next\source\css_common\outline\sidebar\author.styl</p>
-<h3 id="5-站点描述："><a href="#5-站点描述：" class="headerlink" title="5.站点描述："></a>5.站点描述：</h3><p>themes\hexo-theme-next\source\css_schemes\Pisces_sidebar.styl</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">.sidebar-inner &#123;//站点概况</span><br><span class="line">  background: rgba(128,138,135,0.1)//var(--content-bg-color);</span><br><span class="line">  border-radius: $border-radius;</span><br><span class="line">  box-shadow: $box-shadow;</span><br><span class="line">  box-sizing: border-box;</span><br><span class="line">  color: var(--text-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>博客装修</category>
-      </categories>
   </entry>
   <entry>
     <title>江苏省赛2021题解</title>
@@ -357,223 +362,6 @@
 ]]></content>
       <categories>
         <category>WriteUp</category>
-      </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>科目三学习</title>
-    <url>/2021/08/29/%E7%A7%91%E7%9B%AE%E4%B8%89%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="一-灯光模拟："><a href="#一-灯光模拟：" class="headerlink" title="一.灯光模拟："></a>一.灯光模拟：</h1><h2 id="1-近光灯："><a href="#1-近光灯：" class="headerlink" title="1.近光灯："></a>1.近光灯：</h2><p>同方向近距离跟车行驶。</p>
-<p>通过有信号灯控制路口。</p>
-<p>在有路灯照明良好的道路上行驶。</p>
-<p>与非机动车会车。</p>
-<span id="more"></span>
-<h2 id="2-远光灯："><a href="#2-远光灯：" class="headerlink" title="2.远光灯："></a>2.远光灯：</h2><p>进入<strong>无照明</strong>的道路行驶。</p>
-<p>夜间进入<strong>照明不良</strong>的道路行驶。</p>
-<h2 id="3-交替灯光："><a href="#3-交替灯光：" class="headerlink" title="3.交替灯光："></a>3.交替灯光：</h2><p>超车。</p>
-<p><strong>通过</strong>急弯，坡路，拱桥，人行横道，没有交通信号灯控制的路口。</p>
-<h2 id="4-小灯-四闪："><a href="#4-小灯-四闪：" class="headerlink" title="4.小灯+四闪："></a>4.小灯+四闪：</h2><p>在路边临时停车。</p>
-<h1 id="二-行驶："><a href="#二-行驶：" class="headerlink" title="二.行驶："></a>二.行驶：</h1><h3 id="（0）挡位与速度匹配："><a href="#（0）挡位与速度匹配：" class="headerlink" title="（0）挡位与速度匹配："></a>（0）挡位与速度匹配：</h3><p>15挂2挡，25挂三档，35挂四档。</p>
-<p>但是这里不是很严格，三档开到40也可以，但是要快速换挡。</p>
-<h3 id="（1）准备起步："><a href="#（1）准备起步：" class="headerlink" title="（1）准备起步："></a>（1）准备起步：</h3><p>1.<strong>逆时针</strong>绕车一圈。</p>
-<p>2.报告考官请求上车。</p>
-<p>3.座椅，后视镜，安全带。</p>
-<p>4.<strong>离合回空挡，松离合，打火</strong>，模拟灯光。</p>
-<p>5.报告个仪表工作正常，请求起步。</p>
-<h3 id="（2）起步："><a href="#（2）起步：" class="headerlink" title="（2）起步："></a>（2）起步：</h3><p>（一踩二挂三转向，四喇叭五看后镜六手刹，轻抬离合把油加）</p>
-<p>1.踩离合挂一档。 </p>
-<p>2.拨左向灯，鸣喇叭。</p>
-<p>3.观察<strong>左右后视镜，回头看</strong>，慢松离合，松手刹。</p>
-<h3 id="（3）超车："><a href="#（3）超车：" class="headerlink" title="（3）超车："></a>（3）超车：</h3><p><strong><em>超</em></strong></p>
-<p>1.听到指令，左转向灯，看<strong>左后视镜，回头看</strong></p>
-<p>2.三秒之后条件允许，往左转方向盘15°左右</p>
-<p>3<strong>.车斜回正，右脚快到路中心，往右打方向盘，车正回正</strong></p>
-<p><strong><em>回</em></strong></p>
-<p>4.开右转向灯，<strong>右后视镜，回头看</strong></p>
-<p>5.三秒以上，条件允许，往右转方向盘15°左右</p>
-<p>6.<strong>车斜回正，右脚快到路中心，往左打方向盘，车正回正</strong></p>
-<h3 id="（4）路口左转弯："><a href="#（4）路口左转弯：" class="headerlink" title="（4）路口左转弯："></a>（4）路口左转弯：</h3><p>1.听到指令，左转向灯</p>
-<p>2.路口前减速至1，2挡，左右观察</p>
-<p>3.肩头快超过人行道时，左打四分之一方向盘</p>
-<p>4.左右观察</p>
-<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
-<h3 id="（5）人行道，学校，公交站，前方路口直行："><a href="#（5）人行道，学校，公交站，前方路口直行：" class="headerlink" title="（5）人行道，学校，公交站，前方路口直行："></a>（5）人行道，学校，公交站，前方路口直行：</h3><p>1.看（听）到后点刹车，左右观察</p>
-<p>2.学校区域减速至<strong>30公里</strong>以下</p>
-<h3 id="（6）路口右转弯："><a href="#（6）路口右转弯：" class="headerlink" title="（6）路口右转弯："></a>（6）路口右转弯：</h3><p>1.听到指令，右转向灯</p>
-<p>2.路口前减速至1，2挡，左右观察</p>
-<p>3.肩头快超过人行道时，右打一半方向盘</p>
-<p>4.观察来车方向</p>
-<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
-<h3 id="（7）掉头："><a href="#（7）掉头：" class="headerlink" title="（7）掉头："></a>（7）掉头：</h3><p>1.听到指令后，左转向灯</p>
-<p>2.路口前减速到1挡，左右观察</p>
-<p>3.肩膀过绿化带，桥墩左打一圈，观察来车方向</p>
-<p>4.条件允许，中间车道加速加档</p>
-<h3 id="（8）靠边停车："><a href="#（8）靠边停车：" class="headerlink" title="（8）靠边停车："></a>（8）靠边停车：</h3><p><strong>一定要注意前车的距离，要有一定的距离可以把车顺正，不然就会挂科 操他妈的</strong></p>
-<p>1.听到指令，右转向灯</p>
-<p>2.<strong>看右后视镜，向后看</strong>，减速减挡到1挡</p>
-<p>3.慢松离合，选好地点，右打半圈方向</p>
-<p>4.看铆钉到马路牙子下沿，回方向（打一次，回两次）</p>
-<p>5.让铆钉压着路边白线行驶后 停车</p>
-<p>6.拉手刹，推空挡，关转向灯，熄火，挂一档，解安全带，后拉座椅；报告考官，请求下车</p>
-<p>（手刹空挡转向灯，熄火一档安全带）</p>
-<p>7.<strong>看左后视镜，后头看</strong>，确认安全，下车顺时针到考官处，<strong>谢谢考官</strong></p>
-]]></content>
-      <categories>
-        <category>悠哉日常</category>
-      </categories>
-      <tags>
-        <tag>学车</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>近期比赛问题</title>
-    <url>/2021/10/16/%E8%BF%91%E6%9C%9F%E6%AF%94%E8%B5%9B%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<pre><code> 2021-10 强网杯，字节跳动，莲城杯等比赛总结
-</code></pre><p>安恒月赛中的逆向相对容易，但是涉及到大量的对称加密以及非对称加密的问题，拿到带有加密的逆向多少手足无措。还有就是编程基础的欠缺，对编程语言知之甚少，还有就是对编程术语比如“断言”，“Panic”</p>
-<h2 id="莲城杯"><a href="#莲城杯" class="headerlink" title="莲城杯"></a>莲城杯</h2><p>baby_rust：是用rust语言写的程序，通过wp知道根据rust语言的特点可以很快解答</p>
-<p>longtime：对算法的理解和关键代码的定位能力欠缺，不能有效的识别算法，也不能优化算法。</p>
-<p>brainfuck: 一种比较脑洞的加密形式，理解分析能力不够，编码能力差的离谱</p>
-<p>README：代码分析能力，AES算法不了解，分辨不出魔改的TEA加密。</p>
-<h2 id="强网杯"><a href="#强网杯" class="headerlink" title="强网杯"></a>强网杯</h2>]]></content>
-      <categories>
-        <category>比赛总结</category>
-      </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计</title>
-    <url>/2021/08/30/%E8%AE%A1/</url>
-    <content><![CDATA[<h1 id="————忘掉掌声，按自己的方式，继续前行，跑过一生"><a href="#————忘掉掌声，按自己的方式，继续前行，跑过一生" class="headerlink" title="————忘掉掌声，按自己的方式，继续前行，跑过一生"></a>————忘掉掌声，按自己的方式，继续前行，跑过一生</h1><ul>
-<li>每周至少要联系一次家里人，报个平安</li>
-</ul>
-<ul>
-<li>每周起码更新四次技术性博客</li>
-</ul>
-<ul>
-<li>每月至少熟悉一项二进制技术或某个工具的使用</li>
-</ul>
-<ul>
-<li>每月读古籍，并记录感悟</li>
-</ul>
-<ul>
-<li>每月起码发表一篇技术性文章到博客</li>
-</ul>
-<ul>
-<li>每月至少参见一次比赛，背100个单词</li>
-</ul>
-<ul>
-<li>周报，月报，年报，日记有事则记</li>
-</ul>
-<ul>
-<li>有空多做题，多记录，少看手机</li>
-</ul>
-<ul>
-<li>克勤克俭，戒骄戒躁</li>
-</ul>
-<h1 id="————但使龙城飞将在，不教胡马度阴山。"><a href="#————但使龙城飞将在，不教胡马度阴山。" class="headerlink" title="————但使龙城飞将在，不教胡马度阴山。"></a>————但使龙城飞将在，不教胡马度阴山。</h1>]]></content>
-      <categories>
-        <category>计2021</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>读过的书</title>
-    <url>/2021/09/12/%E8%AF%BB%E8%BF%87%E7%9A%84%E4%B9%A6/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>纪念一下</title>
-    <url>/2021/09/02/%E7%BA%AA%E5%BF%B5%E4%B8%80%E4%B8%8B/</url>
-    <content><![CDATA[<p>​    纪念一下<strong><em>2021-09-02 23:34:04</em></strong>，BUU的逆向第二页圆满完成</p>
-]]></content>
-      <categories>
-        <category>逆向工程学习</category>
-      </categories>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>逆向工程学习-基础篇</title>
-    <url>/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
-    <content><![CDATA[<h1 id="逆向工程学习-基础1"><a href="#逆向工程学习-基础1" class="headerlink" title="逆向工程学习-基础1"></a>逆向工程学习-基础1</h1><span id="more"></span>
-<p><a href="http://www.baidu.com">http://www.baidu.com</a></p>
-<h2 id="字节序："><a href="#字节序：" class="headerlink" title="字节序："></a>字节序：</h2><h3 id="1-小端序"><a href="#1-小端序" class="headerlink" title="1.小端序"></a>1.小端序</h3><p>1.当一个数据只有一个字节时，大小端序都一样</p>
-<p>2.地址高位存储数据的高位，人眼看来是逆序存储</p>
-<p><img src="image-20210831121649274.png" alt="image-20210831121649274"></p>
-<h3 id="2-大端序"><a href="#2-大端序" class="headerlink" title="2.大端序"></a>2.大端序</h3><p>1.地址低位存储数据高位，人眼看起来是正常的</p>
-<p>2.应用于大型服务器和risc系列的CPU。</p>
-<h3 id="另外："><a href="#另外：" class="headerlink" title="另外："></a>另外：</h3><p>【字符数组】在内存中是连续的，无论大小端序，储存顺序相同</p>
-<h2 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h2><h3 id="基本程序运行寄存器"><a href="#基本程序运行寄存器" class="headerlink" title="基本程序运行寄存器"></a>基本程序运行寄存器</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>寄存器类型</th>
-<th>寄存器名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>通用寄存器</td>
-<td>eax, ebx, ecx, edx, esi, edi, ebp, esp</td>
-</tr>
-<tr>
-<td>段寄存器</td>
-<td>cs, ds, ss, es, fs, gs</td>
-</tr>
-<tr>
-<td>程序状态与控制寄存器</td>
-<td>EFLAGS</td>
-</tr>
-<tr>
-<td>指令指针寄存器</td>
-<td>EIP</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>ESP（栈顶指针）:指示栈区域的栈顶地址。</p>
-<p>EBP（栈帧指针）:表示栈区域的基地址，函数被调用时，保存ESP的的值，函数返回时再将值还给ESP，以保证栈不会崩溃（栈帧技术）。</p>
-<p>ESI,EDI：这两个寄存器与特定指令（LODS, STOP, REP, MOVS等）一起使用时，主要用于内存复制（例：upx解压缩时恢复upx0节区）</p>
-<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>1.什么是段：是一种将内存划分为多个区段的内存保护技术，与分页技术一起将虚拟内存变为实际物理内存。段内存记录在Segment Deskcriptor Table(SDT)段描述表中，段寄存器持有这些SDT的索引</p>
-<p><img src="image-20210831140543512.png" alt="image-20210831140543512"></p>
-<p>每个段寄存器指向的段描述符结合虚拟内存，形成一个线性地址，在借助分页技术，线性地址转化为实际的物理地址（如果没有分页技术，线性地址直接变成物理地址）</p>
-<h3 id="程序状态与控制寄存器"><a href="#程序状态与控制寄存器" class="headerlink" title="程序状态与控制寄存器"></a>程序状态与控制寄存器</h3><p>就是所说的标志位寄存器，一开始我认为是不同的寄存器，现在发现是一个寄存器中的不同的位</p>
-<p><img src="image-20210831141323762.png" alt="image-20210831141323762"></p>
-<p>32位程序中，该寄存器由原来的16位的FLAGS寄存器拓展到了32的EFLAGS寄存器，其中常用的有ZF, OF, CF。</p>
-<p>ZF（0标志）：若运算结果是“0“，那么该标志位为”1“</p>
-<p>OF（溢出标志）：有符号整数溢出时，该标志位为”1“；或最高有效位改变时，该标志位为”1“</p>
-<p>CF（进位标志）：无符号整数溢出时为”1“</p>
-<h3 id="指令指针寄存器"><a href="#指令指针寄存器" class="headerlink" title="指令指针寄存器"></a>指令指针寄存器</h3><p>当程序运行时，cpu会读取EIP中的一条地址，当地址传递到缓冲区后，eip会增加，增加的大小就是读取指令的字节大小。</p>
-<h2 id="栈："><a href="#栈：" class="headerlink" title="栈："></a>栈：</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
-<li><p>一种由高地址像低地址拓展的数据结构</p>
-</li>
-<li><p>暂时保存函数内部的局部变量</p>
-</li>
-<li>传递参数</li>
-<li>保存函数的返回地址（就是call指令的下一条地址）</li>
-</ul>
-<p><img src="image-20210831142251690.png" alt="image-20210831142251690"></p>
-<h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><p>1.两个指针：栈顶指针ESP；栈帧指针EBP</p>
-<p>2.向栈中push数据时，栈顶指针ESP会减小（上移），当pop数据时，ESP会增加（下移）。</p>
-<p>3.栈顶指针（ESP）在初始状态下指向栈底（高地址），所以初始化栈即为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push EBP		//使用EBP前先将已有值保存在栈中</span><br><span class="line">MOV EBP, ESP	//保存当前ESP到EBP中</span><br><span class="line">……</span><br><span class="line">MOV ESP, EBP	//将函数的起始地址还给ESP</span><br><span class="line">POP EBP			//将一开始push进栈的地址还给EBP</span><br></pre></td></tr></table></figure>
-<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p>1.是什么：是利用EBP（栈帧指针）寄存器访问栈内局部变量、参数、函数返回地址等的手段。 </p>
-<p>2.为什么需要用到栈帧指针EBP：因为栈顶是在不断变化的（push, pop, call等都会影响栈顶），所以如果用ESP来当作基址进行索引是很复杂的，所以就需要一个相对固定的来打下手的帮忙，就是EBP。所以在开始的时候，都会把esp的值给ebp。</p>
-<h2 id="函数调用约定"><a href="#函数调用约定" class="headerlink" title="函数调用约定"></a>函数调用约定</h2><h3 id="cdecl"><a href="#cdecl" class="headerlink" title="_cdecl"></a>_cdecl</h3><p>C语言的默认调用方式，调用者负责恢复栈结构。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add esp, 0x8</span><br></pre></td></tr></table></figure>
-<p><img src="image-20210831151852977.png" alt="image-20210831151852977"  /></p>
-<p>这里因为push了两个int类型的参数，所以栈空间-0x8</p>
-<p>好处：可以向 被调用函数 传递 参数可变 的函数</p>
-<h3 id="stdcall"><a href="#stdcall" class="headerlink" title="stdcall"></a>stdcall</h3><p>由被调用者恢复堆栈</p>
-<p>该调用方式被Win32 API采用，以获得更好的兼容性</p>
-<h3 id="fastcall"><a href="#fastcall" class="headerlink" title="fastcall"></a>fastcall</h3><p>与stdcall类似，只不过前两个参数通过寄存器【ECX, EDX】快速调用。顾名思义，这里可以实现更快的调用函数，因为CPU访问寄存器的速度远高于CPU访问内存的速度。</p>
-]]></content>
-      <categories>
-        <category>逆向工程学习</category>
       </categories>
       <tags>
         <tag>Reverse</tag>
@@ -854,6 +642,308 @@ RVA + ImageBase = VA</script><p>PE内部信息大多数以RVA形式存在，这�
       </categories>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>逆向工程学习-基础篇</title>
+    <url>/2021/08/31/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
+    <content><![CDATA[<h1 id="逆向工程学习-基础1"><a href="#逆向工程学习-基础1" class="headerlink" title="逆向工程学习-基础1"></a>逆向工程学习-基础1</h1><span id="more"></span>
+<p><a href="http://www.baidu.com">http://www.baidu.com</a></p>
+<h2 id="字节序："><a href="#字节序：" class="headerlink" title="字节序："></a>字节序：</h2><h3 id="1-小端序"><a href="#1-小端序" class="headerlink" title="1.小端序"></a>1.小端序</h3><p>1.当一个数据只有一个字节时，大小端序都一样</p>
+<p>2.地址高位存储数据的高位，人眼看来是逆序存储</p>
+<p><img src="image-20210831121649274.png" alt="image-20210831121649274"></p>
+<h3 id="2-大端序"><a href="#2-大端序" class="headerlink" title="2.大端序"></a>2.大端序</h3><p>1.地址低位存储数据高位，人眼看起来是正常的</p>
+<p>2.应用于大型服务器和risc系列的CPU。</p>
+<h3 id="另外："><a href="#另外：" class="headerlink" title="另外："></a>另外：</h3><p>【字符数组】在内存中是连续的，无论大小端序，储存顺序相同</p>
+<h2 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：</h2><h3 id="基本程序运行寄存器"><a href="#基本程序运行寄存器" class="headerlink" title="基本程序运行寄存器"></a>基本程序运行寄存器</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>寄存器类型</th>
+<th>寄存器名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通用寄存器</td>
+<td>eax, ebx, ecx, edx, esi, edi, ebp, esp</td>
+</tr>
+<tr>
+<td>段寄存器</td>
+<td>cs, ds, ss, es, fs, gs</td>
+</tr>
+<tr>
+<td>程序状态与控制寄存器</td>
+<td>EFLAGS</td>
+</tr>
+<tr>
+<td>指令指针寄存器</td>
+<td>EIP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>ESP（栈顶指针）:指示栈区域的栈顶地址。</p>
+<p>EBP（栈帧指针）:表示栈区域的基地址，函数被调用时，保存ESP的的值，函数返回时再将值还给ESP，以保证栈不会崩溃（栈帧技术）。</p>
+<p>ESI,EDI：这两个寄存器与特定指令（LODS, STOP, REP, MOVS等）一起使用时，主要用于内存复制（例：upx解压缩时恢复upx0节区）</p>
+<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>1.什么是段：是一种将内存划分为多个区段的内存保护技术，与分页技术一起将虚拟内存变为实际物理内存。段内存记录在Segment Deskcriptor Table(SDT)段描述表中，段寄存器持有这些SDT的索引</p>
+<p><img src="image-20210831140543512.png" alt="image-20210831140543512"></p>
+<p>每个段寄存器指向的段描述符结合虚拟内存，形成一个线性地址，在借助分页技术，线性地址转化为实际的物理地址（如果没有分页技术，线性地址直接变成物理地址）</p>
+<h3 id="程序状态与控制寄存器"><a href="#程序状态与控制寄存器" class="headerlink" title="程序状态与控制寄存器"></a>程序状态与控制寄存器</h3><p>就是所说的标志位寄存器，一开始我认为是不同的寄存器，现在发现是一个寄存器中的不同的位</p>
+<p><img src="image-20210831141323762.png" alt="image-20210831141323762"></p>
+<p>32位程序中，该寄存器由原来的16位的FLAGS寄存器拓展到了32的EFLAGS寄存器，其中常用的有ZF, OF, CF。</p>
+<p>ZF（0标志）：若运算结果是“0“，那么该标志位为”1“</p>
+<p>OF（溢出标志）：有符号整数溢出时，该标志位为”1“；或最高有效位改变时，该标志位为”1“</p>
+<p>CF（进位标志）：无符号整数溢出时为”1“</p>
+<h3 id="指令指针寄存器"><a href="#指令指针寄存器" class="headerlink" title="指令指针寄存器"></a>指令指针寄存器</h3><p>当程序运行时，cpu会读取EIP中的一条地址，当地址传递到缓冲区后，eip会增加，增加的大小就是读取指令的字节大小。</p>
+<h2 id="栈："><a href="#栈：" class="headerlink" title="栈："></a>栈：</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
+<li><p>一种由高地址像低地址拓展的数据结构</p>
+</li>
+<li><p>暂时保存函数内部的局部变量</p>
+</li>
+<li>传递参数</li>
+<li>保存函数的返回地址（就是call指令的下一条地址）</li>
+</ul>
+<p><img src="image-20210831142251690.png" alt="image-20210831142251690"></p>
+<h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><p>1.两个指针：栈顶指针ESP；栈帧指针EBP</p>
+<p>2.向栈中push数据时，栈顶指针ESP会减小（上移），当pop数据时，ESP会增加（下移）。</p>
+<p>3.栈顶指针（ESP）在初始状态下指向栈底（高地址），所以初始化栈即为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push EBP		//使用EBP前先将已有值保存在栈中</span><br><span class="line">MOV EBP, ESP	//保存当前ESP到EBP中</span><br><span class="line">……</span><br><span class="line">MOV ESP, EBP	//将函数的起始地址还给ESP</span><br><span class="line">POP EBP			//将一开始push进栈的地址还给EBP</span><br></pre></td></tr></table></figure>
+<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p>1.是什么：是利用EBP（栈帧指针）寄存器访问栈内局部变量、参数、函数返回地址等的手段。 </p>
+<p>2.为什么需要用到栈帧指针EBP：因为栈顶是在不断变化的（push, pop, call等都会影响栈顶），所以如果用ESP来当作基址进行索引是很复杂的，所以就需要一个相对固定的来打下手的帮忙，就是EBP。所以在开始的时候，都会把esp的值给ebp。</p>
+<h2 id="函数调用约定"><a href="#函数调用约定" class="headerlink" title="函数调用约定"></a>函数调用约定</h2><h3 id="cdecl"><a href="#cdecl" class="headerlink" title="_cdecl"></a>_cdecl</h3><p>C语言的默认调用方式，调用者负责恢复栈结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add esp, 0x8</span><br></pre></td></tr></table></figure>
+<p><img src="image-20210831151852977.png" alt="image-20210831151852977"  /></p>
+<p>这里因为push了两个int类型的参数，所以栈空间-0x8</p>
+<p>好处：可以向 被调用函数 传递 参数可变 的函数</p>
+<h3 id="stdcall"><a href="#stdcall" class="headerlink" title="stdcall"></a>stdcall</h3><p>由被调用者恢复堆栈</p>
+<p>该调用方式被Win32 API采用，以获得更好的兼容性</p>
+<h3 id="fastcall"><a href="#fastcall" class="headerlink" title="fastcall"></a>fastcall</h3><p>与stdcall类似，只不过前两个参数通过寄存器【ECX, EDX】快速调用。顾名思义，这里可以实现更快的调用函数，因为CPU访问寄存器的速度远高于CPU访问内存的速度。</p>
+]]></content>
+      <categories>
+        <category>逆向工程学习</category>
+      </categories>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计</title>
+    <url>/2021/08/30/%E8%AE%A1/</url>
+    <content><![CDATA[<h1 id="————忘掉掌声，按自己的方式，继续前行，跑过一生"><a href="#————忘掉掌声，按自己的方式，继续前行，跑过一生" class="headerlink" title="————忘掉掌声，按自己的方式，继续前行，跑过一生"></a>————忘掉掌声，按自己的方式，继续前行，跑过一生</h1><ul>
+<li>每周至少要联系一次家里人，报个平安</li>
+</ul>
+<ul>
+<li>每周起码更新四次技术性博客</li>
+</ul>
+<ul>
+<li>每月至少熟悉一项二进制技术或某个工具的使用</li>
+</ul>
+<ul>
+<li>每月读古籍，并记录感悟</li>
+</ul>
+<ul>
+<li>每月起码发表一篇技术性文章到博客</li>
+</ul>
+<ul>
+<li>每月至少参见一次比赛，背100个单词</li>
+</ul>
+<ul>
+<li>周报，月报，年报，日记有事则记</li>
+</ul>
+<ul>
+<li>有空多做题，多记录，少看手机</li>
+</ul>
+<ul>
+<li>克勤克俭，戒骄戒躁</li>
+</ul>
+<h1 id="————但使龙城飞将在，不教胡马度阴山。"><a href="#————但使龙城飞将在，不教胡马度阴山。" class="headerlink" title="————但使龙城飞将在，不教胡马度阴山。"></a>————但使龙城飞将在，不教胡马度阴山。</h1>]]></content>
+      <categories>
+        <category>计2021</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>科目三学习</title>
+    <url>/2021/08/29/%E7%A7%91%E7%9B%AE%E4%B8%89%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="一-灯光模拟："><a href="#一-灯光模拟：" class="headerlink" title="一.灯光模拟："></a>一.灯光模拟：</h1><h2 id="1-近光灯："><a href="#1-近光灯：" class="headerlink" title="1.近光灯："></a>1.近光灯：</h2><p>同方向近距离跟车行驶。</p>
+<p>通过有信号灯控制路口。</p>
+<p>在有路灯照明良好的道路上行驶。</p>
+<p>与非机动车会车。</p>
+<span id="more"></span>
+<h2 id="2-远光灯："><a href="#2-远光灯：" class="headerlink" title="2.远光灯："></a>2.远光灯：</h2><p>进入<strong>无照明</strong>的道路行驶。</p>
+<p>夜间进入<strong>照明不良</strong>的道路行驶。</p>
+<h2 id="3-交替灯光："><a href="#3-交替灯光：" class="headerlink" title="3.交替灯光："></a>3.交替灯光：</h2><p>超车。</p>
+<p><strong>通过</strong>急弯，坡路，拱桥，人行横道，没有交通信号灯控制的路口。</p>
+<h2 id="4-小灯-四闪："><a href="#4-小灯-四闪：" class="headerlink" title="4.小灯+四闪："></a>4.小灯+四闪：</h2><p>在路边临时停车。</p>
+<h1 id="二-行驶："><a href="#二-行驶：" class="headerlink" title="二.行驶："></a>二.行驶：</h1><h3 id="（0）挡位与速度匹配："><a href="#（0）挡位与速度匹配：" class="headerlink" title="（0）挡位与速度匹配："></a>（0）挡位与速度匹配：</h3><p>15挂2挡，25挂三档，35挂四档。</p>
+<p>但是这里不是很严格，三档开到40也可以，但是要快速换挡。</p>
+<h3 id="（1）准备起步："><a href="#（1）准备起步：" class="headerlink" title="（1）准备起步："></a>（1）准备起步：</h3><p>1.<strong>逆时针</strong>绕车一圈。</p>
+<p>2.报告考官请求上车。</p>
+<p>3.座椅，后视镜，安全带。</p>
+<p>4.<strong>离合回空挡，松离合，打火</strong>，模拟灯光。</p>
+<p>5.报告个仪表工作正常，请求起步。</p>
+<h3 id="（2）起步："><a href="#（2）起步：" class="headerlink" title="（2）起步："></a>（2）起步：</h3><p>（一踩二挂三转向，四喇叭五看后镜六手刹，轻抬离合把油加）</p>
+<p>1.踩离合挂一档。 </p>
+<p>2.拨左向灯，鸣喇叭。</p>
+<p>3.观察<strong>左右后视镜，回头看</strong>，慢松离合，松手刹。</p>
+<h3 id="（3）超车："><a href="#（3）超车：" class="headerlink" title="（3）超车："></a>（3）超车：</h3><p><strong><em>超</em></strong></p>
+<p>1.听到指令，左转向灯，看<strong>左后视镜，回头看</strong></p>
+<p>2.三秒之后条件允许，往左转方向盘15°左右</p>
+<p>3<strong>.车斜回正，右脚快到路中心，往右打方向盘，车正回正</strong></p>
+<p><strong><em>回</em></strong></p>
+<p>4.开右转向灯，<strong>右后视镜，回头看</strong></p>
+<p>5.三秒以上，条件允许，往右转方向盘15°左右</p>
+<p>6.<strong>车斜回正，右脚快到路中心，往左打方向盘，车正回正</strong></p>
+<h3 id="（4）路口左转弯："><a href="#（4）路口左转弯：" class="headerlink" title="（4）路口左转弯："></a>（4）路口左转弯：</h3><p>1.听到指令，左转向灯</p>
+<p>2.路口前减速至1，2挡，左右观察</p>
+<p>3.肩头快超过人行道时，左打四分之一方向盘</p>
+<p>4.左右观察</p>
+<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
+<h3 id="（5）人行道，学校，公交站，前方路口直行："><a href="#（5）人行道，学校，公交站，前方路口直行：" class="headerlink" title="（5）人行道，学校，公交站，前方路口直行："></a>（5）人行道，学校，公交站，前方路口直行：</h3><p>1.看（听）到后点刹车，左右观察</p>
+<p>2.学校区域减速至<strong>30公里</strong>以下</p>
+<h3 id="（6）路口右转弯："><a href="#（6）路口右转弯：" class="headerlink" title="（6）路口右转弯："></a>（6）路口右转弯：</h3><p>1.听到指令，右转向灯</p>
+<p>2.路口前减速至1，2挡，左右观察</p>
+<p>3.肩头快超过人行道时，右打一半方向盘</p>
+<p>4.观察来车方向</p>
+<p>5.条件允许进入中间车道，回正方向，加速加挡</p>
+<h3 id="（7）掉头："><a href="#（7）掉头：" class="headerlink" title="（7）掉头："></a>（7）掉头：</h3><p>1.听到指令后，左转向灯</p>
+<p>2.路口前减速到1挡，左右观察</p>
+<p>3.肩膀过绿化带，桥墩左打一圈，观察来车方向</p>
+<p>4.条件允许，中间车道加速加档</p>
+<h3 id="（8）靠边停车："><a href="#（8）靠边停车：" class="headerlink" title="（8）靠边停车："></a>（8）靠边停车：</h3><p><strong>一定要注意前车的距离，要有一定的距离可以把车顺正，不然就会挂科 操他妈的</strong></p>
+<p>1.听到指令，右转向灯</p>
+<p>2.<strong>看右后视镜，向后看</strong>，减速减挡到1挡</p>
+<p>3.慢松离合，选好地点，右打半圈方向</p>
+<p>4.看铆钉到马路牙子下沿，回方向（打一次，回两次）</p>
+<p>5.让铆钉压着路边白线行驶后 停车</p>
+<p>6.拉手刹，推空挡，关转向灯，熄火，挂一档，解安全带，后拉座椅；报告考官，请求下车</p>
+<p>（手刹空挡转向灯，熄火一档安全带）</p>
+<p>7.<strong>看左后视镜，后头看</strong>，确认安全，下车顺时针到考官处，<strong>谢谢考官</strong></p>
+]]></content>
+      <categories>
+        <category>悠哉日常</category>
+      </categories>
+      <tags>
+        <tag>学车</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>东北大学招新_re</title>
+    <url>/2021/08/29/%E4%B8%9C%E5%8C%97%E5%A4%A7%E5%AD%A6%E6%8B%9B%E6%96%B0-re/</url>
+    <content><![CDATA[<p> elf文件，ida64打开，看到程序很简单的加密，但是涉及到<strong>数据类型之间的转化和经典的逆向过程</strong></p>
+<span id="more"></span>
+<p><img src="image-20210829132912959.png" alt="image-20210829132912959"></p>
+<p>确定了输入的flag是22位，然后经过三轮运算，将得到的和给出的数组进行比较，逻辑简单，开始逆向！</p>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#首先将三轮运算逆向回去</span></span><br><span class="line">targ=[  <span class="number">0x03</span>, <span class="number">0x1D</span>, <span class="number">0x24</span>, <span class="number">0x1C</span>, <span class="number">0x06</span>, <span class="number">0x1A</span>, <span class="number">0x3C</span>, <span class="number">0x3F</span>, <span class="number">0x04</span>, <span class="number">0x32</span>,</span><br><span class="line">  		<span class="number">0x3E</span>, <span class="number">0x11</span>, <span class="number">0x1C</span>, <span class="number">0x0B</span>, <span class="number">0x0D</span>, <span class="number">0x1F</span>, <span class="number">0xFD</span>, <span class="number">0x09</span>, <span class="number">0xF3</span>, <span class="number">0xFB</span>,</span><br><span class="line">      	<span class="number">0x98</span>, <span class="number">0x92</span>, <span class="number">0x00</span>]</span><br><span class="line"><span class="comment">#每一位和后一位异或，所以最后一位是不会变的，这就是突破口</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]^targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[<span class="number">21</span>-i]=targ[<span class="number">21</span>-i]-targ[<span class="number">22</span>-i]</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    targ[i]-=i</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
+<p>这时得到的数组是</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">targ=[-<span class="number">154</span>, <span class="number">365</span>, -<span class="number">157</span>, <span class="number">362</span>, -<span class="number">129</span>, <span class="number">374</span>, -<span class="number">131</span>, <span class="number">364</span>, -<span class="number">151</span>, <span class="number">385</span>,</span><br><span class="line">      -<span class="number">147</span>, <span class="number">367</span>, -<span class="number">141</span>, <span class="number">384</span>, -<span class="number">145</span>, <span class="number">373</span>, -<span class="number">140</span>, <span class="number">386</span>, -<span class="number">375</span>, <span class="number">377</span>, </span><br><span class="line">      -<span class="number">136</span>, <span class="number">146</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p>这里很明显看到因为python的数据类型基本没有限制，所以会出现 很多大数和负数</p>
+<p>在C语言里面，一个byte的无符号整数是0-255，这里看到程序里面都是单字节，所以会出现循环现象，这里将他门进行复原</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">22</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line"><span class="comment">#因为这里超过256会循环，所以要%256</span></span><br><span class="line">    <span class="keyword">if</span> targ[i]&lt;<span class="number">0</span>:</span><br><span class="line">        targ[i]&amp;=<span class="number">0xffffffff</span></span><br><span class="line"><span class="comment">#考虑到负数的缘故，要先将负数转化成正数（有符号数转化无符号数）</span></span><br><span class="line"><span class="built_in">print</span>(targ)</span><br><span class="line"></span><br><span class="line"><span class="comment">#最后统一规矩一下数据，然后字符输出就可以了</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">23</span>):</span><br><span class="line">    <span class="keyword">if</span> targ[i]&gt;<span class="number">255</span>:</span><br><span class="line">        targ[i]%=<span class="number">256</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(targ[i]),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>()</span><br><span class="line"><span class="built_in">print</span>(targ)</span><br></pre></td></tr></table></figure>
+<p>最后得到flag：</p>
+<p><strong>flag{qweaxcdgsafdqwfd}</strong></p>
+]]></content>
+      <categories>
+        <category>WriteUp</category>
+      </categories>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>博客改良(持续记录)</title>
+    <url>/2021/08/28/%E5%8D%9A%E5%AE%A2%E6%94%B9%E8%89%AF/</url>
+    <content><![CDATA[<h2 id="1-删除强力驱动："><a href="#1-删除强力驱动：" class="headerlink" title="1.删除强力驱动："></a>1.删除强力驱动：</h2><p>1.在【themes/layout/_partial/footer】文件中的最后，删除如下代码</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme<span class="selector-class">.footer</span><span class="selector-class">.powered</span> %&#125;</span><br><span class="line">  &lt;<span class="selector-tag">div</span> class=&quot;powered-by&quot;&gt;</span><br><span class="line">    &#123;%- set next_site = &#x27;https://theme-next.js.org<span class="string">&#x27; if theme.scheme === &#x27;</span>Gemini<span class="string">&#x27; else &#x27;</span>https://theme-next.js.org/<span class="string">&#x27; + theme.scheme | lower + &#x27;</span>/<span class="string">&#x27; %&#125;</span></span><br><span class="line"><span class="string">    &#123;&#123;- __(&#x27;</span>footer.powered<span class="string">&#x27;, next_url(&#x27;</span>https://hexo.io<span class="string">&#x27;, &#x27;</span>Hexo<span class="string">&#x27;) + &#x27;</span> &amp; <span class="string">&#x27; + next_url(next_site, &#x27;</span>NexT.<span class="string">&#x27; + theme.scheme)) &#125;&#125;</span></span><br><span class="line"><span class="string">  &lt;/div&gt;</span></span><br><span class="line"><span class="string">&#123;%- endif %&#125;</span></span><br></pre></td></tr></table></figure>
+<p>2.同样，如果想在该位置添加一些别的文字，直接在这个文件里面加就行</p>
+<span id="more"></span>
+<h2 id="2-更改字体颜色："><a href="#2-更改字体颜色：" class="headerlink" title="2.更改字体颜色："></a>2.更改字体颜色：</h2><p>在_data文件里面添加：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">color</span> #色号</span><br></pre></td></tr></table></figure>
+<p><img src="image-20210828115628268.png" alt="image-20210828115628268"></p>
+<p><img src="image-20210828115713939.png" alt="image-20210828115713939"></p>
+<p><img src="image-20210828115742828.png" alt="image-20210828115742828"></p>
+<h2 id="3-利用不通的分类："><a href="#3-利用不通的分类：" class="headerlink" title="3.利用不通的分类："></a>3.利用不通的分类：</h2><p>这里用“categories”为例</p>
+<p>找到在categories目录下的哪个index.md文件，在开头的地方加上一行</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">type: <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="image-20210828122741712.png" alt="image-20210828122741712"></p>
+<p>这样就可以在那个界面里面看到不通的分类了</p>
+<h2 id="4-在文中添加超链接"><a href="#4-在文中添加超链接" class="headerlink" title="4.在文中添加超链接"></a>4.在文中添加超链接</h2><p>利用markdown特性，将链接放在&lt;&gt;中间</p>
+<p>例如<a href="https://hellorootkit.github.io">https://hellorootkit.github.io</a></p>
+<h2 id="5-修改字体颜色"><a href="#5-修改字体颜色" class="headerlink" title="5.修改字体颜色"></a>5.修改字体颜色</h2><h3 id="1-修改博文标题："><a href="#1-修改博文标题：" class="headerlink" title="1.修改博文标题："></a>1.修改博文标题：</h3><p>找到目录\hexo-theme-next\source\css_common\components\post下的post-header文件</p>
+<p>然后找到.post-title-link</p>
+<p>修改颜色即可生效</p>
+<h3 id="2-修改博文颜色："><a href="#2-修改博文颜色：" class="headerlink" title="2.修改博文颜色："></a>2.修改博文颜色：</h3><p>同2</p>
+<h3 id="3-日志分类标签统计："><a href="#3-日志分类标签统计：" class="headerlink" title="3.日志分类标签统计："></a>3.日志分类标签统计：</h3><p>目录\hexo-theme-next\source\css_common\outline\sidebar\site-state.styl</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.site-state-item-name</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#40E0D0</span>;//$site-state-item-name-<span class="attribute">color</span>;//日志，分类，标签的颜色</span><br><span class="line">  <span class="attribute">font-size</span>: $site-state-item-name-font-size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-头像下面和描述："><a href="#4-头像下面和描述：" class="headerlink" title="4.头像下面和描述："></a>4.头像下面和描述：</h3><p>目录\hexo-theme-next\source\css_common\outline\sidebar\author.styl</p>
+<h3 id="5-站点描述："><a href="#5-站点描述：" class="headerlink" title="5.站点描述："></a>5.站点描述：</h3><p>themes\hexo-theme-next\source\css_schemes\Pisces_sidebar.styl</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">.sidebar-inner &#123;//站点概况</span><br><span class="line">  background: rgba(128,138,135,0.1)//var(--content-bg-color);</span><br><span class="line">  border-radius: $border-radius;</span><br><span class="line">  box-shadow: $box-shadow;</span><br><span class="line">  box-sizing: border-box;</span><br><span class="line">  color: var(--text-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>博客装修</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>insert_photo</title>
+    <url>/2021/08/27/insert-photo/</url>
+    <content><![CDATA[<p>​    Do you konw how to insert photo?</p>
+<p><img src="image-20210827212032824.png" alt="image-20210827212032824"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>how2buildBlog</title>
+    <url>/2021/08/27/how2buildBlog/</url>
+    <content><![CDATA[<p> 搭建好博客，记录搭建过程：</p>
+<h1 id="搭建博客："><a href="#搭建博客：" class="headerlink" title="搭建博客："></a>搭建博客：</h1><p>博客搭建基于【Github+hexo】模式；用的是hexo的next的模板。</p>
+<h2 id="准备工具："><a href="#准备工具：" class="headerlink" title="准备工具："></a>准备工具：</h2><p>1.git</p>
+<p>2.hexo</p>
+<p>3.github</p>
+<p>4.nodejs</p>
+<h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><p>1.首先是在GitHub上创建一个仓库，仓库名称需为：名称.github.io</p>
+<p>名称最好是和仓库名相同，这样方便索引：</p>
+<span id="more"></span>
+<p><img src="image-20210827182643655.png" alt="image-20210827182643655"></p>
+<p>像这样即可</p>
+<p>2.然后需要先安装git（熟悉Windows的可以直接用cmd）；然后下载nodejs，用<code>node -v</code>进行检查是否安装成功；然后安装<code>npm install hexo -g</code>用命令：<code>hexo -v</code>查看是否安装成功；之后需要安装hexo的一系列的以来文件<code>nmp install hexo-deployer-git --save</code>,这里需要注意的是—save的位置可以放到install那里，这个看个人情况。</p>
+<p>3.这里最后需要配置SSH KEY，相当于一个身份验证：</p>
+<p>通过git，输入命令：<code>cd ~/.ssh</code>进入ssh文件——-&gt;通过命令<code>cat id_rsa.pub</code>查看密钥，然后在github的设置里：</p>
+<p><img src="image-20210827183729815.png" alt="image-20210827183729815"></p>
+<p>将刚刚的一大串直接复制进去，这样就可以了</p>
+<p>用<code>ssh -T git@github.com</code>检验是否成功</p>
+<p>成功用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;liyunchen&quot; #你的github用户名</span><br><span class="line">$ git config --global user.email &quot;xxx@163.com&quot; #填写你的github注册邮箱</span><br></pre></td></tr></table></figure>
+<p>命令来设置邮箱和用户名</p>
+<h2 id="开始搭建："><a href="#开始搭建：" class="headerlink" title="开始搭建："></a>开始搭建：</h2><p>1.在一个较大的盘里新建文件夹，取一个洋文名字防止出灵异事件</p>
+<p>2.git bash here，在该目录下打开git</p>
+<p>3.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo init</span><br><span class="line"><span class="comment">#初始化hexo，此时目录下多了一堆文件</span></span><br></pre></td></tr></table></figure>
+<p>事先在<a href="https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：">https://hexo.io/themes/里下载好主题，将主题文件夹拖进【themes】文件夹然后回到主目录，用记事本打开主目录里的_config.yml文件，划到最后，找到themes：</a></p>
+<p><img src="image-20210827184605759.png" alt="image-20210827184605759"></p>
+<p>这里标黄的是要改成自己的仓库，下面的branch根据实际情况决定是main还是master。</p>
+<p>themes后面跟的是主题的文件夹的名字，注意空格，<strong>千万不能少</strong></p>
+<p>4.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.hexo s<span class="comment">#在本机生成一个预览可以看到效果</span></span><br><span class="line">2.hexo g<span class="comment">#生成html界面</span></span><br><span class="line">3.hexo d<span class="comment">#部署到github</span></span><br></pre></td></tr></table></figure>
+<p>此时就可以看到自己的博客的初始状态，也就搭建基本完毕了</p>
+<h1 id="完善博客："><a href="#完善博客：" class="headerlink" title="完善博客："></a>完善博客：</h1><p>搭建好之后需要完善成人类友好的界面（next为例子）</p>
+<h2 id="1-首页风格："><a href="#1-首页风格：" class="headerlink" title="1.首页风格："></a>1.首页风格：</h2><p>找到你下载的主题里的_config.yml文件（没错，主题里面也有）</p>
+<p>找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//这里是四种风格，选一个喜欢的去掉前面的井号</span><br><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">scheme: Gemini</span><br><span class="line">//这里是模式，亮还是暗</span><br><span class="line"># Dark Mode</span><br><span class="line">darkmode: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//这里是菜单设置，去掉喜欢的前面的#</span><br><span class="line">menu:</span><br><span class="line">  home: / || home                          //首页</span><br><span class="line">  archives: /archives/ || archive          //归档</span><br><span class="line">  categories: /categories/ || th           //分类</span><br><span class="line">  tags: /tags/ || tags                     //标签</span><br><span class="line">  about: /about/ || user                   //关于</span><br><span class="line">  #schedule: /schedule/ || calendar        //日程表</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap        //站点地图</span><br><span class="line">  #commonweal: /404/ || heartbeat          //公益404</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//侧栏设置，看好适用风格</span><br><span class="line"># Sidebar Position - 侧栏位置（只对Pisces | Gemini两种风格有效）</span><br><span class="line">  position: left        //靠左放置</span><br><span class="line">  #position: right      //靠右放置</span><br><span class="line"></span><br><span class="line"># Sidebar Display - 侧栏显示时机（只对Muse | Mist两种风格有效）</span><br><span class="line">  #display: post        //默认行为，在文章页面（拥有目录列表）时显示</span><br><span class="line">  display: always       //在所有页面中都显示</span><br><span class="line">  #display: hide        //在所有页面中都隐藏（可以手动展开）</span><br><span class="line">  #display: remove      //完全移除</span><br><span class="line"></span><br><span class="line">  offset: 12            //文章间距（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  b2t: false            //返回顶部按钮（只对Pisces | Gemini两种风格有效）</span><br><span class="line"></span><br><span class="line">  scrollpercent: true   //返回顶部按钮的百分比</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//头像设置，将头像设为header.jpg，然后拖到themes\hexo-theme-next\source\images目录下</span><br><span class="line"># Sidebar Avatar</span><br><span class="line">avatar: /images/header.jpg</span><br></pre></td></tr></table></figure>
+<h2 id="2-语言文字："><a href="#2-语言文字：" class="headerlink" title="2.语言文字："></a>2.语言文字：</h2><p>打开主目录的_config.yml文件，开头就是这几个，后面的内容自己写写，注意空格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Site</span><br><span class="line">title: R-o-o-t-k-i-t</span><br><span class="line">subtitle: &#x27;&#x27;</span><br><span class="line">description: 自由，平等，公正，法制</span><br><span class="line">keywords: rootkit，+-*/</span><br><span class="line">author: rootkit/+-*</span><br><span class="line">language: zh-CN</span><br><span class="line">timezone: &#x27;&#x27;#网站时区（Hexo 默认使用您电脑的时区，不用写）</span><br></pre></td></tr></table></figure>
+<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><p><img src="image-20210827190155039.png" alt="image-20210827190155039"></p>
+<h1 id="上传日志："><a href="#上传日志：" class="headerlink" title="上传日志："></a>上传日志：</h1><p>在该文件夹里通过git或者cmd使用命令<code>hexo new &#39;#######&#39;</code>,就会在sources目录里生成一个#####.md文件，然后正常写点东西（在下面的正文部分，上面的灰色框是自带的）</p>
+<p>写完之后通过命令<code>hexo g</code>和<code>hexo d</code>来上传</p>
+<p>这样就完成了上面的效果。</p>
+]]></content>
+      <categories>
+        <category>博客装修</category>
+      </categories>
+      <tags>
+        <tag>关于博客</tag>
       </tags>
   </entry>
 </search>
