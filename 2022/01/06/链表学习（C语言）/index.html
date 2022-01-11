@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="链表学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表学习（C语言）">
+<meta property="og:url" content="http://example.com/2022/01/06/%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0%EF%BC%88C%E8%AF%AD%E8%A8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="R-o-o-t-k-i-t">
+<meta property="og:description" content="链表学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/01/06/%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0%EF%BC%88C%E8%AF%AD%E8%A8%80%EF%BC%89/链表学习（C语言）/image-20220106192242683.png">
+<meta property="og:image" content="http://example.com/2022/01/06/%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0%EF%BC%88C%E8%AF%AD%E8%A8%80%EF%BC%89/链表学习（C语言）/image-20220107123357566.png">
+<meta property="article:published_time" content="2022-01-06T11:19:16.000Z">
+<meta property="article:modified_time" content="2022-01-11T14:54:49.512Z">
+<meta property="article:author" content="rootkit&#x2F;+-*">
+<meta property="article:tag" content="数据结构入门">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/06/%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0%EF%BC%88C%E8%AF%AD%E8%A8%80%EF%BC%89/链表学习（C语言）/image-20220106192242683.png">
+
+
+<link rel="canonical" href="http://example.com/2022/01/06/%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0%EF%BC%88C%E8%AF%AD%E8%A8%80%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/01/06/%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0%EF%BC%88C%E8%AF%AD%E8%A8%80%EF%BC%89/","path":"2022/01/06/链表学习（C语言）/","title":"链表学习（C语言）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>链表学习（C语言） | R-o-o-t-k-i-t</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">R-o-o-t-k-i-t</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-悠哉日常"><a href="/%E6%82%A0%E5%93%89%E6%97%A5%E5%B8%B8" rel="section"><i class="fa fa-user fa-fw"></i>悠哉日常</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">链表学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">单链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%B4%E6%8F%92%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">头插法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BE%E6%8F%92%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">尾插法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%EF%BC%8C%E5%88%A0%E9%99%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">插入，删除</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="rootkit/+-*"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">rootkit/+-*</p>
+  <div class="site-description" itemprop="description">自由，平等，公正，法制</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      统一战线
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jnsec.org/" title="https:&#x2F;&#x2F;jnsec.org&#x2F;" rel="noopener" target="_blank">JNSEC</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.yd0ng.com/" title="https:&#x2F;&#x2F;blog.yd0ng.com" rel="noopener" target="_blank">yd0ng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://1klnd.github.io/" title="https:&#x2F;&#x2F;1klnd.github.io&#x2F;" rel="noopener" target="_blank">III</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.brvc3.website/" title="http:&#x2F;&#x2F;blog.brvc3.website&#x2F;" rel="noopener" target="_blank">Bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tty-flag.github.io/" title="https:&#x2F;&#x2F;tty-flag.github.io&#x2F;" rel="noopener" target="_blank">TTY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://rave1sking.top/" title="http:&#x2F;&#x2F;rave1sking.top&#x2F;" rel="noopener" target="_blank">Rava</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/weixin_45396639" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45396639" rel="noopener" target="_blank">Ronie</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_42880719" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_42880719" rel="noopener" target="_blank">Mumuzi</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.squidward.xyz/" title="https:&#x2F;&#x2F;www.squidward.xyz&#x2F;" rel="noopener" target="_blank">Octopus</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://k1tcheung.github.io/" title="https:&#x2F;&#x2F;k1tcheung.github.io&#x2F;" rel="noopener" target="_blank">k1tcheung</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rhoeo.github.io/" title="https:&#x2F;&#x2F;rhoeo.github.io&#x2F;" rel="noopener" target="_blank">Rhoeo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://abiao2002.github.io/" title="https:&#x2F;&#x2F;abiao2002.github.io&#x2F;" rel="noopener" target="_blank">Abiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://giles-one.github.io/" title="https:&#x2F;&#x2F;giles-one.github.io&#x2F;" rel="noopener" target="_blank">Cat03</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://reimu.moe/" title="https:&#x2F;&#x2F;reimu.moe&#x2F;" rel="noopener" target="_blank">加大号的猫</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baidu.com/" title="https:&#x2F;&#x2F;www.baidu.com" rel="noopener" target="_blank">有问题点这里</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">没有解决？</a>
+        </li>
+    </ul>
+  </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/06/%E9%93%BE%E8%A1%A8%E5%AD%A6%E4%B9%A0%EF%BC%88C%E8%AF%AD%E8%A8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="rootkit/+-*">
+      <meta itemprop="description" content="自由，平等，公正，法制">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R-o-o-t-k-i-t">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          链表学习（C语言）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-06 19:19:16" itemprop="dateCreated datePublished" datetime="2022-01-06T19:19:16+08:00">2022-01-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-01-11 22:54:49" itemprop="dateModified" datetime="2022-01-11T22:54:49+08:00">2022-01-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="链表学习"><a href="#链表学习" class="headerlink" title="链表学习"></a>链表学习</h1><span id="more"></span>
+<h2 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h2><h3 id="头插法"><a href="#头插法" class="headerlink" title="头插法"></a>头插法</h3><p>这里用一个学号+姓名的结构体学习单链表的 “头插法” 。 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">STU</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> nums;</span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">10</span>];</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">STU</span> *<span class="title">next</span>;</span><span class="comment">//这里的next虽然拼写一样，但是在每一个节点的结构体里指向的都是他后面那个结构体</span></span><br><span class="line">&#125;;					<span class="comment">//这里新建结构体，一定要放在前面，不然后面的函数调用报错</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">opdata</span><span class="params">(struct STU *student)</span><span class="comment">//传进来一个结构体指针，该指针指向一个结构体</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;input the nums: &quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;student-&gt;nums);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;input the name: &quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, student-&gt;name);</span><br><span class="line">&#125;								<span class="comment">//这个指针指向的结构体赋值成功</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addnode</span><span class="params">(struct STU **student)</span><span class="comment">//这里传递的是“指向指针的指针”，</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">STU</span> *<span class="title">temp</span>, *<span class="title">new_stu</span>;</span></span><br><span class="line">	<span class="keyword">if</span> (*student != <span class="literal">NULL</span>)		<span class="comment">//这里说如果传进来的节点不是最后一个</span></span><br><span class="line">	&#123;							<span class="comment">//*student是内容所在的地址，student存放的是*student的地址</span></span><br><span class="line">		new_stu = (struct STU*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct STU));<span class="comment">//新建一个节点，并申请一个空间</span></span><br><span class="line">		opdata(new_stu);</span><br><span class="line"></span><br><span class="line">		temp = *student;	<span class="comment">//先将原先指向数据的地址保存为temp</span></span><br><span class="line">		*student = new_stu;	<span class="comment">//指针更新成新的指针</span></span><br><span class="line">		new_stu-&gt;next = temp;<span class="comment">//新的节点的next指针指向原来的节点</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>		<span class="comment">//传进来的是最后一个节点，也就是说链表是空的，这样直接在后面加就可以</span></span><br><span class="line">	&#123;</span><br><span class="line">		new_stu = (struct STU*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct STU));</span><br><span class="line">        opdata(new_stu);</span><br><span class="line">		*student = new_stu;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintData</span><span class="params">(struct STU *student)</span><span class="comment">//传进来一个指向结构体的指针</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">STU</span> *<span class="title">stu</span>;</span>				<span class="comment">//新建中间人，这里是为了防止参数被改变，使后面的释放函数出错</span></span><br><span class="line">	stu = student;</span><br><span class="line">	<span class="keyword">while</span>(stu != <span class="literal">NULL</span>)				<span class="comment">//等于NULL的话就说明到最后一个了，</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;xuehao is %u\n&quot;</span>, stu-&gt;nums);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;name is %s\n&quot;</span>, stu-&gt;name);</span><br><span class="line">		stu = stu-&gt;next;			<span class="comment">//不断指向next</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">releaseMem</span><span class="params">(struct STU **student)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">STU</span>  *<span class="title">temp</span>;</span>		<span class="comment">//找第三方替换，不然直接free的话 只能free一个，剩下的free不了</span></span><br><span class="line">	<span class="keyword">while</span>( *student != <span class="literal">NULL</span> )<span class="comment">//内容所在的地址不是空的</span></span><br><span class="line">	&#123;</span><br><span class="line">		temp = *student;	<span class="comment">//中间变量接受地址</span></span><br><span class="line">		*student = (*student)-&gt;next;	<span class="comment">//内容的地址指向下一组内容</span></span><br><span class="line">		<span class="built_in">free</span>(temp);			<span class="comment">//free掉刚刚的内存空间</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">STU</span>* <span class="title">student</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;the addr of (*student) is %p\n&quot;</span>,student);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;the addr of (&amp;student) is %p\n&quot;</span>,&amp;student);</span><br><span class="line">	addnode(&amp;student);			<span class="comment">//这里把这个结构体指针的地址传进去，让一个新的节点指向这个地址</span></span><br><span class="line">	PrintData(student);			<span class="comment">//这里就正常的传递一个结构体指针</span></span><br><span class="line">	releaseMem(&amp;student);		<span class="comment">//也是把这个结构体指针的地址传进去</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;successful&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于程序中指向指针的指针我理解为</p>
+<p><img src="链表学习（C语言）/image-20220106192242683.png" alt="image-20220106192242683"></p>
+<p>这里addnode和releaseMem函数的参数均是二级指针，这个指针指向了 “指向数据内容的一级指针” </p>
+<h3 id="尾插法"><a href="#尾插法" class="headerlink" title="尾插法"></a>尾插法</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span> score;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OpStu</span><span class="params">(struct stu *student)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;name : &quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, student -&gt; name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Score : &quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;student -&gt; score);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//主要不同之处就在于这里的节点插入</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddStu</span><span class="params">(struct stu **student)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">new_stu</span> =</span> (struct stu*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct stu));</span><br><span class="line">    <span class="comment">//为新节点分配空间</span></span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">end_node</span>;</span></span><br><span class="line">	<span class="comment">//创建静态变量来存储尾节点</span></span><br><span class="line">	OpStu(new_stu);</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">if</span> (*student == <span class="literal">NULL</span>)<span class="comment">//如果是一个空链表</span></span><br><span class="line">	&#123;</span><br><span class="line">		*student = new_stu;<span class="comment">//直接把头的指针指向新生成的数据</span></span><br><span class="line">		new_stu-&gt;next = <span class="literal">NULL</span>;<span class="comment">//最后在他后面补上NULL，或者可以是</span></span><br><span class="line">        <span class="comment">//(*student) -&gt; next = NULL 解引用和-&gt;的优先级不一样</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span><span class="comment">//不是空链表</span></span><br><span class="line">	&#123;</span><br><span class="line">		end_node-&gt;next = new_stu;<span class="comment">//尾节点的下一项是新节点</span></span><br><span class="line">		new_stu-&gt;next = <span class="literal">NULL</span>;<span class="comment">//封底</span></span><br><span class="line">	&#125;</span><br><span class="line">	end_node = new_stu;<span class="comment">//尾接点指向新节点的</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintNode</span><span class="params">(struct stu *students)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">temp</span>;</span></span><br><span class="line">	temp = students;</span><br><span class="line">	<span class="keyword">while</span>(temp-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;name is %s, got %d scores\n&quot;</span>, temp-&gt;name, temp-&gt;score);</span><br><span class="line">		temp = temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;FINISH\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReleasMem</span><span class="params">(struct stu **students)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">temp</span>;</span></span><br><span class="line">	<span class="comment">//temp = *students;</span></span><br><span class="line">	<span class="keyword">while</span>(*students != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		temp = *students;</span><br><span class="line">		*students = (*students)-&gt;next;</span><br><span class="line">		<span class="built_in">free</span>(temp);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;free end\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">student</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> i=<span class="number">5</span>;</span><br><span class="line">	<span class="keyword">while</span>(i!=<span class="number">0</span>)<span class="comment">//用五组数据进行测试</span></span><br><span class="line">	&#123;</span><br><span class="line">		AddStu(&amp;student);</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	PrintNode(student);</span><br><span class="line">	ReleasMem(&amp;student);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插入，删除"><a href="#插入，删除" class="headerlink" title="插入，删除"></a>插入，删除</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertNode</span><span class="params">(<span class="keyword">int</span> addr, struct stu *student)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//int count=0;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">stu</span> =</span> student;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">newstu</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">temp</span>;</span></span><br><span class="line">	<span class="keyword">for</span>(;addr<span class="number">-1</span>!=<span class="number">0</span>;addr--)<span class="comment">//先通过循环找到要插入的节点的位置</span></span><br><span class="line">	&#123;</span><br><span class="line">		stu = stu-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//printf(&quot;insert location---&gt; %s,%d\n\n&quot;,stu-&gt;name,stu-&gt;score);</span></span><br><span class="line">	newstu = (struct stu*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct stu));</span><br><span class="line">	OpStu(newstu);<span class="comment">//准备好要插入的新节点</span></span><br><span class="line"></span><br><span class="line">	temp = stu-&gt;next;<span class="comment">//将前一个节点的next指针用temp保存</span></span><br><span class="line">	stu-&gt;next = newstu;<span class="comment">//前一个节点的next指针指向新的插入的节点</span></span><br><span class="line">	newstu-&gt;next = temp;<span class="comment">//新节点的next指针指向原来的节点</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeletNode</span><span class="params">(<span class="keyword">int</span> addr, struct stu* student)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">stu</span> *<span class="title">under</span>, *<span class="title">stu</span>, *<span class="title">pre</span>;</span></span><br><span class="line">	stu = student;</span><br><span class="line">	<span class="keyword">for</span>(;addr!=<span class="number">1</span>;addr--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (addr == <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			pre = stu;<span class="comment">//将要删除节点的前一个节点保存</span></span><br><span class="line">		&#125;</span><br><span class="line">		stu = stu-&gt;next;<span class="comment">//找到要删除的节点</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//printf(&quot;delete location---&gt; %s,%d\n\n&quot;,stu-&gt;name,stu-&gt;score);</span></span><br><span class="line">	under = stu-&gt;next;<span class="comment">//保存要删除节点的后一个节点</span></span><br><span class="line">    pre-&gt;next = under;<span class="comment">//将删除节点的前一个节点指向后一个节点</span></span><br><span class="line">	<span class="comment">//printf(&quot;pre location---&gt; %s,%d\n\n&quot;,pre-&gt;name,pre-&gt;score);</span></span><br><span class="line">	<span class="comment">//printf(&quot;under location---&gt; %s,%d\n\n&quot;,under-&gt;name, under-&gt;score);</span></span><br><span class="line">	<span class="built_in">free</span>(stu);<span class="comment">//free掉删除的节点的内存空间</span></span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;delete success&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>插入：</p>
+<p><img src="链表学习（C语言）/image-20220107123357566.png" alt="image-20220107123357566"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8/" rel="tag"># 数据结构入门</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/16/CGnetsw%E4%BF%AE%E6%94%B9%E5%99%A8/" rel="prev" title="CGnetsw修改器">
+                  <i class="fa fa-chevron-left"></i> CGnetsw修改器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/11/Java%E8%AF%AD%E6%B3%95/" rel="next" title="Java语法">
+                  Java语法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+但使龙城飞将在，不教胡马度阴山。
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rootkit/+-*</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
