@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Angr学习，解决路径爆炸问题和一些hook方法：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angr_1">
+<meta property="og:url" content="http://example.com/2022/03/02/Angr-1/index.html">
+<meta property="og:site_name" content="R-o-o-t-k-i-t">
+<meta property="og:description" content="Angr学习，解决路径爆炸问题和一些hook方法：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/03/02/Angr-1/image-20220225155200364.png">
+<meta property="og:image" content="http://example.com/2022/03/02/Angr-1/image-20220225155727402.png">
+<meta property="article:published_time" content="2022-03-02T07:56:58.000Z">
+<meta property="article:modified_time" content="2022-03-02T08:11:05.663Z">
+<meta property="article:author" content="rootkit&#x2F;+-*">
+<meta property="article:tag" content="Reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/02/Angr-1/image-20220225155200364.png">
+
+
+<link rel="canonical" href="http://example.com/2022/03/02/Angr-1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/03/02/Angr-1/","path":"2022/03/02/Angr-1/","title":"Angr_1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Angr_1 | R-o-o-t-k-i-t</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">R-o-o-t-k-i-t</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-悠哉日常"><a href="/%E6%82%A0%E5%93%89%E6%97%A5%E5%B8%B8" rel="section"><i class="fa fa-user fa-fw"></i>悠哉日常</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A08-angr-constraints"><span class="nav-number">1.</span> <span class="nav-text">题目：08_angr_constraints</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E7%88%86%E7%82%B8"><span class="nav-number">1.1.</span> <span class="nav-text">路径爆炸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%B1%82%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">约束求解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A09-angr-hooks"><span class="nav-number">2.</span> <span class="nav-text">题目：09_angr_hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hook%E5%9C%B0%E5%9D%80"><span class="nav-number">2.1.</span> <span class="nav-text">Hook地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A10-angr-simprocedures"><span class="nav-number">3.</span> <span class="nav-text">题目：10_angr_simprocedures</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HOOK%E5%87%BD%E6%95%B0%E5%90%8D"><span class="nav-number">3.1.</span> <span class="nav-text">HOOK函数名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A11-angr-sim-scanf"><span class="nav-number">4.</span> <span class="nav-text">题目：11_angr_sim_scanf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A13-angr-static-binary"><span class="nav-number">5.</span> <span class="nav-text">题目：13_angr_static_binary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hook%E9%9D%99%E6%80%81%E5%BA%93%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">Hook静态库函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A14-angr-shared-library"><span class="nav-number">6.</span> <span class="nav-text">题目：14_angr_shared_library</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">6.1.</span> <span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hook%E5%8A%A8%E6%80%81%E5%BA%93%E5%87%BD%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">Hook动态库函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pre-binary-%E9%80%89%E9%A1%B9"><span class="nav-number">6.3.</span> <span class="nav-text">pre-binary 选项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%EF%BC%9A12-angr-veritesting"><span class="nav-number">7.</span> <span class="nav-text">题目：12_angr_veritesting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Veritesting"><span class="nav-number">7.1.</span> <span class="nav-text">Veritesting</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="rootkit/+-*"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">rootkit/+-*</p>
+  <div class="site-description" itemprop="description">自由，平等，公正，法制</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      统一战线
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jnsec.org/" title="https:&#x2F;&#x2F;jnsec.org&#x2F;" rel="noopener" target="_blank">JNSEC</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.yd0ng.com/" title="https:&#x2F;&#x2F;blog.yd0ng.com" rel="noopener" target="_blank">yd0ng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://1klnd.github.io/" title="https:&#x2F;&#x2F;1klnd.github.io&#x2F;" rel="noopener" target="_blank">III</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.brvc3.website/" title="http:&#x2F;&#x2F;blog.brvc3.website&#x2F;" rel="noopener" target="_blank">Bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tty-flag.github.io/" title="https:&#x2F;&#x2F;tty-flag.github.io&#x2F;" rel="noopener" target="_blank">TTY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://rave1sking.top/" title="http:&#x2F;&#x2F;rave1sking.top&#x2F;" rel="noopener" target="_blank">Rava</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/weixin_45396639" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45396639" rel="noopener" target="_blank">Ronie</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_42880719" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_42880719" rel="noopener" target="_blank">Mumuzi</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.squidward.xyz/" title="https:&#x2F;&#x2F;www.squidward.xyz&#x2F;" rel="noopener" target="_blank">Octopus</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://k1tcheung.github.io/" title="https:&#x2F;&#x2F;k1tcheung.github.io&#x2F;" rel="noopener" target="_blank">k1tcheung</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rhoeo.github.io/" title="https:&#x2F;&#x2F;rhoeo.github.io&#x2F;" rel="noopener" target="_blank">Rhoeo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://abiao2002.github.io/" title="https:&#x2F;&#x2F;abiao2002.github.io&#x2F;" rel="noopener" target="_blank">Abiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://giles-one.github.io/" title="https:&#x2F;&#x2F;giles-one.github.io&#x2F;" rel="noopener" target="_blank">Cat03</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://reimu.moe/" title="https:&#x2F;&#x2F;reimu.moe&#x2F;" rel="noopener" target="_blank">加大号的猫</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baidu.com/" title="https:&#x2F;&#x2F;www.baidu.com" rel="noopener" target="_blank">有问题点这里</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">没有解决？</a>
+        </li>
+    </ul>
+  </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/02/Angr-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="rootkit/+-*">
+      <meta itemprop="description" content="自由，平等，公正，法制">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R-o-o-t-k-i-t">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angr_1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-03-02 15:56:58 / 修改时间：16:11:05" itemprop="dateCreated datePublished" datetime="2022-03-02T15:56:58+08:00">2022-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">逆向工程学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p> Angr学习，解决路径爆炸问题和一些hook方法：</p>
+<span id="more"></span>
+<h2 id="题目：08-angr-constraints"><a href="#题目：08-angr-constraints" class="headerlink" title="题目：08_angr_constraints"></a>题目：08_angr_constraints</h2><h3 id="路径爆炸"><a href="#路径爆炸" class="headerlink" title="路径爆炸"></a>路径爆炸</h3><p>1.就是求解过程中，产生了太多了路径，导致求解过程异常缓慢，这通常由带有循环的判断引起的</p>
+<p>2.比如说一个32次的for循环进行单字节比较，每一次比较都会产生两个路径，这就是2的32次方的路径，一般电脑无法达到这么大的算力。</p>
+<p>3.解决：</p>
+<ul>
+<li>更换电脑</li>
+<li><strong>hook技术</strong></li>
+<li><strong>用约束条件取代这个判断函数</strong></li>
+</ul>
+<h3 id="约束求解"><a href="#约束求解" class="headerlink" title="约束求解"></a>约束求解</h3><p>angr中提供了可以用加入一个约束条件到一个state中的方法（<code>state.solver.add</code>）；类似于Z3-Solver的solver.add()。</p>
+<p><strong>实际是通过 <code>.add</code> 对 state 对象添加约束，并使用 <code>.eval</code> 接口求解，得到符号变量的可行解。</strong></p>
+<p>ida分析可得，main函数中存在循环，存在路径爆炸问题</p>
+<p><img src="image-20220225155200364.png" alt="image-20220225155200364"></p>
+<p>看到下面的if判断里的函数</p>
+<p><img src="image-20220225155727402.png" alt="image-20220225155727402"></p>
+<p>这里会爆炸，所以需要直接约束求解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> claripy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&#x27;./08_angr_constraints&#x27;</span>, auto_load_libs = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">start_addr = <span class="number">0x8048625</span></span><br><span class="line">init_state = p.factory.blank_state(addr = start_addr)</span><br><span class="line"><span class="comment">#直接从输入之后开始跑</span></span><br><span class="line"></span><br><span class="line">check_addr = <span class="number">0x8048565</span><span class="comment">#判断函数的地址</span></span><br><span class="line">in0_addr = <span class="number">0x804A050</span><span class="comment">#输入的地址</span></span><br><span class="line"></span><br><span class="line">in0len = <span class="number">16</span></span><br><span class="line">in0 = BVS(<span class="string">&#x27;in0&#x27;</span>, <span class="number">16</span>*<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">init_state.memory.store(in0_addr, in0)</span><br><span class="line"><span class="comment">#符号化内存，直接把符号写入内存，避免scanf抽风</span></span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state).explore(find = check_addr)</span><br><span class="line"><span class="comment">#这里注意，运行到调用check函数的状态</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    solution_state = simulation.found[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    para_addr = in0_addr</span><br><span class="line">    para_size = <span class="number">16</span></span><br><span class="line">    para_bitvector = solution_state.memory.load(para_addr, para_size)</span><br><span class="line">	<span class="comment">#使用 state.memory 的 .load(addr, size)接口读出buffer处的内存数据</span></span><br><span class="line">    </span><br><span class="line">    para_cmp_value = <span class="string">&#x27;AUPDNNPROEZRJWKB&#x27;</span></span><br><span class="line">    solution_state.solver.add(para_bitvector == para_cmp_value)</span><br><span class="line">    <span class="comment">#添加条件，读出的数据需要和给定的数据一致，相当是把程序内部判断，转移到外部</span></span><br><span class="line"></span><br><span class="line">    solution = solution_state.solver.<span class="built_in">eval</span>(in0, cast_to = <span class="built_in">bytes</span>)</span><br><span class="line">    <span class="built_in">print</span>(solution)</span><br><span class="line">    </span><br><span class="line"><span class="string">b&#x27;LGCRCDGJHYUNGUJB&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>关键：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   para_addr = in0_addr</span><br><span class="line">   para_size = <span class="number">16</span></span><br><span class="line">   para_bitvector = solution_state.memory.load(para_addr, para_size)</span><br><span class="line"><span class="comment">#使用 state.memory 的 .load(addr, size)接口读出buffer处的内存数据</span></span><br><span class="line">   </span><br><span class="line">   para_cmp_value = <span class="string">&#x27;AUPDNNPROEZRJWKB&#x27;</span></span><br><span class="line">   solution_state.solver.add(para_bitvector == para_cmp_value)</span><br><span class="line">   <span class="comment">#添加条件，读出的数据需要和给定的数据一致，相当是把程序内部判断，转移到外部</span></span><br></pre></td></tr></table></figure>
+<p>这里就是把数据读出来，然后通过add添加的约束条件进行比较，最后得到结果，避免程序内部的路劲爆炸</p>
+<h2 id="题目：09-angr-hooks"><a href="#题目：09-angr-hooks" class="headerlink" title="题目：09_angr_hooks"></a>题目：09_angr_hooks</h2><p>HOOK技术：通过拦截软件模块间的函数调用、消息传递、事件传递来修改或扩展操作系统、应用程序或其他软件组件的行为的各种技术。处理被拦截的函数调用、事件、消息的代码，被称为<strong>钩子</strong>（hook）。</p>
+<p>这里就是用自己设计的函数去取代被hook的函数</p>
+<p>ida分析，这里取代那个循环判断函数</p>
+<h3 id="Hook地址"><a href="#Hook地址" class="headerlink" title="Hook地址"></a>Hook地址</h3><p>1.<code>hook engine</code>来处理hook的情况。默认情况下，angr 会使用 <code>SimProcedures</code> 中的符号摘要替换库函数，即设置 Hooking，这些 python 函数摘要高效地模拟库函数对状态的影响。可以通过 <code>angr.procedures</code>或 <code>angr.SimProcedures</code> 查看列表，具体我没看。</p>
+<p>2.<code>SimProcedure</code> 其实就是 Hook 机制，可以通过 <code>proj.hook(addr,hook)</code> 设置</p>
+<p> 3.<code>proj.hook(addr)</code> 作为函数装饰器，可以编写自己的 hook 函数。还可以通过 <code>proj.hook_symbol(name,hook)</code> hook 函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> claripy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&#x27;./09_angr_hooks&#x27;</span>, auto_load_libs = <span class="literal">False</span>)</span><br><span class="line">init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line">check_addr = <span class="number">0x80486B3</span></span><br><span class="line">jmp_len = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@p.hook(<span class="params">check_addr, length=jmp_len</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">skip_checkfunc</span>(<span class="params">state</span>):</span></span><br><span class="line"></span><br><span class="line">    in0_addr = <span class="number">0x804A054</span></span><br><span class="line">    size = <span class="number">16</span></span><br><span class="line"></span><br><span class="line">    in0 = state.memory.load(in0_addr, size)</span><br><span class="line">    cmp_str = <span class="string">&#x27;XKSPZSJKJYQCQXZV&#x27;</span></span><br><span class="line"></span><br><span class="line">    register_size = <span class="number">32</span></span><br><span class="line">    state.regs.eax = If(in0 == cmp_str, BVV(<span class="number">1</span>, register_size), BVV(<span class="number">0</span>, register_size))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">issu</span>(<span class="params">state</span>):</span></span><br><span class="line">        stdout_output = state.posix.dumps(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">b&#x27;Good Job.\n&#x27;</span> <span class="keyword">in</span> stdout_output:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isfa</span>(<span class="params">state</span>):</span></span><br><span class="line">        stdout_output = state.posix.dumps(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">b&#x27;Try again.\n&#x27;</span> <span class="keyword">in</span>  stdout_output:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state).explore(find=issu, avoid=isfa)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">        solution_init = simulation.found[<span class="number">0</span>]</span><br><span class="line">        <span class="built_in">print</span>(solution_init.posix.dumps(<span class="number">0</span>).decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"><span class="comment">#ZJOIPFTRNZOXIMLEWUFAOUBLOGLQCCGK</span></span><br></pre></td></tr></table></figure>
+<p>设置hook的地方是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">check_addr = <span class="number">0x80486B3</span></span><br><span class="line"><span class="comment">#这里就是 call 检查函数的地址</span></span><br><span class="line">jmp_len = <span class="number">5</span>，</span><br><span class="line"><span class="comment">#通过16进制可以看到，这哥call指令占据了5个字节</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@p.hook(<span class="params">check_addr, length=jmp_len</span>)</span></span><br><span class="line"><span class="comment">#hook的形式，别忘了前面的@</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">skip_checkfunc</span>(<span class="params">state</span>):</span></span><br><span class="line"></span><br><span class="line">    in0_addr = <span class="number">0x804A054</span></span><br><span class="line">    size = <span class="number">16</span></span><br><span class="line"></span><br><span class="line">    in0 = state.memory.load(in0_addr, size)</span><br><span class="line">    cmp_str = <span class="string">&#x27;XKSPZSJKJYQCQXZV&#x27;</span></span><br><span class="line"></span><br><span class="line">    register_size = <span class="number">32</span></span><br><span class="line">    state.regs.eax = If(in0 == cmp_str, BVV(<span class="number">1</span>, register_size), BVV(<span class="number">0</span>, register_size))</span><br><span class="line"><span class="comment">#模拟一个函数就是把它视作一个黑盒，能成功模拟输入相对应的输出即可，所以我们需要处理check函数的返回值</span></span><br><span class="line"><span class="comment">#这里就是对eax的一个赋值</span></span><br></pre></td></tr></table></figure>
+<h2 id="题目：10-angr-simprocedures"><a href="#题目：10-angr-simprocedures" class="headerlink" title="题目：10_angr_simprocedures"></a>题目：10_angr_simprocedures</h2><p>利用函数名进行hook，而不是复杂的利用函数的调用地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> claripy</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&quot;./10_angr_simprocedures&quot;</span>, auto_load_libs = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HookCheckFunc</span>(<span class="params">SimProcedure</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self, to_check, length</span>):</span></span><br><span class="line">        in_addr = to_check</span><br><span class="line">        in_lenth = length</span><br><span class="line">        in_str = self.state.memory.load(in_addr, in_lenth)</span><br><span class="line"></span><br><span class="line">        check_str = <span class="string">&#x27;ORSDDWXHZURJRBDH&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> claripy.If(in_str == check_str ,claripy.BVV(<span class="number">1</span>, <span class="number">32</span>), claripy.BVV(<span class="number">0</span>, <span class="number">32</span>))</span><br><span class="line"></span><br><span class="line">hook_func_name = <span class="string">&#x27;check_equals_ORSDDWXHZURJRBDH&#x27;</span></span><br><span class="line">p.hook_symbol(hook_func_name, HookCheckFunc(init_state))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">issu</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Good Job.\n&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isfa</span>(<span class="params">state</span>):</span></span><br><span class="line">        stdout_output = state.posix.dumps(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">b&#x27;Try again.\n&#x27;</span> <span class="keyword">in</span>  stdout_output:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state).explore(find=issu, avoid=isfa)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    <span class="built_in">print</span>(simulation.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>))</span><br><span class="line"> <span class="string">b&#x27;MSWKNJNAVTTOZMRY&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="HOOK函数名"><a href="#HOOK函数名" class="headerlink" title="HOOK函数名"></a>HOOK函数名</h3><p>这次的核心是根据函数的名字进行hook，当函数被多次调用的时候，通过名字进行hook的效果更好</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HookCheckFunc</span>(<span class="params">SimProcedure</span>):</span></span><br><span class="line"><span class="comment">#定义一个继承angr.SimProcedure的类，以利用Angr的SimProcedures，这是关键</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self, to_check, length</span>):</span></span><br><span class="line">        <span class="comment">#self之后的任何参数都将被视为要替换的函数的参数，和原函数的参数意义保持一致</span></span><br><span class="line">        </span><br><span class="line">        in_addr = to_check</span><br><span class="line">        in_lenth = length</span><br><span class="line">        <span class="comment">#以上是两个参数，长度和字符串的首地址</span></span><br><span class="line">        </span><br><span class="line">        in_str = self.state.memory.load(in_addr, in_lenth)</span><br><span class="line">        <span class="comment">#在SimProcedure中查找系统状态，从该状态的内存中提取出数据</span></span><br><span class="line"></span><br><span class="line">        check_str = <span class="string">&#x27;ORSDDWXHZURJRBDH&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> claripy.If(in_str == check_str ,claripy.BVV(<span class="number">1</span>, <span class="number">32</span>), claripy.BVV(<span class="number">0</span>, <span class="number">32</span>))</span><br><span class="line">		<span class="comment">#如果符合条件则返回输入的符号位向量</span></span><br><span class="line">        </span><br><span class="line">hook_func_name = <span class="string">&#x27;check_equals_ORSDDWXHZURJRBDH&#x27;</span></span><br><span class="line">p.hook_symbol(hook_func_name, HookCheckFunc(init_state))</span><br><span class="line"><span class="comment">#设置hook的形式，名字和定义的类，参数是init_state</span></span><br></pre></td></tr></table></figure>
+<p>Hook上check_equals函数， angr会<strong>自动查找</strong>与该函数符号关联的地址.</p>
+<h2 id="题目：11-angr-sim-scanf"><a href="#题目：11-angr-sim-scanf" class="headerlink" title="题目：11_angr_sim_scanf"></a>题目：11_angr_sim_scanf</h2><p>1.思路同上，找到函数名，定义类，利用<code>hook_symbol()</code>进行hook。</p>
+<p>2.为什么要hook这个：scanf对复杂字符串的处理对angr不友好，所以要学会hook她</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> claripy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&quot;./11_angr_sim_scanf&quot;</span>, auto_load_libs = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HookScanf</span>(<span class="params">SimProcedure</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self, fmt, in1, in2</span>):</span></span><br><span class="line">        in_1 = BVS(<span class="string">&#x27;in_1&#x27;</span>, <span class="number">32</span>)</span><br><span class="line">        in_2 = BVS(<span class="string">&#x27;in_2&#x27;</span>, <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">        in1_addr = in1</span><br><span class="line">        in2_addr = in2</span><br><span class="line"></span><br><span class="line">        self.state.memory.store(in1_addr, in_1, endness = p.arch.memory_endness)</span><br><span class="line">        self.state.memory.store(in2_addr, in_2, endness = p.arch.memory_endness)</span><br><span class="line">        <span class="comment">#使用 state.memory 的 .store(addr, val) 接口将符号位向量写入两个字符串，注意不是load；模拟输入，把两个符号写进去</span></span><br><span class="line">        </span><br><span class="line">        self.state.<span class="built_in">globals</span>[<span class="string">&#x27;solutions&#x27;</span>] = (in_1, in_2)</span><br><span class="line">        <span class="comment">#设置全局变量，用集合的形式</span></span><br><span class="line"></span><br><span class="line">name = <span class="string">&#x27;__isoc99_scanf&#x27;</span></span><br><span class="line">p.hook_symbol(name, HookScanf())<span class="comment">#init_state))</span></span><br><span class="line"><span class="comment">#这里其实加不加参数都行，具体为啥不清楚</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">issu</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Good Job.\n&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isfa</span>(<span class="params">state</span>):</span></span><br><span class="line">        stdout_output = state.posix.dumps(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">b&#x27;Try again.\n&#x27;</span> <span class="keyword">in</span>  stdout_output:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state).explore(find=issu, avoid=isfa)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    solu_init = simulation.found[<span class="number">0</span>]</span><br><span class="line">    solu = solu_init.<span class="built_in">globals</span>[<span class="string">&#x27;solutions&#x27;</span>]</span><br><span class="line">    <span class="built_in">print</span>(solu_init.solver.<span class="built_in">eval</span>(solu[<span class="number">0</span>]))</span><br><span class="line">    <span class="built_in">print</span>(solu_init.solver.<span class="built_in">eval</span>(solu[<span class="number">1</span>]))</span><br><span class="line"> <span class="comment">#这里涉及到两个输入以上的，就用solver，一个输入就用posix.dumps(0)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="题目：13-angr-static-binary"><a href="#题目：13-angr-static-binary" class="headerlink" title="题目：13_angr_static_binary"></a>题目：13_angr_static_binary</h2><h3 id="Hook静态库函数"><a href="#Hook静态库函数" class="headerlink" title="Hook静态库函数"></a>Hook静态库函数</h3><p>1.学习如何使用angr解出静态编译的题目，学习如何<strong>Hook静态库函数</strong></p>
+<ul>
+<li><p>动态编译：编译时生成动态链接，程序运行时需要什么找什么</p>
+</li>
+<li><p>静态编译：编译时把所有模块都编译进文件里，当启动这个可执行文件时，所有模块都被加载进来 </p>
+</li>
+</ul>
+<p>2.一般来说，angr会用SimProcedure来代替标准库函数，但是静态编译的文件没法替换，angr提供了一些hook</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;malloc&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;fopen&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;fclose&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;fwrite&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;getchar&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;strncmp&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;strcmp&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;scanf&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;printf&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">angr.SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;exit&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>我们只需要手动找到程序中用到静态函数的地址，将其利用simprocedure提供的函数Hook掉即可</p>
+<p>首先来看如果正常写会怎样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> claripy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&#x27;./13_angr_static_binary&#x27;</span>, auto_load_libs = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">issu</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Good&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isfa</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Try&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state, veritesting=<span class="literal">True</span>).explore(find=issu, avoid=isfa)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    <span class="built_in">print</span>(simulation.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>结果就是跑了好久也没有得到答案，因为库函数没有被angr自动hook，导致跑着跑着就到了库函数里面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> claripy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&#x27;./13_angr_static_binary&#x27;</span>, auto_load_libs = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line">p.hook(<span class="number">0x804ED40</span>, SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;printf&#x27;</span>]())</span><br><span class="line">p.hook(<span class="number">0x804ED80</span>, SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;scanf&#x27;</span>]())</span><br><span class="line">p.hook(<span class="number">0x804f350</span>, SIM_PROCEDURES[<span class="string">&#x27;libc&#x27;</span>][<span class="string">&#x27;puts&#x27;</span>]())</span><br><span class="line">p.hook(<span class="number">0x8048D10</span>, SIM_PROCEDURES[<span class="string">&#x27;glibc&#x27;</span>][<span class="string">&#x27;__libc_start_main&#x27;</span>]())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">issu</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Good&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isfa</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Try&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state, veritesting=<span class="literal">True</span>).explore(find=issu, avoid=isfa)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    <span class="built_in">print</span>(simulation.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>))</span><br><span class="line"><span class="string">b&#x27;PNMXNMUD&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>需要注意的就是不要忘了函数<code>__libc_start_main</code></p>
+<p>复习一下linux里的C程序如何启动的：</p>
+<ul>
+<li>execve开始执行</li>
+<li>execve加载二进制程序，加载<code>.interp</code>指定的动态加载器</li>
+<li>动态加载器把需要的so都加载起来，特别是把 libc.so.6 加载</li>
+<li>调用到libc.so.6里的<code>__libc_start_main</code>函数，开始真正的执行程序</li>
+<li>初始化之后开始main函数的执行</li>
+</ul>
+<h2 id="题目：14-angr-shared-library"><a href="#题目：14-angr-shared-library" class="headerlink" title="题目：14_angr_shared_library"></a>题目：14_angr_shared_library</h2><p>学习如何使用angr求解函数是外部导入在动态库(.so)里的题目</p>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p>1.把程序按照模块拆分成相对独立的部分，在程序运行时才将它们链接在一起形成一个完整的程序，而不是像静态链接一样把所有的程序模块都连接成一个单独的可执行文件。</p>
+<p>2.ELF动态链接文件被称为动态共享对象（DSO，Dynamic Shared Object），简称共享对象，它们一般都是.so为扩展名的文件。</p>
+<p>3.共享库中的所有地址都是base + offset，其中offset是它们在文件中的偏移地址，和ret2libc一样。</p>
+<p>分析题目，看到引用了一个在so文件中的函数，ida中看不到原码，问题在于如何让angr处理这个外部函数</p>
+<h3 id="Hook动态库函数"><a href="#Hook动态库函数" class="headerlink" title="Hook动态库函数"></a>Hook动态库函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> claripy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">base = <span class="number">0x8048000</span></span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&quot;./lib14_angr_shared_library.so&quot;</span>, load_options = &#123; <span class="string">&#x27;main_opts&#x27;</span>:&#123;<span class="string">&#x27;custom_base_addr&#x27;</span>:base&#125; &#125;)</span><br><span class="line"></span><br><span class="line">buf_ptr = BVV(<span class="number">0x3000000</span>, <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">validate_func_addr = base+<span class="number">0x6d7</span></span><br><span class="line">init_state = p.factory.call_state(validate_func_addr, buf_ptr, BVV(<span class="number">8</span>, <span class="number">32</span>))</span><br><span class="line"></span><br><span class="line">pawd = BVS(<span class="string">&#x27;pawd&#x27;</span>, <span class="number">64</span>)</span><br><span class="line">init_state.memory.store(buf_ptr, pawd)</span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">su_addr = base+<span class="number">0x783</span></span><br><span class="line">simulation.explore(find=su_addr)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    solu_init = simulation.found[<span class="number">0</span>]</span><br><span class="line">    solu_init.add_constraints(solu_init.regs.eax != <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">print</span>(solu_init.solver.<span class="built_in">eval</span>(pawd, cast_to=<span class="built_in">bytes</span>))</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="pre-binary-选项"><a href="#pre-binary-选项" class="headerlink" title="pre-binary 选项"></a>pre-binary 选项</h3><p>使用 <code>main_opts</code> 和 <code>lib_opts</code> 参数进行设置。</p>
+<ul>
+<li><code>backend</code> – 指定 backend</li>
+<li><code>base_addr</code> – 指定基址</li>
+<li><code>entry_point</code> – 指定入口点</li>
+<li><code>arch</code> – 指定架构</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">base = <span class="number">0x8048000</span></span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&quot;./lib14_angr_shared_library.so&quot;</span>, load_options = &#123; <span class="string">&#x27;main_opts&#x27;</span>:&#123;<span class="string">&#x27;custom_base_addr&#x27;</span>:base&#125; &#125;)</span><br></pre></td></tr></table></figure>
+<p>程序本身没有开PIE保护，所以地址可以得到base，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">validate_func_addr = base+<span class="number">0x6d7</span><span class="comment">#通过ida可以看到导出函数的偏移</span></span><br><span class="line"></span><br><span class="line">init_state = p.factory.call_state(validate_func_addr, buf_ptr, BVV(<span class="number">8</span>, <span class="number">32</span>))<span class="comment">#最后是一个长度</span></span><br><span class="line"><span class="comment">#使用.call_state创建 state 对象，构造一个已经准备好执行validate函数的状态，所以我们需要设定好需要传入的参数</span></span><br></pre></td></tr></table></figure>
+<p>根据程序中函数的原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">_BOOL4 __cdecl <span class="title">validate</span><span class="params">(<span class="keyword">char</span> *s1, <span class="keyword">int</span> a2)</span></span></span><br></pre></td></tr></table></figure>
+<p>通过 <code>BVV(value,size)</code> 和 <code>BVS( name, size)</code> 接口创建位向量：</p>
+<p>先创建一个缓冲区buffer作为参数<code>char *s1</code>，因为设定的缓冲区地址在0x3000000，又因为32位程序里int类型为4字节，即32比特，故得：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">buf_ptr = BVV(<span class="number">0x3000000</span>, <span class="number">32</span>)</span><br></pre></td></tr></table></figure>
+<p>用BVS创建一个符号位向量，作为符号化的传入字符串传入我们之前设定好的缓冲区地址中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pawd = BVS(<span class="string">&#x27;pawd&#x27;</span>, <span class="number">64</span>)</span><br><span class="line">init_state.memory.store(buf_ptr, pawd)</span><br></pre></td></tr></table></figure>
+<p>最后，让函数执行到返回地址，然后添加约束条件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">simulation = p.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">su_addr = base+<span class="number">0x783</span></span><br><span class="line">simulation.explore(find=su_addr)<span class="comment">#执行到这个函数的返回地址</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    solu_init = simulation.found[<span class="number">0</span>]</span><br><span class="line">    solu_init.add_constraints(solu_init.regs.eax != <span class="number">0</span>)</span><br><span class="line">    <span class="comment">#添加约束条件</span></span><br><span class="line">    <span class="built_in">print</span>(solu_init.solver.<span class="built_in">eval</span>(pawd, cast_to=<span class="built_in">bytes</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="题目：12-angr-veritesting"><a href="#题目：12-angr-veritesting" class="headerlink" title="题目：12_angr_veritesting"></a>题目：12_angr_veritesting</h2><p>使用<code>Veritesting</code>的技术解决路径爆炸问题</p>
+<h3 id="Veritesting"><a href="#Veritesting" class="headerlink" title="Veritesting"></a>Veritesting</h3><ul>
+<li>动态符号执行（DSE）：生成路径公式，摘要路径汇合点上两条分支的情况</li>
+<li>静态符号执行（SSE）：生成语句公式，为两条分支fork两条<strong>独立的执行路径</strong></li>
+</ul>
+<p>Veritesting结合了静态符合执行与动态符号执行，减少了路径爆炸的影响。</p>
+<p>在angr里我们只要在构造模拟管理器时，启用Veritesting了就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p.factory.simgr(init_state, veritesting=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>本题的判断在main函数中，没有独立的函数，没有办法直接hookcheck函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> angr <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> claripy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">p = Project(<span class="string">&quot;./12_angr_veritesting&quot;</span>, auto_load_libs = <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">init_state = p.factory.entry_state()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">issu</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Good&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isfa</span>(<span class="params">state</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">b&#x27;Try&#x27;</span> <span class="keyword">in</span> state.posix.dumps(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">simulation = p.factory.simgr(init_state, veritesting=<span class="literal">True</span>).explore(find=issu, avoid=isfa)</span><br><span class="line"><span class="comment">#就直接拓展simgr的参数就行，简单快捷，会出现紫色的log信息，没事</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simulation.found:</span><br><span class="line">    <span class="built_in">print</span>(simulation.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>))</span><br><span class="line"><span class="string">b&#x27;OQSUWYACEGIKMOQSUWYACEGIKMOQSUWY&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>这里如果使用约束求解的话，输入在栈中，并没有一个固定的地址，不好设置符号。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reverse/" rel="tag"># Reverse</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/02/Angr-0/" rel="prev" title="Angr_0">
+                  <i class="fa fa-chevron-left"></i> Angr_0
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/02/Angr-2/" rel="next" title="Angr_2">
+                  Angr_2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+但使龙城飞将在，不教胡马度阴山。
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rootkit/+-*</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
