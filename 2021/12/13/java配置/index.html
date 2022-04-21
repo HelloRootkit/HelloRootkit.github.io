@@ -351,12 +351,12 @@
 <h2 id="配置变量"><a href="#配置变量" class="headerlink" title="配置变量"></a>配置变量</h2><ul>
 <li>新建系统变量<code>CLASSPATH</code> ，值为：</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.;%JAVA_HOME%\lib%JAVA_HOME%\lib\tools.jar    //注意前面小数点和分号。</span><br></pre></td></tr></table></figure>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.;<span class="meta">%</span>JAVA_HOME<span class="meta">%</span>\lib<span class="meta">%</span>JAVA_HOME<span class="meta">%</span>\lib\tools.jar    <span class="comment">//注意前面小数点和分号。</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>新建系统变量<code>JAVA_HOME</code> ，值为：你安装的那个<strong>jdk</strong>的路径</li>
 <li>找到系统变量里的 Path ，新增（一行的话中间用分号分隔）</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME%\bin</span><br><span class="line">%JAVA_HOME%\jre\bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">%JAVA_HOME%</span><span class="symbol">\b</span>in</span><br><span class="line"><span class="variable">%JAVA_HOME%</span><span class="symbol">\j</span>re<span class="symbol">\b</span>in</span><br></pre></td></tr></table></figure>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>cmd窗口输入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java</span><br><span class="line">javac</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
 <p>如果都有回显的话说明配置成功</p>
