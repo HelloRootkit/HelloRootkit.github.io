@@ -1434,6 +1434,7 @@ pre code {
   border: 2px solid #333;
   max-width: 96px;
   padding: 2px;
+  border-radius: 50%;
 }
 .site-author-name {
   color: #0ff;
@@ -2878,7 +2879,7 @@ mark.search-keyword {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #09cd5b;
+  background: #5dd559;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
