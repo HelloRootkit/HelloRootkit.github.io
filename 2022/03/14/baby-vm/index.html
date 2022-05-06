@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="学习一下简单vm题目的解法和一般原理，这是一个困扰我很久的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="baby_vm">
+<meta property="og:url" content="http://example.com/2022/03/14/baby-vm/index.html">
+<meta property="og:site_name" content="R-o-o-t-k-i-t">
+<meta property="og:description" content="学习一下简单vm题目的解法和一般原理，这是一个困扰我很久的问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314181702471.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314181750305.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191025430.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191221330.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191317512.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191423199.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191537839.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191629043.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191719405.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191803942.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314191902094.png">
+<meta property="og:image" content="http://example.com/2022/03/14/baby-vm/image-20220314192719520.png">
+<meta property="article:published_time" content="2022-03-14T11:37:43.000Z">
+<meta property="article:modified_time" content="2022-05-06T15:23:10.919Z">
+<meta property="article:author" content="rootkit&#x2F;+-*">
+<meta property="article:tag" content="Reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/14/baby-vm/image-20220314181702471.png">
+
+
+<link rel="canonical" href="http://example.com/2022/03/14/baby-vm/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/03/14/baby-vm/","path":"2022/03/14/baby-vm/","title":"baby_vm"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>baby_vm | R-o-o-t-k-i-t</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">R-o-o-t-k-i-t</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-悠哉日常"><a href="/%E6%82%A0%E5%93%89%E6%97%A5%E5%B8%B8" rel="section"><i class="fa fa-user fa-fw"></i>悠哉日常</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#angr%E5%B0%9D%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">angr尝试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">静态分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">第一个函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-b5f"><span class="nav-number">2.1.1.</span> <span class="nav-text">sub_b5f</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-a64"><span class="nav-number">2.1.2.</span> <span class="nav-text">sub_a64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-a45"><span class="nav-number">2.1.3.</span> <span class="nav-text">sub_a45</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-956"><span class="nav-number">2.1.4.</span> <span class="nav-text">sub_956</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-a08"><span class="nav-number">2.1.5.</span> <span class="nav-text">sub_a08</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-8f0"><span class="nav-number">2.1.6.</span> <span class="nav-text">sub_8f0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-99c"><span class="nav-number">2.1.7.</span> <span class="nav-text">sub_99c</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">第二个函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sub-e6e"><span class="nav-number">2.2.1.</span> <span class="nav-text">sub_e6e</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">第三个函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%85%E6%99%B0%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">清晰程序流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D5%E4%BD%8D"><span class="nav-number">3.0.1.</span> <span class="nav-text">前5位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#678%E4%BD%8D"><span class="nav-number">3.0.2.</span> <span class="nav-text">678位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E5%87%A0%E4%BD%8D"><span class="nav-number">3.0.3.</span> <span class="nav-text">最后几位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%86%E5%90%91%E8%84%9A%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">逆向脚本</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="rootkit/+-*"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">rootkit/+-*</p>
+  <div class="site-description" itemprop="description">自由，平等，公正，法制</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      统一战线
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jnsec.org/" title="https:&#x2F;&#x2F;jnsec.org&#x2F;" rel="noopener" target="_blank">JNSEC</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.yd0ng.com/" title="https:&#x2F;&#x2F;blog.yd0ng.com" rel="noopener" target="_blank">yd0ng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://1klnd.github.io/" title="https:&#x2F;&#x2F;1klnd.github.io&#x2F;" rel="noopener" target="_blank">III</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.brvc3.website/" title="http:&#x2F;&#x2F;blog.brvc3.website&#x2F;" rel="noopener" target="_blank">Bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tty-flag.github.io/" title="https:&#x2F;&#x2F;tty-flag.github.io&#x2F;" rel="noopener" target="_blank">TTY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://rave1sking.top/" title="http:&#x2F;&#x2F;rave1sking.top&#x2F;" rel="noopener" target="_blank">Rava</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/weixin_45396639" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45396639" rel="noopener" target="_blank">Ronie</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_42880719" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_42880719" rel="noopener" target="_blank">Mumuzi</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.squidward.xyz/" title="https:&#x2F;&#x2F;www.squidward.xyz&#x2F;" rel="noopener" target="_blank">Octopus</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://k1tcheung.github.io/" title="https:&#x2F;&#x2F;k1tcheung.github.io&#x2F;" rel="noopener" target="_blank">k1tcheung</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rhoeo.github.io/" title="https:&#x2F;&#x2F;rhoeo.github.io&#x2F;" rel="noopener" target="_blank">Rhoeo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://abiao2002.github.io/" title="https:&#x2F;&#x2F;abiao2002.github.io&#x2F;" rel="noopener" target="_blank">Abiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://giles-one.github.io/" title="https:&#x2F;&#x2F;giles-one.github.io&#x2F;" rel="noopener" target="_blank">Cat03</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://reimu.moe/" title="https:&#x2F;&#x2F;reimu.moe&#x2F;" rel="noopener" target="_blank">加大号的猫</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baidu.com/" title="https:&#x2F;&#x2F;www.baidu.com" rel="noopener" target="_blank">有问题点这里</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">没有解决？</a>
+        </li>
+    </ul>
+  </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/14/baby-vm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="rootkit/+-*">
+      <meta itemprop="description" content="自由，平等，公正，法制">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R-o-o-t-k-i-t">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          baby_vm
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-14 19:37:43" itemprop="dateCreated datePublished" datetime="2022-03-14T19:37:43+08:00">2022-03-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-05-06 23:23:10" itemprop="dateModified" datetime="2022-05-06T23:23:10+08:00">2022-05-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">逆向工程学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>   学习一下简单vm题目的解法和一般原理，这是一个困扰我很久的问题</p>
+<span id="more"></span>
+<h1 id="angr尝试"><a href="#angr尝试" class="headerlink" title="angr尝试"></a>angr尝试</h1><p> &emsp;题目就是baby_vm，一个简单的虚拟机，看到main函数逻辑简单，直接先用angr跑一下</p>
+<p>跑出来一个假的flag，这里我猜测的原因应该是angr因为并没有真正的去运行程序，而是对程序的模拟，所以会陷入这个题目准备好的路径中，导致出现假的flag。</p>
+<h1 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h1><p>&emsp;ida分析一波</p>
+<p><img src="image-20220314181702471.png" alt="image-20220314181702471"></p>
+<h2 id="第一个函数"><a href="#第一个函数" class="headerlink" title="第一个函数"></a>第一个函数</h2><p><img src="image-20220314181750305.png" alt="image-20220314181750305"></p>
+<p>&emsp;这里就是虚拟机的精髓了，所谓的vm实质上是用高级的编程语言，比如C，C++等语言，去模拟汇编语言的形式，比如这里：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*a1 = <span class="number">0</span>;                                      <span class="comment">// r1</span></span><br><span class="line">*(a1 + <span class="number">4</span>) = <span class="number">0x12</span>;                             <span class="comment">// r2</span></span><br><span class="line">*(a1 + <span class="number">8</span>) = <span class="number">0</span>;                                <span class="comment">// r3</span></span><br><span class="line">*(a1 + <span class="number">12</span>) = <span class="number">0</span>;         </span><br></pre></td></tr></table></figure>
+<p>&emsp;这里首先是设置了四个相当于寄存器的东西，每一个都是4字节，然后地址相邻。</p>
+<p><code>(a1+16)</code>里存放着操作码数组的地址，什么是操作码，就是这个程序会根据这个数组里的数字来判断执行什么程序。</p>
+<p>&emsp;接下来就是几个函数，一般情况下，这里对应这模拟的不同的汇编指令：</p>
+<h3 id="sub-b5f"><a href="#sub-b5f" class="headerlink" title="sub_b5f"></a>sub_b5f</h3><p><img src="image-20220314191025430.png" alt="image-20220314191025430"></p>
+<p>&emsp;是一个switch结构，前面知道了a1就是第一个寄存器，这里看到是一些赋值语句，所以可以判断出，这个函数模拟的是<code>mov</code>指令的功能，是实现一个寄存器和内存之间的通信。</p>
+<h3 id="sub-a64"><a href="#sub-a64" class="headerlink" title="sub_a64"></a>sub_a64</h3><p><img src="image-20220314191221330.png" alt="image-20220314191221330"></p>
+<p>&emsp;两个寄存器进行异或，这里模仿的是<code>xor</code>指令。</p>
+<h3 id="sub-a45"><a href="#sub-a45" class="headerlink" title="sub_a45"></a>sub_a45</h3><p><img src="image-20220314191317512.png" alt="image-20220314191317512"></p>
+<p>&emsp;这里是获取一段输入，然后将操作码往后移。</p>
+<h3 id="sub-956"><a href="#sub-956" class="headerlink" title="sub_956"></a>sub_956</h3><p><img src="image-20220314191423199.png" alt="image-20220314191423199"></p>
+<p>&emsp;这里就是一个操作码向后移，没有什么实际作用，可以理解为nop</p>
+<h3 id="sub-a08"><a href="#sub-a08" class="headerlink" title="sub_a08"></a>sub_a08</h3><p><img src="image-20220314191537839.png" alt="image-20220314191537839"></p>
+<p>&emsp;实现了两个寄存器之间进行乘法的运算，相当于是<code>mul r1, r4</code></p>
+<h3 id="sub-8f0"><a href="#sub-8f0" class="headerlink" title="sub_8f0"></a>sub_8f0</h3><p><img src="image-20220314191629043.png" alt="image-20220314191629043"></p>
+<p>&emsp;实现了两个寄存之间的交换，相当于是<code>swap</code></p>
+<h3 id="sub-99c"><a href="#sub-99c" class="headerlink" title="sub_99c"></a>sub_99c</h3><p><img src="image-20220314191719405.png" alt="image-20220314191719405"></p>
+<p>&emsp;实现了一个简单的运算操作，应该是用来加密flag的</p>
+<h2 id="第二个函数"><a href="#第二个函数" class="headerlink" title="第二个函数"></a>第二个函数</h2><p><img src="image-20220314191803942.png" alt="image-20220314191803942"></p>
+<p>&emsp;判单操作码是不是0xf4, 如果不是执行sub_e6e函数</p>
+<h3 id="sub-e6e"><a href="#sub-e6e" class="headerlink" title="sub_e6e"></a>sub_e6e</h3><p><img src="image-20220314191902094.png" alt="image-20220314191902094"></p>
+<p>&emsp;一个循环，就是对操作码进行的一个判断，判断的右值就是几个特定的数值</p>
+<ul>
+<li>a1+24</li>
+<li>a1+40</li>
+<li>a1+56</li>
+<li>a1+72</li>
+<li>a1+88</li>
+<li>a1+104</li>
+<li>a1+120</li>
+</ul>
+<p>&emsp;看到第一个函数，可以发现这些数值对应这几个特定的数字。这里实现的功能就是：确定一个i值，然后下面通过这个i的值来确定执行什么函数。看到下面的函数引用其实都是a1+16的整数倍，正好可以对应第一个函数进行判断。</p>
+<h2 id="第三个函数"><a href="#第三个函数" class="headerlink" title="第三个函数"></a>第三个函数</h2><p><img src="image-20220314192719520.png" alt="image-20220314192719520"></p>
+<p>一个判断函数，但是这里的祝贺语后面有问好，估计是个假的，先不管。</p>
+<h1 id="清晰程序流程"><a href="#清晰程序流程" class="headerlink" title="清晰程序流程"></a>清晰程序流程</h1><p>&emsp;用脚本将字节码模拟的汇编操作打印出来，方便分析。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">opcode = [</span><br><span class="line">  <span class="number">0xF5</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>,</span><br><span class="line">  <span class="number">0x20</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x21</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x02</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x22</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x03</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x23</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x04</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>,</span><br><span class="line">  <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x24</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x05</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x25</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE1</span>, <span class="number">0x06</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x26</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x07</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE4</span>, <span class="number">0x27</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x08</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x28</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>,</span><br><span class="line">  <span class="number">0x09</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x29</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x0A</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>,</span><br><span class="line">  <span class="number">0x2A</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x0B</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x2B</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x0C</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x2C</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x0D</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x2D</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x0E</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>,</span><br><span class="line">  <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x2E</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x0F</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x2F</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE1</span>, <span class="number">0x10</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x30</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x11</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE4</span>, <span class="number">0x31</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x12</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x32</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>,</span><br><span class="line">  <span class="number">0x13</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x33</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF4</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF5</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE1</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>,</span><br><span class="line">  <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x02</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x03</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>,</span><br><span class="line">  <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x03</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x04</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE4</span>, <span class="number">0x03</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x04</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x05</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>,</span><br><span class="line">  <span class="number">0x04</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x05</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x06</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF2</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x05</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x06</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE2</span>, <span class="number">0x07</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE3</span>, <span class="number">0x08</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE5</span>, <span class="number">0x0C</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF6</span>, <span class="number">0xF7</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE4</span>, <span class="number">0x06</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x07</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x08</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE3</span>, <span class="number">0x09</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE5</span>, <span class="number">0x0C</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF6</span>,</span><br><span class="line">  <span class="number">0xF7</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x07</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x08</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x09</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE3</span>, <span class="number">0x0A</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE5</span>, <span class="number">0x0C</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF6</span>, <span class="number">0xF7</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x08</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE1</span>, <span class="number">0x0D</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x13</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF8</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x0D</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE7</span>,</span><br><span class="line">  <span class="number">0x13</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE1</span>, <span class="number">0x0E</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x12</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF8</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x0E</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE7</span>, <span class="number">0x12</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>,</span><br><span class="line">  <span class="number">0xE1</span>, <span class="number">0x0F</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE2</span>, <span class="number">0x11</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0x00</span>, <span class="number">0xF8</span>, <span class="number">0xF1</span>, <span class="number">0xE4</span>, <span class="number">0x0F</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF1</span>, <span class="number">0xE7</span>,</span><br><span class="line">  <span class="number">0x11</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xF4</span>]</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(opcode)):</span><br><span class="line">	<span class="keyword">if</span> opcode[i] == <span class="number">0xF1</span>:</span><br><span class="line">              <span class="built_in">print</span>(<span class="string">&#x27;mov &#x27;</span>, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">              <span class="keyword">if</span> opcode[i + <span class="number">1</span>] == <span class="number">0xE1</span>:</span><br><span class="line">                  <span class="built_in">print</span>(<span class="string">&#x27;eax &#x27;</span> + <span class="string">&#x27;flag[&#x27;</span> + <span class="built_in">str</span>(opcode[i + <span class="number">2</span>]) + <span class="string">&#x27;]&#x27;</span>)</span><br><span class="line">              <span class="keyword">elif</span> opcode[i + <span class="number">1</span>] == <span class="number">0xE2</span>:</span><br><span class="line">                  <span class="built_in">print</span>(<span class="string">&#x27;ebx &#x27;</span> + <span class="string">&#x27;flag[&#x27;</span> + <span class="built_in">str</span>(opcode[i + <span class="number">2</span>]) + <span class="string">&#x27;]&#x27;</span>)</span><br><span class="line">              <span class="keyword">elif</span> opcode[i + <span class="number">1</span>] == <span class="number">0xE3</span>:</span><br><span class="line">                  <span class="built_in">print</span>(<span class="string">&#x27;ecx &#x27;</span> + <span class="string">&#x27;flag[&#x27;</span> + <span class="built_in">str</span>(opcode[i + <span class="number">2</span>]) + <span class="string">&#x27;]&#x27;</span>)</span><br><span class="line">              <span class="keyword">elif</span> opcode[i + <span class="number">1</span>] == <span class="number">0xE4</span>:</span><br><span class="line">                  <span class="built_in">print</span>(<span class="string">&#x27;flag[&#x27;</span> + <span class="built_in">str</span>(opcode[i + <span class="number">2</span>]) + <span class="string">&#x27;] &#x27;</span> + <span class="string">&#x27;eax&#x27;</span>)</span><br><span class="line">              <span class="keyword">elif</span> opcode[i + <span class="number">1</span>] == <span class="number">0xE5</span>:</span><br><span class="line">                  <span class="built_in">print</span>(<span class="string">&#x27;edx &#x27;</span> + <span class="string">&#x27;flag[&#x27;</span> + <span class="built_in">str</span>(opcode[i + <span class="number">2</span>]) + <span class="string">&#x27;]&#x27;</span>)</span><br><span class="line">              <span class="keyword">elif</span> opcode[i + <span class="number">1</span>] == <span class="number">0xE7</span>:</span><br><span class="line">                  <span class="built_in">print</span>(<span class="string">&#x27;flag[&#x27;</span> + <span class="built_in">str</span>(opcode[i + <span class="number">2</span>]) + <span class="string">&#x27;] &#x27;</span> + <span class="string">&#x27;ebx&#x27;</span>)</span><br><span class="line">		i += <span class="number">6</span></span><br><span class="line">	<span class="keyword">elif</span> opcode[i] == <span class="number">0xF2</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;xor eax ebx&#x27;</span>)</span><br><span class="line">		i += <span class="number">1</span></span><br><span class="line">	<span class="keyword">elif</span> opcode[i] == <span class="number">0xF5</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;get_input&#x27;</span>)</span><br><span class="line">		i += <span class="number">1</span></span><br><span class="line">	<span class="keyword">elif</span> opcode[i] == <span class="number">0xF4</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;nop&#x27;</span>)</span><br><span class="line">		i += <span class="number">1</span></span><br><span class="line">	<span class="keyword">elif</span> opcode[i] == <span class="number">0xF7</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;mul eax edx&#x27;</span>)</span><br><span class="line">		i += <span class="number">1</span></span><br><span class="line">	<span class="keyword">elif</span> opcode[i] == <span class="number">0xF8</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;swap eax ebx&#x27;</span>)</span><br><span class="line">		i += <span class="number">1</span></span><br><span class="line">	<span class="keyword">elif</span> opcode[i] == <span class="number">0xF6</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;mov eax=3*eax+2*ebx+ecx&#x27;</span>)</span><br><span class="line">		i += <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		i += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>得到给出的汇编</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line">get_input</span><br><span class="line">mov eax flag[0]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[32] eax</span><br><span class="line">mov eax flag[1]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[33] eax</span><br><span class="line">mov eax flag[2]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[34] eax</span><br><span class="line">mov eax flag[3]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[35] eax</span><br><span class="line">mov eax flag[4]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[36] eax</span><br><span class="line">mov eax flag[5]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[37] eax</span><br><span class="line">mov eax flag[6]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[38] eax</span><br><span class="line">mov eax flag[7]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[39] eax</span><br><span class="line">mov eax flag[8]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[40] eax</span><br><span class="line">mov eax flag[9]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[41] eax</span><br><span class="line">mov eax flag[10]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[42] eax</span><br><span class="line">mov eax flag[11]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[43] eax</span><br><span class="line">mov eax flag[12]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[44] eax</span><br><span class="line">mov eax flag[13]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[45] eax</span><br><span class="line">mov eax flag[14]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[46] eax</span><br><span class="line">mov eax flag[15]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[47] eax</span><br><span class="line">mov eax flag[16]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[48] eax</span><br><span class="line">mov eax flag[17]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[49] eax</span><br><span class="line">mov eax flag[18]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[50] eax</span><br><span class="line">mov eax flag[19]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[51] eax</span><br><span class="line">nop</span><br><span class="line"></span><br><span class="line">get_input</span><br><span class="line">mov eax flag[0]</span><br><span class="line">mov ebx flag[1]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[0] eax</span><br><span class="line">mov eax flag[1]</span><br><span class="line">mov ebx flag[2]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[1] eax</span><br><span class="line">mov eax flag[2]</span><br><span class="line">mov ebx flag[3]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[2] eax</span><br><span class="line">mov eax flag[3]</span><br><span class="line">mov ebx flag[4]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[3] eax</span><br><span class="line">mov eax flag[4]</span><br><span class="line">mov ebx flag[5]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[4] eax</span><br><span class="line">mov eax flag[5]</span><br><span class="line">mov ebx flag[6]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[5] eax</span><br><span class="line">mov eax flag[6]</span><br><span class="line">mov ebx flag[7]</span><br><span class="line">mov ecx flag[8]</span><br><span class="line">mov edx flag[12]</span><br><span class="line">mov eax=3*eax+2*ebx+ecx</span><br><span class="line">mul eax edx</span><br><span class="line">mov flag[6] eax</span><br><span class="line">mov eax flag[7]</span><br><span class="line">mov ebx flag[8]</span><br><span class="line">mov ecx flag[9]</span><br><span class="line">mov edx flag[12]</span><br><span class="line">mov eax=3*eax+2*ebx+ecx</span><br><span class="line">mul eax edx</span><br><span class="line">mov flag[7] eax</span><br><span class="line">mov eax flag[8]</span><br><span class="line">mov ebx flag[9]</span><br><span class="line">mov ecx flag[10]</span><br><span class="line">mov edx flag[12]</span><br><span class="line">mov eax=3*eax+2*ebx+ecx</span><br><span class="line">mul eax edx</span><br><span class="line">mov flag[8] eax</span><br><span class="line">mov eax flag[13]</span><br><span class="line">mov ebx flag[19]</span><br><span class="line">swap eax ebx</span><br><span class="line">mov flag[13] eax</span><br><span class="line">mov flag[19] ebx</span><br><span class="line">mov eax flag[14]</span><br><span class="line">mov ebx flag[18]</span><br><span class="line">swap eax ebx</span><br><span class="line">mov flag[14] eax</span><br><span class="line">mov flag[18] ebx</span><br><span class="line">mov eax flag[15]</span><br><span class="line">mov ebx flag[17]</span><br><span class="line">swap eax ebx</span><br><span class="line">mov flag[15] eax</span><br><span class="line">mov flag[17] ebx</span><br><span class="line">nop</span><br></pre></td></tr></table></figure>
+<p>不难发现，这里有两个get_input的汇编源码，看第一段，就是一些异或和异或，得到的答案就是angr跑出来的那个假的flag，分析下面的汇编：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">get_input</span><br><span class="line">mov eax flag[0]</span><br><span class="line">mov ebx flag[1]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[0] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[1]</span><br><span class="line">mov ebx flag[2]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[1] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[2]</span><br><span class="line">mov ebx flag[3]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[2] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[3]</span><br><span class="line">mov ebx flag[4]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[3] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[4]</span><br><span class="line">mov ebx flag[5]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[4] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[5]</span><br><span class="line">mov ebx flag[6]</span><br><span class="line">xor eax ebx</span><br><span class="line">mov flag[5] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[6]</span><br><span class="line">mov ebx flag[7]</span><br><span class="line">mov ecx flag[8]</span><br><span class="line">mov edx flag[12]</span><br><span class="line">mov eax=3*eax+2*ebx+ecx</span><br><span class="line">mul eax edx</span><br><span class="line">mov flag[6] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[7]</span><br><span class="line">mov ebx flag[8]</span><br><span class="line">mov ecx flag[9]</span><br><span class="line">mov edx flag[12]</span><br><span class="line">mov eax=3*eax+2*ebx+ecx</span><br><span class="line">mul eax edx</span><br><span class="line">mov flag[7] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[8]</span><br><span class="line">mov ebx flag[9]</span><br><span class="line">mov ecx flag[10]</span><br><span class="line">mov edx flag[12]</span><br><span class="line">mov eax=3*eax+2*ebx+ecx</span><br><span class="line">mul eax edx</span><br><span class="line">mov flag[8] eax</span><br><span class="line"></span><br><span class="line">mov eax flag[13]</span><br><span class="line">mov ebx flag[19]</span><br><span class="line">swap eax ebx</span><br><span class="line">mov flag[13] eax</span><br><span class="line">mov flag[19] ebx</span><br><span class="line"></span><br><span class="line">mov eax flag[14]</span><br><span class="line">mov ebx flag[18]</span><br><span class="line">swap eax ebx</span><br><span class="line">mov flag[14] eax</span><br><span class="line">mov flag[18] ebx</span><br><span class="line"></span><br><span class="line">mov eax flag[15]</span><br><span class="line">mov ebx flag[17]</span><br><span class="line">swap eax ebx</span><br><span class="line">mov flag[15] eax</span><br><span class="line">mov flag[17] ebx</span><br><span class="line"></span><br><span class="line">nop</span><br></pre></td></tr></table></figure>
+<h3 id="前5位"><a href="#前5位" class="headerlink" title="前5位"></a>前5位</h3><p>进行一个和后一位的异或处理，突破口是flag[6]</p>
+<h3 id="678位"><a href="#678位" class="headerlink" title="678位"></a>678位</h3><p>是一个运算和一个乘法，678位的数据需要进行暴力破一下，没有给出逆向思路。</p>
+<h3 id="最后几位"><a href="#最后几位" class="headerlink" title="最后几位"></a>最后几位</h3><p>一些简单的交换</p>
+<h1 id="逆向脚本"><a href="#逆向脚本" class="headerlink" title="逆向脚本"></a>逆向脚本</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">check[<span class="number">13</span>], check[<span class="number">19</span>] = check[<span class="number">19</span>], check[<span class="number">13</span>]</span><br><span class="line">check[<span class="number">14</span>], check[<span class="number">18</span>] = check[<span class="number">18</span>], check[<span class="number">14</span>]</span><br><span class="line">check[<span class="number">15</span>], check[<span class="number">17</span>] = check[<span class="number">17</span>], check[<span class="number">15</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">    <span class="keyword">if</span> check[<span class="number">8</span>] == ((i*<span class="number">3</span> + check[<span class="number">9</span>]*<span class="number">2</span> + check[<span class="number">10</span>])*check[<span class="number">12</span>])&amp;<span class="number">0xff</span>:</span><br><span class="line">        check[<span class="number">8</span>] = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">            <span class="keyword">if</span> check[<span class="number">7</span>] == ((j * <span class="number">3</span> + check[<span class="number">8</span>] * <span class="number">2</span> + check[<span class="number">9</span>]) * check[<span class="number">12</span>]) &amp; <span class="number">0xff</span>:</span><br><span class="line">                check[<span class="number">7</span>] = j</span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">                    <span class="keyword">if</span> check[<span class="number">6</span>] == ((k * <span class="number">3</span> + check[<span class="number">7</span>] * <span class="number">2</span> + check[<span class="number">8</span>]) * check[<span class="number">12</span>]) &amp; <span class="number">0xff</span>:</span><br><span class="line">                        check[<span class="number">6</span>] = k</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)[::-<span class="number">1</span>]:</span><br><span class="line">    check[i] ^= check[i+<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(check)):</span><br><span class="line">    flag += <span class="built_in">chr</span>(check[i])</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>&emsp;最后得到flag。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reverse/" rel="tag"># Reverse</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/09/PE-ctf1/" rel="prev" title="Garbage">
+                  <i class="fa fa-chevron-left"></i> Garbage
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/03/28/fpbe/" rel="next" title="fpbe(虎符2022-re1)">
+                  fpbe(虎符2022-re1) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+但使龙城飞将在，不教胡马度阴山。
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rootkit/+-*</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
