@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="这个buu的题目设计巧妙，通过构造数组越界来修改变量的值，从而输出flag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dig the way-Win下的数组越界逆向">
+<meta property="og:url" content="http://example.com/2022/05/09/Dig-the-way/index.html">
+<meta property="og:site_name" content="R-o-o-t-k-i-t">
+<meta property="og:description" content="这个buu的题目设计巧妙，通过构造数组越界来修改变量的值，从而输出flag">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509213306871.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509213416415.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509213527224.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509213622790.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509220317905.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221120052.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221204049.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221347892.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221433438.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221639899.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221707577.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221739104.png">
+<meta property="og:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509221801951.png">
+<meta property="article:published_time" content="2022-05-09T14:20:28.000Z">
+<meta property="article:modified_time" content="2022-05-09T14:26:36.367Z">
+<meta property="article:author" content="rootkit&#x2F;+-*">
+<meta property="article:tag" content="WriteUp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/05/09/Dig-the-way/image-20220509213306871.png">
+
+
+<link rel="canonical" href="http://example.com/2022/05/09/Dig-the-way/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/05/09/Dig-the-way/","path":"2022/05/09/Dig-the-way/","title":"Dig the way-Win下的数组越界逆向"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Dig the way-Win下的数组越界逆向 | R-o-o-t-k-i-t</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">R-o-o-t-k-i-t</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-悠哉日常"><a href="/%E6%82%A0%E5%93%89%E6%97%A5%E5%B8%B8" rel="section"><i class="fa fa-user fa-fw"></i>悠哉日常</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">分析函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%BA%A2%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">构造溢出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E8%B0%83%E6%A3%80%E9%AA%8C"><span class="nav-number">3.</span> <span class="nav-text">动调检验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%BE%AA%E7%8E%AF%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">第一次循环：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%BE%AA%E7%8E%AF%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">第二次循环：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E6%AC%A1%E5%BE%AA%E7%8E%AF%EF%BC%9A"><span class="nav-number">3.3.</span> <span class="nav-text">最后一次循环：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">总结：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="rootkit/+-*"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">rootkit/+-*</p>
+  <div class="site-description" itemprop="description">自由，平等，公正，法制</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      统一战线
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jnsec.org/" title="https:&#x2F;&#x2F;jnsec.org&#x2F;" rel="noopener" target="_blank">JNSEC</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.yd0ng.com/" title="https:&#x2F;&#x2F;blog.yd0ng.com" rel="noopener" target="_blank">yd0ng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://1klnd.github.io/" title="https:&#x2F;&#x2F;1klnd.github.io&#x2F;" rel="noopener" target="_blank">III</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.brvc3.website/" title="http:&#x2F;&#x2F;blog.brvc3.website&#x2F;" rel="noopener" target="_blank">Bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tty-flag.github.io/" title="https:&#x2F;&#x2F;tty-flag.github.io&#x2F;" rel="noopener" target="_blank">TTY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://rave1sking.top/" title="http:&#x2F;&#x2F;rave1sking.top&#x2F;" rel="noopener" target="_blank">Rava</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/weixin_45396639" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45396639" rel="noopener" target="_blank">Ronie</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_42880719" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_42880719" rel="noopener" target="_blank">Mumuzi</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.squidward.xyz/" title="https:&#x2F;&#x2F;www.squidward.xyz&#x2F;" rel="noopener" target="_blank">Octopus</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://k1tcheung.github.io/" title="https:&#x2F;&#x2F;k1tcheung.github.io&#x2F;" rel="noopener" target="_blank">k1tcheung</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rhoeo.github.io/" title="https:&#x2F;&#x2F;rhoeo.github.io&#x2F;" rel="noopener" target="_blank">Rhoeo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://abiao2002.github.io/" title="https:&#x2F;&#x2F;abiao2002.github.io&#x2F;" rel="noopener" target="_blank">Abiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://giles-one.github.io/" title="https:&#x2F;&#x2F;giles-one.github.io&#x2F;" rel="noopener" target="_blank">Cat03</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://reimu.moe/" title="https:&#x2F;&#x2F;reimu.moe&#x2F;" rel="noopener" target="_blank">加大号的猫</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baidu.com/" title="https:&#x2F;&#x2F;www.baidu.com" rel="noopener" target="_blank">有问题点这里</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">没有解决？</a>
+        </li>
+    </ul>
+  </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/Dig-the-way/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="rootkit/+-*">
+      <meta itemprop="description" content="自由，平等，公正，法制">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R-o-o-t-k-i-t">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dig the way-Win下的数组越界逆向
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-05-09 22:20:28 / 修改时间：22:26:36" itemprop="dateCreated datePublished" datetime="2022-05-09T22:20:28+08:00">2022-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">逆向工程学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p> 这个buu的题目设计巧妙，通过构造数组越界来修改变量的值，从而输出flag</p>
+<span id="more"></span>
+<h1 id="分析函数"><a href="#分析函数" class="headerlink" title="分析函数"></a>分析函数</h1><p>看到main函数</p>
+<p><img src="image-20220509213306871.png" alt="image-20220509213306871"></p>
+<p>开头三个函数，之后打开读取一个文件，根据要求，需要达到<code>get_key</code>函数，看到判断</p>
+<p><img src="image-20220509213416415.png" alt="image-20220509213416415"></p>
+<p>要想执行，v9就等于0，但是v9的初始值确定是3，并且再也没有对他进行改变，继续向上分析。</p>
+<p><img src="image-20220509213527224.png" alt="image-20220509213527224"></p>
+<p>这里看到端倪，v8的长度是3，但是在这个循环中，v8数组从1索引到了3，多出来了一个，到栈中去看一下。</p>
+<p><img src="image-20220509213622790.png" alt="image-20220509213622790"></p>
+<p>根据ida里给的数据类型，在栈中可以确定一下每一个变量的关系。</p>
+<p>发现v8溢出的一个正好对应着v9的值，但是v9对应的函数是func2，这个函数根据分析，他的返回值恒大于零，但func1函数的返回值可能是0，所以这里的思路就是：</p>
+<blockquote>
+<p>通过栈溢出利用func0将func1和func2进行交换，然后构造-1和1，将其返回值（v9）置零</p>
+</blockquote>
+<h1 id="构造溢出"><a href="#构造溢出" class="headerlink" title="构造溢出"></a>构造溢出</h1><p>文件内容大小是20字节，然后需要覆盖到func0的两个参数，把func0的参数改成func2和func1，这样实现一个函数顺序的交换，最后让他顺利得0。</p>
+<p>func1 》 |v8[a2] + v8[a3]| - |v8[a3]| - |v8[a2]| + 2，这里知道这两个值要是-1和1或者是0和-1，这里用 0和-1 来构造溢出。</p>
+<p>溢出来自读取的文件，创建一个data文件，先构造20个0把正常区域填满，之后在栈中看到，func1和2距离v8的距离是28和32，但是这里是dword数据类型，所以就是7和8（计算到v8的距离是因为这里要将其当作v8数组的两个元素进行交换，也就是为了确定这个函数的后面的两个参数，这里就是7，8）。</p>
+<p>交换了两个函数之后，func1函数的参数就变成了v8, 2, 3，就是对v8[2] 和 v9进行了运算。这样就得到v9的初始值需要时-1，才能满足方程：</p>
+<p> <em>|v8[a2] + v8[a3]| - |v8[a3]| - |v8[a2]| + 2</em></p>
+<p>所以可以构造出文件：</p>
+<p><img src="image-20220509220317905.png" alt="image-20220509220317905"></p>
+<h1 id="动调检验"><a href="#动调检验" class="headerlink" title="动调检验"></a>动调检验</h1><h2 id="第一次循环："><a href="#第一次循环：" class="headerlink" title="第一次循环："></a>第一次循环：</h2><p><img src="image-20220509221120052.png" alt="image-20220509221120052"></p>
+<p>看到这里栈上的参数是v8数组地址，和7和8，v8的数组的内容是</p>
+<p><img src="image-20220509221204049.png" alt="image-20220509221204049"></p>
+<p>就是刚刚覆盖的内容。</p>
+<h2 id="第二次循环："><a href="#第二次循环：" class="headerlink" title="第二次循环："></a>第二次循环：</h2><p><img src="image-20220509221347892.png" alt="image-20220509221347892"></p>
+<p>栈上的数据已经正常了，要跳转的函数就刚才交换过的函数</p>
+<p><img src="image-20220509221433438.png" alt="image-20220509221433438"></p>
+<h2 id="最后一次循环："><a href="#最后一次循环：" class="headerlink" title="最后一次循环："></a>最后一次循环：</h2><p><img src="image-20220509221639899.png" alt="image-20220509221639899"></p>
+<p>栈上的数据是2和3，对应内存中的数据也是</p>
+<p><img src="image-20220509221707577.png" alt="image-20220509221707577"></p>
+<p>2和-1，执行之后返回值为0，</p>
+<p><img src="image-20220509221739104.png" alt="image-20220509221739104"></p>
+<p>然后运行就能看到flag了。</p>
+<p><img src="image-20220509221801951.png" alt="image-20220509221801951"></p>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>构造输入，通过数组越界来修改变量，注意int类型大小4字节，小端序。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WriteUp/" rel="tag"># WriteUp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/04/%E5%9B%9E%E9%80%80win11%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/" rel="prev" title="回退win11右键菜单">
+                  <i class="fa fa-chevron-left"></i> 回退win11右键菜单
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+但使龙城飞将在，不教胡马度阴山。
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rootkit/+-*</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
