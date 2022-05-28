@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="在awd比赛中如果没有一个自动化批量打人和提交的脚本，那么将会十分的被动，甚至一轮都打不完全程，这里仿写了几个awd的批量脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWD-pwn">
+<meta property="og:url" content="http://example.com/2022/05/26/AWD-pwn/index.html">
+<meta property="og:site_name" content="R-o-o-t-k-i-t">
+<meta property="og:description" content="在awd比赛中如果没有一个自动化批量打人和提交的脚本，那么将会十分的被动，甚至一轮都打不完全程，这里仿写了几个awd的批量脚本">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-26T12:37:52.000Z">
+<meta property="article:modified_time" content="2022-05-27T07:48:17.687Z">
+<meta property="article:author" content="rootkit&#x2F;+-*">
+<meta property="article:tag" content="AWD">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/05/26/AWD-pwn/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/05/26/AWD-pwn/","path":"2022/05/26/AWD-pwn/","title":"AWD-pwn"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AWD-pwn | R-o-o-t-k-i-t</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">R-o-o-t-k-i-t</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-悠哉日常"><a href="/%E6%82%A0%E5%93%89%E6%97%A5%E5%B8%B8" rel="section"><i class="fa fa-user fa-fw"></i>悠哉日常</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96host"><span class="nav-number">1.</span> <span class="nav-text">初始化host</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%94%BB%E5%87%BB"><span class="nav-number">2.</span> <span class="nav-text">批量攻击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%8F%90%E4%BA%A4"><span class="nav-number">3.</span> <span class="nav-text">批量提交</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="rootkit/+-*"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">rootkit/+-*</p>
+  <div class="site-description" itemprop="description">自由，平等，公正，法制</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      统一战线
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jnsec.org/" title="https:&#x2F;&#x2F;jnsec.org&#x2F;" rel="noopener" target="_blank">JNSEC</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.yd0ng.com/" title="https:&#x2F;&#x2F;blog.yd0ng.com" rel="noopener" target="_blank">yd0ng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://1klnd.github.io/" title="https:&#x2F;&#x2F;1klnd.github.io&#x2F;" rel="noopener" target="_blank">III</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.brvc3.website/" title="http:&#x2F;&#x2F;blog.brvc3.website&#x2F;" rel="noopener" target="_blank">Bruce</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tty-flag.github.io/" title="https:&#x2F;&#x2F;tty-flag.github.io&#x2F;" rel="noopener" target="_blank">TTY</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://rave1sking.top/" title="http:&#x2F;&#x2F;rave1sking.top&#x2F;" rel="noopener" target="_blank">Rava</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/weixin_45396639" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45396639" rel="noopener" target="_blank">Ronie</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_42880719" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_42880719" rel="noopener" target="_blank">Mumuzi</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.squidward.xyz/" title="https:&#x2F;&#x2F;www.squidward.xyz&#x2F;" rel="noopener" target="_blank">Octopus</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://k1tcheung.github.io/" title="https:&#x2F;&#x2F;k1tcheung.github.io&#x2F;" rel="noopener" target="_blank">k1tcheung</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://rhoeo.github.io/" title="https:&#x2F;&#x2F;rhoeo.github.io&#x2F;" rel="noopener" target="_blank">Rhoeo</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://abiao2002.github.io/" title="https:&#x2F;&#x2F;abiao2002.github.io&#x2F;" rel="noopener" target="_blank">Abiao</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://giles-one.github.io/" title="https:&#x2F;&#x2F;giles-one.github.io&#x2F;" rel="noopener" target="_blank">Cat03</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://reimu.moe/" title="https:&#x2F;&#x2F;reimu.moe&#x2F;" rel="noopener" target="_blank">加大号的猫</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.baidu.com/" title="https:&#x2F;&#x2F;www.baidu.com" rel="noopener" target="_blank">有问题点这里</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://bing.com/" title="https:&#x2F;&#x2F;bing.com" rel="noopener" target="_blank">没有解决？</a>
+        </li>
+    </ul>
+  </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/26/AWD-pwn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="rootkit/+-*">
+      <meta itemprop="description" content="自由，平等，公正，法制">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R-o-o-t-k-i-t">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AWD-pwn
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-26 20:37:52" itemprop="dateCreated datePublished" datetime="2022-05-26T20:37:52+08:00">2022-05-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-05-27 15:48:17" itemprop="dateModified" datetime="2022-05-27T15:48:17+08:00">2022-05-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/PWN/" itemprop="url" rel="index"><span itemprop="name">PWN</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>  在awd比赛中如果没有一个自动化批量打人和提交的脚本，那么将会十分的被动，甚至一轮都打不完全程，这里仿写了几个awd的批量脚本</p>
+<span id="more"></span>
+<h1 id="初始化host"><a href="#初始化host" class="headerlink" title="初始化host"></a>初始化host</h1><p>首先要根据比赛的特点初始化ip和端口，看看是对端口的映射还是ip的映射。并且根据映射规律初始化host表方便之后攻击。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#端口映射对应的脚本</span></span><br><span class="line"></span><br><span class="line">port = <span class="number">9999</span></span><br><span class="line">ip_body = <span class="string">&#x27;121.234.255.&#x27;</span></span><br><span class="line">ip_start = <span class="number">100</span></span><br><span class="line">ip_end = <span class="number">110</span></span><br><span class="line"><span class="comment">#以上信息都需要看情况改</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;hosts&quot;</span>, <span class="string">&#x27;ab&#x27;</span>)<span class="keyword">as</span> file:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(ip_start,ip_end+<span class="number">1</span>):</span><br><span class="line">        IP = ip_body + <span class="built_in">str</span>(i) + <span class="string">&#x27;:&#x27;</span> + <span class="built_in">str</span>(port) + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">        file.write(IP)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;-------------------Success-------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#ip映射对应的脚本</span></span><br><span class="line"></span><br><span class="line">ip = <span class="string">&#x27;121.234.254.121&#x27;</span></span><br><span class="line">port_start = <span class="number">3440</span></span><br><span class="line">port_end = <span class="number">3450</span></span><br><span class="line"><span class="comment">#以上信息都需要看情况改</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;hosts&#x27;</span>, <span class="string">&#x27;ab&#x27;</span>)<span class="keyword">as</span> file:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(port_start,port_end+<span class="number">1</span>):</span><br><span class="line">        IP = ip + <span class="string">&#x27;:&#x27;</span> +<span class="built_in">str</span>(i) + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">        file.write(IP)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;--------------------Success--------------------&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>根据情况运行之后，得到一个host文件，里面的内容的格式是ip:port</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.0.0.0:123</span></span><br><span class="line"><span class="number">1.0.0.0:234</span></span><br></pre></td></tr></table></figure>
+<h1 id="批量攻击"><a href="#批量攻击" class="headerlink" title="批量攻击"></a>批量攻击</h1><p>实现批量攻击的思路是通过另一个程序去调用host文件，然后对不同的host开始攻击，并且把得到的flag写入flags文件，方便后期提交flag。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_to_flags</span>(<span class="params">d</span>):</span></span><br><span class="line">    fd = <span class="built_in">open</span>(<span class="string">&#x27;./flags&#x27;</span>, <span class="string">&#x27;ab&#x27;</span>)</span><br><span class="line">    fd.write(d + <span class="string">b&#x27;\n&#x27;</span>)</span><br><span class="line">    fd.close()</span><br><span class="line"></span><br><span class="line">ip = server_ip = sys.argv[<span class="number">1</span>].split(<span class="string">&#x27;:&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">port = <span class="built_in">int</span>(sys.argv[<span class="number">1</span>].split(<span class="string">&#x27;:&#x27;</span>)[<span class="number">1</span>])</span><br><span class="line">p = remote(ip, port)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">exp的内容</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">&#x27;cat flag&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#这里根据flag的具体形式改</span></span><br><span class="line">p.recvuntil(<span class="string">&#x27;&#123;&#x27;</span>)</span><br><span class="line">flag = <span class="string">&#x27;flag&#123;&#x27;</span> + p.recvuntil(<span class="string">&#x27;&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">write_to_flags(flag)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p>这里还有一个缺点就是在打完一个靶机之后不能自动去打下一个，需要手动中断才能打下一个。这里可以用shell命令里的<code>timeout</code>命令来解决:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timeout -k 3s 4s python exp.py</span><br></pre></td></tr></table></figure>
+<p>允许程序运行4s，如果命令还没有结束，那么就在3s后kill掉进程，这样就可以代替掉手动ctrl+c的过程了。但是这里需要提前了解程序大概执行的时间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">time_start = time.time()  <span class="comment"># 记录开始时间</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">程序本身</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">time_end = time.time()  <span class="comment"># 记录结束时间</span></span><br><span class="line">time_sum = time_end - time_start  <span class="comment"># 计算的时间差为程序的执行时间，单位为秒/s</span></span><br><span class="line"><span class="built_in">print</span>(time_sum)</span><br></pre></td></tr></table></figure>
+<p>脚本运行结束之后，可以在flags文件里面找到得到flag</p>
+<h1 id="批量提交"><a href="#批量提交" class="headerlink" title="批量提交"></a>批量提交</h1><p>思路就是读取出flag，然后根据主办方给的方式去提交，或者自己现场抓包分析提交。</p>
+<p>可以用shell的<code>curl</code>命令提交有时候，或者用脚本进行提交。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">li = <span class="keyword">lambda</span> x : <span class="built_in">print</span>(<span class="string">&#x27;\x1b[01;38;5;214m&#x27;</span> + x + <span class="string">&#x27;\x1b[0m&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#:8000/flag?token=ab962bbf1207d41d3aad0f49cd320b95&amp;flag=</span></span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://121.248.253.234:8000&#x27;</span></span><br><span class="line">flag_file = <span class="string">&#x27;./flags&#x27;</span></span><br><span class="line">header = &#123;</span><br><span class="line">    <span class="string">&#x27;Cookie&#x27;</span>: <span class="string">&#x27;none&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">submit</span>():</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;flags&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> flag_txt:</span><br><span class="line">        flags = flag_txt.readlines()</span><br><span class="line">        <span class="keyword">for</span> flag <span class="keyword">in</span> flags:</span><br><span class="line">            flag = flag.strip()</span><br><span class="line">            d = <span class="string">&#x27;&#x27;</span></span><br><span class="line">            d += flag</span><br><span class="line">            <span class="built_in">print</span>(d)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                res = requests.post(url,data=d,headers=header,timeout=<span class="number">2</span>)</span><br><span class="line">                li(res.text)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                li(<span class="string">&#x27;connect fail!&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">submit()</span><br></pre></td></tr></table></figure>
+<p>注意自己的cookie。</p>
+<p>如果给的结构简单，那么可以使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;flags&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> flag_txt:</span><br><span class="line">    flags = flag_txt.readlines()</span><br><span class="line">    <span class="keyword">for</span> flag <span class="keyword">in</span> flags:</span><br><span class="line">        flag = flag.strip()</span><br><span class="line">       	command = <span class="string">&quot;curl &quot;</span> + <span class="string">&quot;网址/flag?token=ab962bbf1207d41d3aad0f49cd320b95&amp;flag=&quot;</span>+flag</span><br><span class="line">        os.system(command)</span><br></pre></td></tr></table></figure>
+<p>这里的<code>curl</code>命令需要根据它给的具体事项来确定</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AWD/" rel="tag"># AWD</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/09/Dig-the-way/" rel="prev" title="Dig the way-Win下的数组越界逆向">
+                  <i class="fa fa-chevron-left"></i> Dig the way-Win下的数组越界逆向
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/28/IDA%E6%81%A2%E5%A4%8D%E7%AC%A6%E5%8F%B7%E8%A1%A8/" rel="next" title="IDA恢复符号表">
+                  IDA恢复符号表 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+但使龙城飞将在，不教胡马度阴山。
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">rootkit/+-*</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
