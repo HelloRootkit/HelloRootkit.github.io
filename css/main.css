@@ -2968,7 +2968,7 @@ hr {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #9949d1;
+  background: #0dbeed;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2993,12 +2993,4 @@ hr {
 }
 .sub-menu .menu-item {
   display: inline-block;
-}
-body {
-  background: url("/images/bgphoto.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: 50% 50%;
-  background-size: 100% 100%;
-  color: #ccc;
 }
